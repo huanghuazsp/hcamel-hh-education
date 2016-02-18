@@ -28,7 +28,7 @@
 		}
 		return;
 		Dialog.open({
-			url : 'jsp-edu-eduknowledge-EduKnowledgeEdit',
+			url : 'jsp-edu-knowledge-KnowledgeEdit',
 			params : {
 				selectNode : selectNode,
 				callback : function() {
@@ -39,7 +39,7 @@
 	}
 	function doEdit(treeNode) {
 		Dialog.open({
-			url : 'jsp-edu-eduknowledge-EduKnowledgeEdit',
+			url : 'jsp-edu-knowledge-KnowledgeEdit',
 			params : {
 				object : treeNode,
 				callback : function() {

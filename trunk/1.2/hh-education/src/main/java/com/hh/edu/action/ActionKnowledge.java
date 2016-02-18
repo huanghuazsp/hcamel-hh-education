@@ -8,7 +8,7 @@ import com.hh.system.service.impl.BaseService;
 import com.hh.edu.service.impl.EduKnowledgeService;
 
 @SuppressWarnings("serial")
-public class ActionEduKnowledge extends BaseServiceAction< EduKnowledge > {
+public class ActionKnowledge extends BaseServiceAction< EduKnowledge > {
 	@Autowired
 	private EduKnowledgeService eduknowledgeService;
 	public BaseService<EduKnowledge> getService() {

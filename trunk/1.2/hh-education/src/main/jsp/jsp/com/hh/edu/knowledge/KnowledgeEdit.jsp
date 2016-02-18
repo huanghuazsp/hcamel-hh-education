@@ -18,10 +18,10 @@
 	}
 	function save() {
 		$.hh.validation.check('form', function(formData) {
-			Request.request('edu-EduKnowledge-saveTree', {
+			Request.request('edu-Knowledge-saveTree', {
 				data : formData,
 				callback : function(result) {
-					if (result.success) {
+					if (result.success!=false) {
 						callback(formData);
 					}
 				}
@@ -31,7 +31,7 @@
 
 	function findData(objid) {
 		if (objid) {
-			Request.request('edu-EduKnowledge-findObjectById', {
+			Request.request('edu-Knowledge-findObjectById', {
 				data : {
 					id : objid
 				},
@@ -65,7 +65,7 @@
 				<tr>
 					<td xtype="label">父节点：</td>
 					<td><span id="node_span" xtype="selectTree"
-						config="name: 'node' , findTextAction : 'edu-EduKnowledge-findObjectById' , url : 'edu-EduKnowledge-queryTreeList' "></span>
+						config="name: 'node' , findTextAction : 'edu-Knowledge-findObjectById' , url : 'edu-Knowledge-queryTreeList' "></span>
 					</td>
 				</tr>
 				<tr>

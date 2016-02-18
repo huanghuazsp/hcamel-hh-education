@@ -54,7 +54,7 @@
 			action : 'edu-Knowledge-deleteTreeByIds',
 			id : treeNode.id,
 			callback : function(result) {
-				if (result.success) {
+				if (result.success!=false) {
 					$('#centerdiv').disabled('请选择要编辑的树节点或添加新的数据！');
 				}
 			}
@@ -71,7 +71,6 @@
 		}
 		iframe.findData(treeNode.id);
 	}
-	
 	function init(){
 		$('#centerdiv').disabled('请选择要编辑的树节点或添加新的数据！');
 	}

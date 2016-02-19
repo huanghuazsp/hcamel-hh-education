@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <project id="dfe65da8-fdac-4f49-bfc8-8bc88743711c" name="edu" text="edu" type="project">
-  <table id="8e9eb2d8-7b41-4678-9365-cd1ae784d8cb" name="knowledge" text="knowledge" type="table"/>
-  <table id="a99f9a1a-f8f6-4095-8d8e-0de31a073503" name="test" text="test" type="table"/>
+  <table id="882ebcd2-fec9-4f8d-9c24-5d7ebc0f3e1f" name="subjectType" text="subjectType" type="table"/>
+  <table id="2f2cbac0-6f16-43eb-bb15-186d7adc2114" name="subject" text="subject" type="table"/>
+  <table id="313067e8-fd29-4732-a611-9e81b03dc402" name="testPaperType" text="testPaperType" type="table"/>
+  <table id="1839992e-b371-4151-b2d0-4f22d18c73ef" name="testPaper" text="testPaper" type="table"/>
 </project>

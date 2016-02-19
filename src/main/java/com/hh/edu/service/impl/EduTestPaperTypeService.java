@@ -2,9 +2,9 @@
 import com.hh.system.service.impl.BaseService;
 import org.springframework.stereotype.Service;
 
-import com.hh.edu.bean.EduKnowledge;
+import com.hh.edu.bean.EduTestPaperType;
 
 @Service
-public class EduKnowledgeService extends BaseService<EduKnowledge> {
+public class EduTestPaperTypeService extends BaseService<EduTestPaperType> {
 }
  

@@ -15,7 +15,7 @@ import com.hh.hibernate.util.base.BaseTwoEntity;
 public class EduTestPaper extends BaseTwoEntity {
 	private String type;
 	
-	private String title;
+	private String text;
 	
 	private String head;
 	
@@ -52,13 +52,13 @@ public class EduTestPaper extends BaseTwoEntity {
 		this.dataitems = dataitems;
 	}
 
-	@Column(name = "TITLE_",length=512)
-	public String getTitle() {
-		return title;
+	@Column(name = "TEXT_",length=512)
+	public String getText() {
+		return text;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	@Column(name = "REMARK_",length=2048)

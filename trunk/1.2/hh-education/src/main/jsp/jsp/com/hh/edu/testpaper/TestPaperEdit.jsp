@@ -73,7 +73,7 @@
 				</tr>
 				<tr>
 					<td xtype="label">名称：</td>
-					<td><span xtype="text" config=" name : 'title',required :true"></span></td>
+					<td><span xtype="text" config=" name : 'text',required :true"></span></td>
 				</tr>
 				<tr>
 					<td xtype="label">试卷抬头：</td>

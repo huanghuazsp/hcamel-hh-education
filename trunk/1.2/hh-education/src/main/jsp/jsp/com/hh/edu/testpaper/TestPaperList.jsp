@@ -76,7 +76,7 @@
 		config=" url: 'edu-TestPaper-queryPagingData' ,column : [
 		
 		{
-			name : 'title' ,
+			name : 'text' ,
 			text : '名称'
 		}
 		

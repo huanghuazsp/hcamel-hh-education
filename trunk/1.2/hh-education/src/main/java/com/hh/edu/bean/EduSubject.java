@@ -14,7 +14,7 @@ import com.hh.hibernate.util.base.BaseTwoEntity;
 @Table(name = "EDU_SUBJECT")
 public class EduSubject extends BaseTwoEntity {
 	private String type;
-	private String title;
+	private String text;
 	private String dataitems;
 	private String answer;
 	private String titleType;
@@ -29,13 +29,13 @@ public class EduSubject extends BaseTwoEntity {
 	}
 
 	@Lob
-	@Column(name = "TITLE_")
-	public String getTitle() {
-		return title;
+	@Column(name = "TEXT_")
+	public String getText() {
+		return text;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	@Lob

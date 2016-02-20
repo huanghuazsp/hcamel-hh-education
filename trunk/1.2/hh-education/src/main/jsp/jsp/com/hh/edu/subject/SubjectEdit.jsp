@@ -117,7 +117,7 @@
 				</tr>
 				<tr>
 					<td xtype="label">题目：</td>
-					<td><span xtype="textarea" config=" name : 'title',required :true"></span></td>
+					<td><span xtype="textarea" config=" name : 'text',required :true"></span></td>
 				</tr>
 				<tr id="tableitemtr">
 					<td xtype="label">选择项：</td>

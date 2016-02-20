@@ -113,7 +113,7 @@
 			align:'center',
 			width:80,
 		},{
-			name : 'title' ,
+			name : 'text' ,
 			text : '题目'
 		}
 		

@@ -45,6 +45,19 @@
 	function init() {
 		findData();
 	}
+	
+	var textconfig = {
+			blur:function(){
+				console.log($('span_data').getValue());
+			}
+	};
+	
+	var tableitemConfig = {
+		name : 'data',
+		required : true,
+		valueType : 'object',
+		trhtml : '<table width=100%><tr><td><span xtype="text" valuekey="text" configVar=" textconfig "></span></td></tr></table>'
+	}
 </script>
 </head>
 <body>
@@ -52,8 +65,18 @@
 		<form id="form" xtype="form">
 			<span xtype="text" config=" hidden:true,name : 'id'"></span>
 			<table xtype="form">
-				
-				
+				<tr>
+					<td xtype="label">题目：</td>
+					<td><span xtype="text" config=" name : 'title',required :true"></span></td>
+				</tr>
+				<tr>
+					<td xtype="label">选择项：</td>
+					<td><span xtype="tableitem" configVar="tableitemConfig"></span></td>
+				</tr>
+				<tr>
+					<td xtype="label">答案：</td>
+					<td><span  xtype="ridio" configVar=" name: 'answer' "></span></td>
+				</tr>
 			</table>
 		</form>
 	</div>

@@ -7,16 +7,20 @@
 <head>
 <title>数据编辑</title>
 <%=BaseSystemUtil.getBaseJs("checkform","date")%>
-
+<%
+	String titleType =   request.getParameter("titleType");
+	String type =   Convert.toString(request.getParameter("type"));
+%>
 <script type="text/javascript">
 	var params = BaseUtil.getIframeParams();
 	var width = 600;
-	var height = 450;
+	var height = 700;
 
 	var objectid = '<%=Convert.toString(request.getParameter("id"))%>';
 
 	function save() {
 		$.hh.validation.check('form', function(formData) {
+			formData.dataitems = BaseUtil.toString(formData.dataitems);
 			Request.request('edu-Subject-save', {
 				data : formData,
 				callback : function(result) {
@@ -28,6 +32,23 @@
 			});
 		});
 	}
+	
+	function renderAnswer(titleType){
+		if(titleType=='radio'){
+			var span = $('<span id="daspan"  xtype="radio" config=" name: \'answer\' ,required :true "></span>');
+			$('#answertd').append(span);
+			span.render();
+		}else if(titleType=='check'){
+			var span = $('<span id="daspan"  xtype="checkbox" config=" name: \'answer\' ,required :true "></span>');
+			$('#answertd').append(span);
+			span.render();
+		}else{
+			$('#tableitemtr').hide();
+			var span = $('<span id="daspan"  xtype="textarea" config=" name: \'answer\' ,required :true ,height:200 "></span>');
+			$('#answertd').append(span);
+			span.render();
+		}
+	}
 
 	function findData() {
 		if (objectid) {
@@ -36,9 +57,13 @@
 					id : objectid
 				},
 				callback : function(result) {
+					renderAnswer(result.titleType);
 					$('#form').setValue(result);
 				}
 			});
+		}else{
+			var titleType = '<%=titleType%>';
+			renderAnswer(titleType);
 		}
 	}
 
@@ -46,17 +71,30 @@
 		findData();
 	}
 	
-	var textconfig = {
-			blur:function(){
-				console.log($('span_data').getValue());
+	function renderRadio(){
+			var dataList = $('#span_dataitems').getValue();
+			var itemList = [];
+			for(var i=0;i<dataList.length;i++){
+				var data = dataList[i];
+				itemList.push({
+					id : i+1,
+					text : data.text
+				});
 			}
+			$('#daspan').render({data:itemList});
+	}
+	
+	var textconfig = {
+			blur:renderRadio
 	};
 	
 	var tableitemConfig = {
-		name : 'data',
+		name : 'dataitems',
 		required : true,
 		valueType : 'object',
-		trhtml : '<table width=100%><tr><td><span xtype="text" valuekey="text" configVar=" textconfig "></span></td></tr></table>'
+		onChange : renderRadio,
+		onSetValue : renderRadio,
+		trhtml : '<table width=100%><tr><td><span xtype="textarea" valuekey="text" configVar=" textconfig "></span></td></tr></table>'
 	}
 </script>
 </head>
@@ -64,18 +102,25 @@
 	<div xtype="hh_content">
 		<form id="form" xtype="form">
 			<span xtype="text" config=" hidden:true,name : 'id'"></span>
+			<span xtype="text" config=" hidden:true,name : 'titleType' ,value:'<%=titleType%>' "></span>
 			<table xtype="form">
 				<tr>
 					<td xtype="label">题目：</td>
-					<td><span xtype="text" config=" name : 'title',required :true"></span></td>
+					<td><span xtype="textarea" config=" name : 'title',required :true"></span></td>
 				</tr>
 				<tr>
+					<td xtype="label">类型：</td>
+					<td><span id="node_span" xtype="selectTree"
+						config="  value:'<%=type %>' , name: 'type' , findTextAction : 'edu-SubjectType-findObjectById' , url : 'edu-SubjectType-queryTreeList' ,required :true "></span>
+					</td>
+				</tr>
+				<tr id="tableitemtr">
 					<td xtype="label">选择项：</td>
 					<td><span xtype="tableitem" configVar="tableitemConfig"></span></td>
 				</tr>
 				<tr>
 					<td xtype="label">答案：</td>
-					<td><span  xtype="ridio" configVar=" name: 'answer' "></span></td>
+					<td id="answertd"></td>
 				</tr>
 			</table>
 		</form>

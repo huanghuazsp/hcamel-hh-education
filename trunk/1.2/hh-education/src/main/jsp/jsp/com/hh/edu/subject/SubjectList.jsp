@@ -42,7 +42,7 @@
 	function doEdit() {
 		$.hh.pagelist.callRow("pagelist", function(row) {
 			Dialog.open({
-				url : 'jsp-edu-subject-SubjectEdit',
+				url : 'jsp-edu-subject-SubjectEdit?type='+type1,
 				urlParams : {
 					id : row.id
 				},

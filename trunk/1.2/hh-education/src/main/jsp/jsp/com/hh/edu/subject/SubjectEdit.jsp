@@ -47,6 +47,10 @@
 			var span = $('<span id="daspan"  xtype="textarea" config=" name: \'answer\' ,required :true ,height:200 "></span>');
 			$('#answertd').append(span);
 			span.render();
+			if(titleType=='fillEmpty'){
+				$('#bz').html('例：<br/>题目：【家庭系统存在两种机制，即:平衡机制、改变机制】<br/>答案：平衡机制、改变机制<br/>这样【平衡机制】和【改变机制】就会作为这道题目的填空项');
+				$('textarea').height(150);
+			}
 		}
 	}
 
@@ -103,16 +107,17 @@
 		<form id="form" xtype="form">
 			<span xtype="text" config=" hidden:true,name : 'id'"></span>
 			<span xtype="text" config=" hidden:true,name : 'titleType' ,value:'<%=titleType%>' "></span>
+			<div id="bz"></div>
 			<table xtype="form">
-				<tr>
-					<td xtype="label">题目：</td>
-					<td><span xtype="textarea" config=" name : 'title',required :true"></span></td>
-				</tr>
 				<tr>
 					<td xtype="label">类型：</td>
 					<td><span id="node_span" xtype="selectTree"
 						config="  value:'<%=type %>' , name: 'type' , findTextAction : 'edu-SubjectType-findObjectById' , url : 'edu-SubjectType-queryTreeList' ,required :true "></span>
 					</td>
+				</tr>
+				<tr>
+					<td xtype="label">题目：</td>
+					<td><span xtype="textarea" config=" name : 'title',required :true"></span></td>
 				</tr>
 				<tr id="tableitemtr">
 					<td xtype="label">选择项：</td>

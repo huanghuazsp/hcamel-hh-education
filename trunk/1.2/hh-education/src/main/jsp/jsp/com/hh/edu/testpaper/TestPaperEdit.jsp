@@ -6,12 +6,14 @@
 <html>
 <head>
 <title>数据编辑</title>
-<%=BaseSystemUtil.getBaseJs("checkform","date")%>
-
+<%=BaseSystemUtil.getBaseJs("checkform","date","ckeditor")%>
+<%
+	String type =   Convert.toString(request.getParameter("type"));
+%>
 <script type="text/javascript">
 	var params = BaseUtil.getIframeParams();
-	var width = 600;
-	var height = 450;
+	var width = 800;
+	var height = 600;
 
 	var objectid = '<%=Convert.toString(request.getParameter("id"))%>';
 
@@ -41,6 +43,17 @@
 			});
 		}
 	}
+	
+	var subjectConfig = {
+			url:'edu-Subject-queryPagingData'
+	};
+	
+	var tableitemConfig = {
+		name : 'dataitems',
+		required : true,
+		trhtml : '<table width=100%><tr><td style="text-align:right;width:60px;">大题名称：</td><td><span xtype="textarea" valuekey="title" configVar="  "></span></td></tr>'+
+		'<tr><td style="text-align:right;width:60px;">题目：</td><td><span xtype="selectPageList" valuekey="subjects" configVar=" subjectConfig "></span></td></tr></table>'
+	}
 
 	function init() {
 		findData();
@@ -52,8 +65,28 @@
 		<form id="form" xtype="form">
 			<span xtype="text" config=" hidden:true,name : 'id'"></span>
 			<table xtype="form">
-				
-				
+				<tr>
+					<td xtype="label">类型：</td>
+					<td><span id="node_span" xtype="selectTree"
+						config="  value:'<%=type %>' , name: 'type' , findTextAction : 'edu-TestPaperType-findObjectById' , url : 'edu-TestPaperType-queryTreeList' ,required :true "></span>
+					</td>
+				</tr>
+				<tr>
+					<td xtype="label">名称：</td>
+					<td><span xtype="text" config=" name : 'title',required :true"></span></td>
+				</tr>
+				<tr>
+					<td xtype="label">试卷抬头：</td>
+					<td><span xtype="ckeditor" config="name: 'head' "></span></td>
+				</tr>
+				<tr id="tableitemtr">
+					<td xtype="label">选择项：</td>
+					<td><span xtype="tableitem" configVar="tableitemConfig"></span></td>
+				</tr>
+				<tr>
+					<td xtype="label">备注：</td>
+					<td><span xtype="textarea" config=" name : 'remark' "></span></td>
+				</tr>
 			</table>
 		</form>
 	</div>

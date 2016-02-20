@@ -37,8 +37,8 @@ public class ActionSubject extends BaseServiceAction< EduSubject > {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", ids);
 		map.put("text", texts);
-		map.put("object", texts);
-		return object;
+		map.put("object", list);
+		return map;
 	}
 }
  

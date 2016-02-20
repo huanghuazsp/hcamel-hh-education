@@ -8,6 +8,7 @@
 <%=BaseSystemUtil.getBaseJs()%>
 
 <script type="text/javascript">
+	var type1 = '';
 	function doDelete() {
 		$.hh.pagelist.deleteData({
 			pageid : 'pagelist',
@@ -16,7 +17,7 @@
 	}
 	function doAdd() {
 		Dialog.open({
-			url : 'jsp-edu-testpaper-TestPaperEdit',
+			url : 'jsp-edu-testpaper-TestPaperEdit?type='+type1,
 			params : {
 				callback : function() {
 					$("#pagelist").loadData();
@@ -27,7 +28,7 @@
 	function doEdit() {
 		$.hh.pagelist.callRow("pagelist", function(row) {
 			Dialog.open({
-				url : 'jsp-edu-testpaper-TestPaperEdit',
+				url : 'jsp-edu-testpaper-TestPaperEdit?type='+type1,
 				urlParams : {
 					id : row.id
 				},
@@ -42,6 +43,12 @@
 	function doQuery() {
 		$('#pagelist').loadData({
 			params : $('#queryForm').getValue()
+		});
+	}
+	function iframeClick(data) {
+		type1=data.id;
+		$('#pagelist').loadData({
+			params : {type:type1}
 		});
 	}
 </script>
@@ -68,7 +75,10 @@
 	<div id="pagelist" xtype="pagelist"
 		config=" url: 'edu-TestPaper-queryPagingData' ,column : [
 		
-		
+		{
+			name : 'title' ,
+			text : '名称'
+		}
 		
 	]">
 	</div>

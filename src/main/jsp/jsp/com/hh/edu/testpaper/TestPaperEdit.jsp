@@ -6,9 +6,9 @@
 <html>
 <head>
 <title>数据编辑</title>
-<%=BaseSystemUtil.getBaseJs("checkform","date","ckeditor")%>
+<%=BaseSystemUtil.getBaseJs("checkform", "date", "ckeditor")%>
 <%
-	String type =   Convert.toString(request.getParameter("type"));
+	String type = Convert.toString(request.getParameter("type"));
 %>
 <script type="text/javascript">
 	var params = BaseUtil.getIframeParams();
@@ -43,9 +43,35 @@
 			});
 		}
 	}
-	
+	function renderTitleType(titleType){
+		if(titleType=='radio'){
+			return '单选题';
+		}else if(titleType=='check'){
+			return '多选题';
+		}else if(titleType=='shortAnswer'){
+			return '简答题';
+		}else if(titleType=='fillEmpty'){
+			return '填空题';
+		}
+	}
 	var subjectConfig = {
-			url:'edu-Subject-queryPagingData'
+			openWidth:700,
+			findTextAction :'edu-Subject-findTextById' ,
+			pageconfig:{
+				url:'edu-Subject-queryPagingData' ,
+				column : [
+		       		{
+		       			name : 'titleType' ,
+		       			text : '题型',
+		       			render : renderTitleType,
+		       			align:'center',
+		       			width:80,
+		       		},{
+		       			name : 'text' ,
+		       			text : '题目'
+		       		}
+		       	]
+			}
 	};
 	
 	var tableitemConfig = {
@@ -68,7 +94,7 @@
 				<tr>
 					<td xtype="label">类型：</td>
 					<td><span id="node_span" xtype="selectTree"
-						config="  value:'<%=type %>' , name: 'type' , findTextAction : 'edu-TestPaperType-findObjectById' , url : 'edu-TestPaperType-queryTreeList' ,required :true "></span>
+						config="  value:'<%=type%>' , name: 'type' , findTextAction : 'edu-TestPaperType-findObjectById' , url : 'edu-TestPaperType-queryTreeList' ,required :true "></span>
 					</td>
 				</tr>
 				<tr>
@@ -97,5 +123,4 @@
 </body>
 </html>
 
- 
- 
+

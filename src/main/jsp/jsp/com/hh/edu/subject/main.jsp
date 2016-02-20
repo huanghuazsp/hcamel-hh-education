@@ -12,6 +12,7 @@
 <script type="text/javascript">
 	var iframeId = '<%=iframeId%>';
 	function treeClick(treeNode) {
+		window.frames[iframeId].iframeClick(treeNode);
 	}
 	function init(){
 	}

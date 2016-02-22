@@ -51,6 +51,16 @@
 			params : {type:type1}
 		});
 	}
+	
+	function preview(){
+		$.hh.pagelist.callRow("pagelist", function(row) {
+			BaseUtil.addTab({
+				id : row.id,
+				text :  '试卷预览',
+				src : 'jsp-edu-testpaper-preview?id=' +row.id
+			});
+		});
+	}
 </script>
 </head>
 <body>
@@ -65,6 +75,8 @@
 			config="onClick: $.hh.pagelist.doUp , params:{ pageid :'pagelist',action:'edu-TestPaper-order'}  ,  icon : 'hh_up' "></span>
 		<span xtype="button"
 			config="onClick: $.hh.pagelist.doDown , params:{ pageid :'pagelist',action:'edu-TestPaper-order'} , icon : 'hh_down' "></span>
+		<span
+			xtype="button" config="onClick: preview ,text:'预览'  "></span>
 	</div>
 	<!-- <table xtype="form" id="queryForm" style="width:600px;">
 		<tr>

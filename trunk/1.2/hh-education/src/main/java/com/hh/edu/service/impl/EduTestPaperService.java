@@ -1,15 +1,13 @@
  package com.hh.edu.service.impl;
+import org.springframework.stereotype.Service;
+
+import com.hh.edu.bean.EduTestPaper;
 import com.hh.system.service.impl.BaseService;
 import com.hh.system.util.Check;
 import com.hh.system.util.dto.PageRange;
 import com.hh.system.util.dto.PagingData;
 import com.hh.system.util.dto.ParamFactory;
 import com.hh.system.util.dto.ParamInf;
-
-import org.springframework.stereotype.Service;
-
-import com.hh.edu.bean.EduSubject;
-import com.hh.edu.bean.EduTestPaper;
 
 @Service
 public class EduTestPaperService extends BaseService<EduTestPaper> {

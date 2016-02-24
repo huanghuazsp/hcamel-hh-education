@@ -59,6 +59,15 @@
 			openWidth:700,
 			findTextAction :'edu-Subject-findTextById' ,
 			pageconfig:{
+				queryHtml : '<table xtype="form" id="queryForm" style="">'
+					+'<tr>'
+						+'<td xtype="label">类型：</td>'
+						+'<td><span xtype="selectTree" config=" name : \'type\' ,url : \'edu-SubjectType-queryTreeList\' "></span></td>'
+						+'<td xtype="label">名称：</td>'
+						+'<td><span xtype="text" config=" name : \'text\' ,enter: doQuery "></span></td>'
+						+'<td style="width:100px;"><span	xtype="button" config="onClick: doQuery ,text:\'查询\' , itype :\'query\' "></span></td>'
+					+'</tr>'
+				+'</table>',
 				url:'edu-Subject-queryPagingData' ,
 				column : [
 		       		{

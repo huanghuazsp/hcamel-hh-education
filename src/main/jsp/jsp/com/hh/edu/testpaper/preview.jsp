@@ -31,6 +31,7 @@
 	<div style="width:794px;text-align:left;">
 	<br/><%=eduTestPaper.getHead() %><br/>
 	<%
+	int aa = 1;
 	for(int i =0;i<mapList.size();i++){
 		Map<String,Object> map = mapList.get(i);
 		String subjects = Convert.toString(map.get("subjects"));
@@ -47,9 +48,12 @@
 				type="checkbox";
 			}
 			String tmid  = eduSubject.getId();
+			if(!"fillEmpty".equals(titleType)){
 		%><br/>
-			<strong><%=(j+1)+"、"+eduSubject.getText() %></strong><br/><br/>
+			<strong><%=(aa)+"、"+eduSubject.getText() %></strong><br/><br/>
 		<%
+			aa++;
+			}
 			if("check".equals(titleType) || "radio".equals(titleType)){
 					String dataitemstr = eduSubject.getDataitems();
 					List<Map<String,Object>> mapList2 = Json.toMapList(dataitemstr);
@@ -66,13 +70,13 @@
 				<%
 			}else if("fillEmpty".equals(titleType)){
 				String[] answers = Convert.toString(eduSubject.getAnswer()).split("、");
-				String content = eduSubject.getContent();
+				String content = (aa)+"、"+eduSubject.getText();
 				for(String str : answers){
 					content = content.replace(str, "<input style='width:100px;' />");
 				}
 				%>
-				&nbsp;&nbsp;<%=content %>
-				<%
+				<strong><%=content %></strong><br/><br/>
+				<%aa++;
 			}
 		}
 		%>

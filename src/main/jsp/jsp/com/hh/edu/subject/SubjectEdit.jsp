@@ -35,9 +35,6 @@
 	
 	function renderAnswer(titleType){
 		
-		if(titleType!='fillEmpty'){
-			$('#content').remove();
-		}
 		if(titleType=='radio'){
 			var span = $('<span id="daspan"  xtype="radio" config=" name: \'answer\' ,required :true "></span>');
 			$('#answertd').append(span);
@@ -53,7 +50,7 @@
 			span.render();
 			if(titleType=='fillEmpty'){
 				$('#bz').html('例：<br/>题目：【家庭系统存在两种机制，即:平衡机制、改变机制】<br/>答案：平衡机制、改变机制<br/>这样【平衡机制】和【改变机制】就会作为这道题目的填空项');
-				$('[name=answer],[name=content]').height(150);
+				$('[name=answer]').height(150);
 			}
 		}
 	}
@@ -122,10 +119,6 @@
 				<tr id="titletr">
 					<td xtype="label">题目：</td>
 					<td><span xtype="textarea" config=" name : 'text',required :true"></span></td>
-				</tr>
-				<tr id="content">
-					<td xtype="label">题目内容：</td>
-					<td><span xtype="textarea" config=" name : 'content',required :true"></span></td>
 				</tr>
 				<tr id="tableitemtr">
 					<td xtype="label">选择项：</td>

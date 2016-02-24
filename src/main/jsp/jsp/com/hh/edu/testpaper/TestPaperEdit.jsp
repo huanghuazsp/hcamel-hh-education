@@ -55,6 +55,7 @@
 		}
 	}
 	var subjectConfig = {
+			textarea :true,
 			openWidth:700,
 			findTextAction :'edu-Subject-findTextById' ,
 			pageconfig:{

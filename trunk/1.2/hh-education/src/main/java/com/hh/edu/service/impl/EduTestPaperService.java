@@ -18,6 +18,9 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 		if (Check.isNoEmpty(entity.getType())) {
 			paramInf.is("type", entity.getType());
 		}
+		if (Check.isNoEmpty(entity.getText())) {
+			paramInf.like("text", entity.getText());
+		}
 		return super.queryPagingData(entity, pageRange,paramInf);
 	}
 }

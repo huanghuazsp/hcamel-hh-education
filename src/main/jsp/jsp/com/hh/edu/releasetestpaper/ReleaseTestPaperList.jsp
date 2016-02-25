@@ -48,15 +48,15 @@
 </head>
 <body>
 	<div xtype="toolbar" config="type:'head'">
-		<span xtype="button"
-			config="onClick:doEdit,text:'修改' , itype :'edit' "></span> <span
+		<!-- <span xtype="button"
+			config="onClick:doEdit,text:'修改' , itype :'edit' "></span> --> <span
 			xtype="button" config="onClick:doDelete,text:'删除' , itype :'delete' "></span>
 		<!--  <span
-			xtype="button" config="onClick: doQuery ,text:'查询' , itype :'query' "></span> --> <span
+			xtype="button" config="onClick: doQuery ,text:'查询' , itype :'query' "></span>  <span
 			xtype="button"
 			config="onClick: $.hh.pagelist.doUp , params:{ pageid :'pagelist',action:'edu-ReleaseTestPaper-order'}  ,  icon : 'hh_up' "></span>
 		<span xtype="button"
-			config="onClick: $.hh.pagelist.doDown , params:{ pageid :'pagelist',action:'edu-ReleaseTestPaper-order'} , icon : 'hh_down' "></span>
+			config="onClick: $.hh.pagelist.doDown , params:{ pageid :'pagelist',action:'edu-ReleaseTestPaper-order'} , icon : 'hh_down' "></span>-->
 	</div>
 	<!-- <table xtype="form" id="queryForm" style="width:600px;">
 		<tr>

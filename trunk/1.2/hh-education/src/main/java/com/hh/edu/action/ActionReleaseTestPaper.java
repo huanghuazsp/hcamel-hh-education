@@ -15,7 +15,8 @@ public class ActionReleaseTestPaper extends BaseServiceAction< EduReleaseTestPap
 		return edureleasetestpaperService;
 	}
 	public Object queryStartPagingData() {
-		return super.queryPagingData();
+		return edureleasetestpaperService.queryStartPagingData(object,
+				this.getPageRange());
 	}
 	
 }

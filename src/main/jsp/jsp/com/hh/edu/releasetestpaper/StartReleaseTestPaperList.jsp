@@ -14,6 +14,19 @@
 			params : $('#queryForm').getValue()
 		});
 	}
+	function start(){
+		
+	}
+	function renderoper(value, row) {
+		if(row.state==0){
+			return '<a  href="javascript:start(\'' + value
+			+ '\')" >开始考试</a>';
+		}else if(row.state==2){
+			return '未开始';
+		}else if(row.state==3){
+			return '已结束';
+		}
+	}
 </script>
 </head>
 <body>
@@ -33,8 +46,16 @@
 		{
 			name : 'mc' ,
 			text : '名称'
+		},{
+			name : 'startDate' ,
+			text : '考试开始时间',
+			render:'datetime'
+		},{
+			name : 'id' ,
+			text : '操作',
+			width: '40',
+			render : renderoper
 		}
-		
 	]">
 	</div>
 </body>

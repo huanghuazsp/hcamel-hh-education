@@ -14,5 +14,9 @@ public class ActionReleaseTestPaper extends BaseServiceAction< EduReleaseTestPap
 	public BaseService<EduReleaseTestPaper> getService() {
 		return edureleasetestpaperService;
 	}
+	public Object queryStartPagingData() {
+		return super.queryPagingData();
+	}
+	
 }
  

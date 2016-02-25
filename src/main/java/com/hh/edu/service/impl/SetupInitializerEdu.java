@@ -23,6 +23,11 @@ public class SetupInitializerEdu {
 				"com.hh.global.NavigAtionWindow",
 				"/hhcommon/images/icons/world/world.png", 0, 0);
 		rootHhXtCd.setChildren(new ArrayList<SysMenu>());
+		
+		rootHhXtCd.getChildren().add(
+				new SysMenu("7a291966-d38c-4c31-9bfa-a3c43df9556e", "开始考试",
+						"jsp-edu-releasetestpaper-StartReleaseTestPaperList",
+						"/hhcommon/images/icons/world/world.png", 0, 1));
 
 		rootHhXtCd.getChildren().add(
 				new SysMenu("f6d6f3bf-4865-469c-8ef6-7edc0881ab7d", "题目类型管理",
@@ -43,6 +48,12 @@ public class SetupInitializerEdu {
 				new SysMenu("0763a83c-b039-4331-ac8c-945903f636a9", "试卷管理",
 						"jsp-edu-testpaper-main",
 						"/hhcommon/images/icons/world/world.png", 0, 1));
+		
+		rootHhXtCd.getChildren().add(
+				new SysMenu("740ee788-6e6b-4f0f-9400-30047a3bda13", "已发布试卷",
+						"jsp-edu-releasetestpaper-ReleaseTestPaperList",
+						"/hhcommon/images/icons/world/world.png", 0, 1));
+		
 		
 		StaticProperties.hhXtCds.add(rootHhXtCd);
 

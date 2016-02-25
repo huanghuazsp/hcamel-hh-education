@@ -14,9 +14,20 @@
 	var height = 450;
 
 	var objectid = '<%=Convert.toString(request.getParameter("id"))%>';
-
+	var TestPaperObject = {};
 	function save() {
 		$.hh.validation.check('form', function(formData) {
+			$.extend(TestPaperObject,formData);
+			var userData = $('#userIdsSpan').getValueData();
+			if(userData){
+				formData.userNames = BaseUtil.objsToStr(userData,'text');
+			}
+			formData.dcreate=null;
+			formData.dupdate=null;
+			formData.order=null;
+			formData.vcreate=null;
+			formData.vorgid=null;
+			formData.vupdate=null;
 			Request.request('edu-ReleaseTestPaper-save', {
 				data : formData,
 				callback : function(result) {
@@ -36,6 +47,7 @@
 					id : objectid
 				},
 				callback : function(result) {
+					TestPaperObject = result;
 					$('#form').setValue(result);
 				}
 			});
@@ -52,8 +64,22 @@
 		<form id="form" xtype="form">
 			<span xtype="text" config=" hidden:true,name : 'id'"></span>
 			<table xtype="form">
-				
-				
+				<tr>
+					<td xtype="label">试卷名称：</td>
+					<td ><span xtype="text" config=" name : 'mc',required :true "></span></td>
+				</tr>
+				<tr>
+					<td xtype="label">考试时间：</td>
+					<td><span xtype="date" config=" name : 'startDate',required :true ,type:'datetime'"></span></td>
+				</tr>
+				<tr>
+					<td xtype="label">时长（分钟）：</td>
+					<td><span xtype="text" config=" name : 'WhenLong',required :true ,integer:true"></span></td>
+				</tr>
+				<tr>
+					<td xtype="label">考试人员：</td>
+					<td><span id="userIdsSpan" xtype="selectUser" config="required :true ,name: 'userIds' ,textarea:true "></span></td>
+				</tr>
 			</table>
 		</form>
 	</div>

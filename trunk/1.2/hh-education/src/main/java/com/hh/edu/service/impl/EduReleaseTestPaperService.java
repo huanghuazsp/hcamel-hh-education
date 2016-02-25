@@ -22,7 +22,9 @@ public class EduReleaseTestPaperService extends BaseService<EduReleaseTestPaper>
 	private LoginUserServiceInf loginUserService;
 	@Override
 	public EduReleaseTestPaper save(EduReleaseTestPaper entity) throws MessageException {
-		entity.setMc(entity.getText()+DateFormat.getDate());
+		if (Check.isEmpty(entity.getMc())) {
+			entity.setMc(entity.getText()+DateFormat.getDate());
+		}
 		return super.save(entity);
 	}
 

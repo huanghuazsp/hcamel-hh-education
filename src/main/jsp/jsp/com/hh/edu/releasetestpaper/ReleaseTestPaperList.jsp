@@ -8,16 +8,15 @@
 <%=BaseSystemUtil.getBaseJs()%>
 
 <script type="text/javascript">
-	var type1 = '';
 	function doDelete() {
 		$.hh.pagelist.deleteData({
 			pageid : 'pagelist',
-			action : 'edu-TestPaper-deleteByIds'
+			action : 'edu-ReleaseTestPaper-deleteByIds'
 		});
 	}
 	function doAdd() {
 		Dialog.open({
-			url : 'jsp-edu-testpaper-TestPaperEdit?type='+type1,
+			url : 'jsp-edu-releasetestpaper-ReleaseTestPaperEdit',
 			params : {
 				callback : function() {
 					$("#pagelist").loadData();
@@ -28,7 +27,7 @@
 	function doEdit() {
 		$.hh.pagelist.callRow("pagelist", function(row) {
 			Dialog.open({
-				url : 'jsp-edu-testpaper-TestPaperEdit?type='+type1,
+				url : 'jsp-edu-releasetestpaper-ReleaseTestPaperEdit',
 				urlParams : {
 					id : row.id
 				},
@@ -45,38 +44,6 @@
 			params : $('#queryForm').getValue()
 		});
 	}
-	function iframeClick(data) {
-		type1=data.id;
-		$('#pagelist').loadData({
-			params : {type:type1}
-		});
-	}
-	
-	function preview(){
-		$.hh.pagelist.callRow("pagelist", function(row) {
-			BaseUtil.addTab({
-				id : row.id,
-				text :  '试卷预览',
-				src : 'jsp-edu-testpaper-preview?id=' +row.id
-			});
-		});
-	}
-	
-	function release(){
-		$.hh.pagelist.callRow("pagelist", function(row) {
-			Dialog.open({
-				url : 'jsp-edu-release-ReleaseEdit',
-				urlParams : {
-					id : row.id
-				},
-				params : {
-					callback : function() {
-						$("#pagelist").loadData();
-					}
-				}
-			});
-		});
-	}
 </script>
 </head>
 <body>
@@ -88,13 +55,9 @@
 		<!--  <span
 			xtype="button" config="onClick: doQuery ,text:'查询' , itype :'query' "></span> --> <span
 			xtype="button"
-			config="onClick: $.hh.pagelist.doUp , params:{ pageid :'pagelist',action:'edu-TestPaper-order'}  ,  icon : 'hh_up' "></span>
+			config="onClick: $.hh.pagelist.doUp , params:{ pageid :'pagelist',action:'edu-ReleaseTestPaper-order'}  ,  icon : 'hh_up' "></span>
 		<span xtype="button"
-			config="onClick: $.hh.pagelist.doDown , params:{ pageid :'pagelist',action:'edu-TestPaper-order'} , icon : 'hh_down' "></span>
-		<span
-			xtype="button" config="onClick: preview ,text:'预览'  "></span>
-		<span
-			xtype="button" config="onClick: release ,text:'发布'  "></span>
+			config="onClick: $.hh.pagelist.doDown , params:{ pageid :'pagelist',action:'edu-ReleaseTestPaper-order'} , icon : 'hh_down' "></span>
 	</div>
 	<!-- <table xtype="form" id="queryForm" style="width:600px;">
 		<tr>
@@ -103,10 +66,10 @@
 		</tr>
 	</table> -->
 	<div id="pagelist" xtype="pagelist"
-		config=" url: 'edu-TestPaper-queryPagingData' ,column : [
+		config=" url: 'edu-ReleaseTestPaper-queryPagingData' ,column : [
 		
 		{
-			name : 'text' ,
+			name : 'mc' ,
 			text : '名称'
 		}
 		

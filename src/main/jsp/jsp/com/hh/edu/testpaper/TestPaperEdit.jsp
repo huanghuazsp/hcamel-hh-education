@@ -87,7 +87,9 @@
 	var tableitemConfig = {
 		name : 'dataitems',
 		required : true,
-		trhtml : '<table width=100%><tr><td style="text-align:right;width:60px;">大题名称：</td><td><span xtype="textarea" valuekey="title" configVar="  "></span></td></tr>'+
+		trhtml : '<table width=100%>'
+		+'<tr><td style="text-align:right;width:60px;">分数：</td><td><span xtype="text" valuekey="score" config=" integer : true  "></span></td></tr>'
+		+'<tr><td style="text-align:right;width:60px;">大题名称：</td><td><span xtype="textarea" valuekey="title" configVar="  "></span></td></tr>'+
 		'<tr><td style="text-align:right;width:60px;">题目：</td><td><span xtype="selectPageList" valuekey="subjects" configVar=" subjectConfig "></span></td></tr></table>'
 	}
 
@@ -116,7 +118,7 @@
 					<td><span xtype="ckeditor" config="name: 'head' "></span></td>
 				</tr>
 				<tr id="tableitemtr">
-					<td xtype="label">选择项：</td>
+					<td xtype="label">大题配置：</td>
 					<td><span xtype="tableitem" configVar="tableitemConfig"></span></td>
 				</tr>
 				<tr>

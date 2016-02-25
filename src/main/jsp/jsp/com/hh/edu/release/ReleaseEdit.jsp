@@ -18,8 +18,10 @@
 	var objectid = '<%=Convert.toString(request.getParameter("id"))%>';
 	var TestPaperObject = {};
 	function save() {
-		$.hh.validation.check('form', function(formData) {
+		$.hh.validation.check('form', function(formData1) {
+			var formData = {};
 			$.extend(formData,TestPaperObject);
+			$.extend(formData,formData1);
 			var userData = $('#userIdsSpan').getValueData();
 			if(userData){
 				formData.userNames = BaseUtil.objsToStr(userData,'text');

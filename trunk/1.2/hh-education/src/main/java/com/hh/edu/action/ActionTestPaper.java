@@ -2,10 +2,10 @@
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.hh.system.util.base.BaseServiceAction;
 import com.hh.edu.bean.EduTestPaper;
-import com.hh.system.service.impl.BaseService;
 import com.hh.edu.service.impl.EduTestPaperService;
+import com.hh.system.service.impl.BaseService;
+import com.hh.system.util.base.BaseServiceAction;
 
 @SuppressWarnings("serial")
 public class ActionTestPaper extends BaseServiceAction< EduTestPaper > {

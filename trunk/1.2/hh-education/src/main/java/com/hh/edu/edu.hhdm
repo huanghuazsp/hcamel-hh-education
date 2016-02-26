@@ -6,4 +6,10 @@
   <table id="313067e8-fd29-4732-a611-9e81b03dc402" name="testPaperType" text="testPaperType" type="table"/>
   <table id="1839992e-b371-4151-b2d0-4f22d18c73ef" name="testPaper" text="testPaper" type="table"/>
   <table id="40cb1907-e467-4f49-b270-c47df38faf45" name="ReleaseTestPaper" text="ReleaseTestPaper" type="table"/>
+  <table id="235f2ec3-5aca-4bd1-a7a7-4018d5ce174d" name="examination" text="examination" type="table">
+    <column defaultValue="" empty="true" id="f529d206-3e04-4422-a7b9-d19d135f4b5d" length="" name="userId" primary="false" text="userId" type="String"/>
+    <column defaultValue="" empty="true" id="6ab4e6d5-6b3a-4af9-a92e-af3e49030aa4" length="" name="userName" primary="false" text="userName" type="String"/>
+    <column defaultValue="" empty="true" id="5e010520-374f-4b49-9eb7-88a801db7f2f" length="" name="answer" primary="false" text="answer" type="String"/>
+    <column defaultValue="" empty="true" id="f4568472-e036-4d08-be87-0cf86f041edb" length="" name="score" primary="false" text="score" type="String"/>
+  </table>
 </project>

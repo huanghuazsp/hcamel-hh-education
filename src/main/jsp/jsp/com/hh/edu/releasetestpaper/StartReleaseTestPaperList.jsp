@@ -14,8 +14,15 @@
 			params : $('#queryForm').getValue()
 		});
 	}
-	function start(){
-		
+	function start(id){
+		Request.request('edu-Examination-examination', {
+			data : {
+				'releaseTestPaperId':id
+			},
+			callback : function(result) {
+				console.log(result);
+			}
+		});
 	}
 	function renderoper(value, row) {
 		if(row.state==0){

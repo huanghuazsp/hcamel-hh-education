@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hh.edu.bean.EduReleaseTestPaper;
+import com.hh.edu.service.impl.EduExaminationService;
 import com.hh.edu.service.impl.EduReleaseTestPaperService;
 import com.hh.system.service.impl.BaseService;
 import com.hh.system.util.base.BaseServiceAction;
@@ -15,6 +16,9 @@ import com.hh.system.util.dto.PagingData;
 public class ActionReleaseTestPaper extends BaseServiceAction<EduReleaseTestPaper> {
 	@Autowired
 	private EduReleaseTestPaperService edureleasetestpaperService;
+	
+	@Autowired
+	private EduExaminationService eduexaminationService;
 
 	public BaseService<EduReleaseTestPaper> getService() {
 		return edureleasetestpaperService;
@@ -36,6 +40,10 @@ public class ActionReleaseTestPaper extends BaseServiceAction<EduReleaseTestPape
 			}
 		}
 		return page;
+	}
+	
+	public Object queryTestResult() {
+		return eduexaminationService.queryListByProperty("releaseTestPaperId", object.getId());
 	}
 
 }

@@ -16,7 +16,7 @@
 	}
 	function start(id){
 		BaseUtil.addTab({
-			id : id,
+			id : 'ks'+id,
 			text :  '考试',
 			src : 'jsp-edu-testpaper-preview?type=exa&id=' +id
 		});

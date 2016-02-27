@@ -1,20 +1,24 @@
 package com.hh.edu.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import javassist.expr.NewArray;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hh.edu.bean.EduExamination;
+import com.hh.edu.bean.EduReleaseSubject;
+import com.hh.edu.bean.EduReleaseTestPaper;
 import com.hh.system.service.impl.BaseService;
 import com.hh.system.util.Check;
+import com.hh.system.util.Convert;
+import com.hh.system.util.Json;
 import com.hh.system.util.dto.ParamFactory;
-import com.hh.system.util.dto.ParamInf;
 import com.hh.usersystem.LoginUserServiceInf;
 
 @Service
@@ -22,6 +26,12 @@ public class EduExaminationService extends BaseService<EduExamination> {
 
 	@Autowired
 	private LoginUserServiceInf loginUserService;
+
+	@Autowired
+	private EduReleaseTestPaperService eduReleaseTestPaperService;
+
+	@Autowired
+	private EduReleaseSubjectService eduReleaseSubjectService;
 
 	@Transactional
 	public EduExamination examination(EduExamination entity) {
@@ -48,15 +58,65 @@ public class EduExaminationService extends BaseService<EduExamination> {
 		map.put("answer", object.getAnswer());
 		map.put("releaseTestPaperId", object.getReleaseTestPaperId());
 		map.put("userId", loginUserService.findUserId());
-		map.put("submitDate", null);
+
+		String updateString = "";
 		
 		if ("submit".equals(submitType)) {
 			map.put("submitDate", new Date());
+			updateString=",submitDate=:submitDate";
 		}
 		dao.updateEntity(
 				"update "
 						+ EduExamination.class.getName()
-						+ " set answer=:answer,submitDate=:submitDate where releaseTestPaperId=:releaseTestPaperId and userId=:userId ",
+						+ " set answer=:answer"+updateString+" where releaseTestPaperId=:releaseTestPaperId and userId=:userId ",
 				map);
+	}
+
+	@Transactional
+	public void calculation(EduExamination object) {
+		
+		
+		Map<String, Integer> releaseScoreMap = new HashMap<String, Integer>();
+		
+		List<EduExamination> eduExaminationList = queryListByProperty(
+				"releaseTestPaperId", object.getReleaseTestPaperId());
+		List<EduReleaseSubject> eduReleaseSubjectList = eduReleaseSubjectService
+				.queryListByProperty("releaseTestPaperId",
+						object.getReleaseTestPaperId());
+
+		Map<String, EduReleaseSubject> map = new HashMap<String, EduReleaseSubject>();
+		for (EduReleaseSubject eduReleaseSubject : eduReleaseSubjectList) {
+			map.put(eduReleaseSubject.getId(), eduReleaseSubject);
+			releaseScoreMap.put(eduReleaseSubject.getId(), eduReleaseSubject.getScore());
+		}
+
+		for (EduExamination eduExamination : eduExaminationList) {
+			Map<String, Object> answerMap = Json.toMap(eduExamination
+					.getAnswer());
+			Set<String> keySet = answerMap.keySet();
+			int score = 0;
+			for (String key : keySet) {
+				String answer = Convert.toString(answerMap.get(key));
+
+				EduReleaseSubject eduReleaseSubject = map.get(key);
+				int score22 = releaseScoreMap.get(key);
+				if (eduReleaseSubject != null) {
+					String subjectAnswer = Convert.toString(eduReleaseSubject
+							.getAnswer());
+					if ("radio".equals(eduReleaseSubject.getTitleType()) || "check".equals(eduReleaseSubject.getTitleType())|| "fillEmpty".equals(eduReleaseSubject.getTitleType())) {
+						if (answer.equals(subjectAnswer.replaceAll("、", ","))) {
+							score+=score22;
+						}else {
+//							System.out.println(subjectAnswer);
+//							System.out.println(answer);
+//							System.out.println(eduReleaseSubject.getText());
+						}
+					}
+				}
+
+			}
+			update(eduExamination.getId(), "calculationScore", score);
+		}
+
 	}
 }

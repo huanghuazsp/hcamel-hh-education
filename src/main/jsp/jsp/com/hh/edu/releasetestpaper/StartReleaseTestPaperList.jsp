@@ -15,13 +15,10 @@
 		});
 	}
 	function start(id){
-		Request.request('edu-Examination-examination', {
-			data : {
-				'releaseTestPaperId':id
-			},
-			callback : function(result) {
-				console.log(result);
-			}
+		BaseUtil.addTab({
+			id : id,
+			text :  '考试',
+			src : 'jsp-edu-testpaper-preview?type=exa&id=' +id
 		});
 	}
 	function renderoper(value, row) {

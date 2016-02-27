@@ -1,3 +1,11 @@
+<%@page import="com.hh.system.util.Check"%>
+<%@page import="com.hh.edu.bean.EduReleaseSubject"%>
+<%@page import="com.hh.edu.bean.BaseSubject"%>
+<%@page import="com.hh.edu.service.impl.EduReleaseSubjectService"%>
+<%@page import="com.hh.edu.service.impl.EduReleaseTestPaperService"%>
+<%@page import="com.hh.edu.bean.BaseTestPaper"%>
+<%@page import="com.hh.edu.bean.EduExamination"%>
+<%@page import="com.hh.edu.service.impl.EduExaminationService"%>
 <%@page import="com.hh.system.util.PrimaryKey"%>
 <%@page import="com.hh.edu.bean.EduSubject"%>
 <%@page import="com.hh.edu.service.impl.EduSubjectService"%>
@@ -15,16 +23,39 @@
 <%=BaseSystemUtil.getBaseJs("layout","checkform")%>
 <%
 	String id = request.getParameter("id");
+
+	String exatype = request.getParameter("type");
+	
+	boolean exa = "exa".equals(exatype);
+
 	EduTestPaperService eduTestPaperService = BeanFactoryHelper.getBean(EduTestPaperService.class);
-	
 	EduSubjectService eduSubjectService = BeanFactoryHelper.getBean(EduSubjectService.class);
+	EduReleaseTestPaperService eduReleaseTestPaperService = BeanFactoryHelper.getBean(EduReleaseTestPaperService.class);
+	EduReleaseSubjectService eduReleaseSubjectService = BeanFactoryHelper.getBean(EduReleaseSubjectService.class);
 	
-	EduTestPaper eduTestPaper = eduTestPaperService.findObjectById(id);
+	EduExaminationService eduExaminationService = BeanFactoryHelper.getBean(EduExaminationService.class);
+	EduExamination eduExamination = new EduExamination();
+	if(exa){
+		eduExamination.setReleaseTestPaperId(id);
+		eduExamination = eduExaminationService.examination(eduExamination);
+	}
+	
+	
+	BaseTestPaper eduTestPaper = null;
+	if(exa){
+		eduTestPaper = eduReleaseTestPaperService.findObjectById(id);
+	}else{
+		eduTestPaper = eduTestPaperService.findObjectById(id);
+	}
+		
 	String dataitems = eduTestPaper.getDataitems();
 	List<Map<String,Object>> mapList = Json.toMapList(dataitems);
+	
+	
+	
 %>
 <script type="text/javascript">
-
+var eduExamination =  <%=Check.isEmpty(eduExamination.getAnswer()) ?"{}" : eduExamination.getAnswer()%>;
 var menuConfig = {
 		
 }
@@ -56,7 +87,70 @@ function init(){
 	menuConfig.data=dataList;
 	$('#menu').render();
 	regEvent();
+	
+	<%
+	if(exa){
+	%>
+	eduExaminationFun();
+	<%
+	}
+	%>
+	
 }
+<%
+if(exa){
+%>
+function eduExaminationFun(){
+	$('[type=subject]').each(function(){
+		var span = $(this);
+		var subjectId = span.attr('subjectId');
+		var value =  eduExamination[subjectId];
+		
+		var type = span.attr('subjectType');
+		if(type=='radio' ){
+			span.find("input[type=radio]").prop("checked", false);
+			var input = span.find("input[type=radio][value=" + value + "]");
+			input.prop("checked", true);
+		}else if(type=='check'){
+			span.find("input[type=checkbox]").prop("checked", false);
+			if (value) {
+				value += '';
+				var values = value.split(',');
+				var text = '';
+				for (var i = 0; i < values.length; i++) {
+					var input = span.find("input[type=checkbox][value=" + values[i]
+							+ "]");
+					input.prop("checked", true);
+					text += input.next('label').html() + ',';
+				}
+				if (text != '') {
+					text = text.substr(0, text.length - 1);
+					span.setConfig({
+								text : text
+							});
+				}
+			}
+		}else if(type=='shortAnswer' ){
+			span.find('textarea').val(value);
+		}else if(type=='fillEmpty'){
+			var inputs = span.find('input');
+			if (value) {
+				value += '';
+				var values = value.split(',');
+				var text = '';
+				for (var i = 0; i < values.length; i++) {
+					if(inputs.eq(i)){
+						inputs.eq(i).val(values[i]);
+					}
+				}
+			}
+		}
+	});
+}
+<%
+}
+%>
+
 
 
 function regEvent(){
@@ -81,12 +175,29 @@ function regEvent(){
 
 function submit(){
 	var objectMap =  bc();
-	console.log(objectMap);
+	<%
+	if(exa){
+	%>
+	Dialog.confirm({
+		message : '您确认要提交试卷',
+		yes : function(){
+			updateA(objectMap,'submit');
+		}
+	});
+	<%
+	}
+	%>
 }
 
 function save(){
 	var objectMap =  bc();
-	console.log(objectMap);
+	<%
+	if(exa){
+	%>
+	updateA(objectMap);
+	<%
+	}
+	%>
 }
 
 function bc(){
@@ -119,7 +230,7 @@ function bc(){
 			}
 			valueStr=value;
 		}
-		objectMap[subjectId] = valueStr;
+		objectMap[subjectId] = valueStr || '';
 	});
 	return objectMap;
 }
@@ -148,6 +259,26 @@ function wdt(){
 		}
 	});
 }
+<%
+if(exa){
+%>
+function updateA(answer,submit){
+	Request.request('edu-Examination-updateAnswer', {
+		defaultMsg : false,
+		data : {
+			'releaseTestPaperId':'<%=id%>',
+			'answer': BaseUtil.toString(answer),
+			submitType : submit
+		},
+		callback : function(result) {
+			//console.log(result);
+		}
+	});
+}
+<%
+}
+%>
+
 </script>
 </head>
 <body>
@@ -179,12 +310,23 @@ function wdt(){
 		Map<String,Object> map = mapList.get(i);
 		String subjects = Convert.toString(map.get("subjects"));
 		List<String> subjectList = Convert.strToList(subjects);
-		List<EduSubject> eduSubjectList = eduSubjectService.queryListByIds(subjectList);
+		List<BaseSubject> eduSubjectList = new ArrayList<BaseSubject>();;
+		if(exa){
+			List<EduReleaseSubject> eduSubjectList1 = eduReleaseSubjectService.queryListByProperty("subjectId",subjectList);
+			for(EduReleaseSubject subject : eduSubjectList1){
+				eduSubjectList.add(subject);
+			}
+		}else{
+			List<EduSubject> eduSubjectList1 = eduSubjectService.queryListByIds(subjectList);
+			for(EduSubject subject : eduSubjectList1){
+				eduSubjectList.add(subject);
+			}
+		}
 	%>
 		<h3  id="<%=PrimaryKey.getPrimaryKeyUUID() %>"  title=true bigtitle=true><%=((Convert.numberToChina(i+1)+"、"+map.get("title")).replaceAll("\n","<br>").replaceAll(" ","&nbsp;"))%></h3><br/>
 		<%
 		for(int j =0;j<eduSubjectList.size();j++){
-			EduSubject eduSubject = eduSubjectList.get(j);
+			BaseSubject eduSubject = eduSubjectList.get(j);
 			String titleType = eduSubject.getTitleType();
 			String type = "radio";
 			if("check".equals(titleType)){

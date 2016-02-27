@@ -34,6 +34,9 @@ public class EduReleaseTestPaperService extends BaseService<EduReleaseTestPaper>
 	@Autowired
 	private EduReleaseSubjectService eduReleaseSubjectService;
 	
+	@Autowired
+	private EduExaminationService eduExaminationService;
+	
 	@Override
 	public EduReleaseTestPaper save(EduReleaseTestPaper entity) throws MessageException {
 		if (Check.isEmpty(entity.getMc())) {
@@ -76,6 +79,7 @@ public class EduReleaseTestPaperService extends BaseService<EduReleaseTestPaper>
 	@Override
 	public void deleteByIds(List<String> deleteIds) {
 		eduReleaseSubjectService.deleteByProperty("releaseTestPaperId", deleteIds);
+		eduExaminationService.deleteByProperty("releaseTestPaperId", deleteIds);
 		super.deleteByIds(deleteIds);
 	}
 	

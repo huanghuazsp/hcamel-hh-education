@@ -11,6 +11,8 @@ import com.hh.system.util.base.BaseServiceAction;
 public class ActionExamination extends BaseServiceAction<EduExamination> {
 	@Autowired
 	private EduExaminationService eduexaminationService;
+	
+	private String submitType;
 
 	public BaseService<EduExamination> getService() {
 		return eduexaminationService;
@@ -20,5 +22,16 @@ public class ActionExamination extends BaseServiceAction<EduExamination> {
 		EduExamination object = eduexaminationService.examination(this.object);
 		return object;
 	}
+	
+	public void updateAnswer(){
+		 eduexaminationService.updateAnswer(this.object,submitType);
+	}
 
+	public String getSubmitType() {
+		return submitType;
+	}
+
+	public void setSubmitType(String submitType) {
+		this.submitType = submitType;
+	}
 }

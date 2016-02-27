@@ -1,14 +1,15 @@
  package com.hh.edu.bean;
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-import javax.persistence.Lob;
-import com.hh.hibernate.util.base.*;
+
 import com.hh.hibernate.dao.inf.Order;
+import com.hh.hibernate.util.base.BaseTwoEntity;
 @Order
 @SuppressWarnings("serial")
 @Entity
@@ -71,4 +72,14 @@ public class EduExamination  extends BaseTwoEntity{
 		this.releaseTestPaperId = releaseTestPaperId;
 	}
 	
+	private Date submitDate;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "SUBMIT_DATE", length = 7)
+	public Date getSubmitDate() {
+		return submitDate;
+	}
+	public void setSubmitDate(Date submitDate) {
+		this.submitDate = submitDate;
+	}
 }

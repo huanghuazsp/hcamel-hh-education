@@ -26,6 +26,9 @@ public class ActionExamination extends BaseServiceAction<EduExamination> {
 	public void updateAnswer(){
 		 eduexaminationService.updateAnswer(this.object,submitType);
 	}
+	public void artificial(){
+		 eduexaminationService.artificial(this.object);
+	}
 	
 	public void calculation(){
 		 eduexaminationService.calculation(this.object);

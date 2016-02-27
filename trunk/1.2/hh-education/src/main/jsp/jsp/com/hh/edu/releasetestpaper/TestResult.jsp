@@ -67,6 +67,11 @@
 			text : '计算分数',
 			width: '70'
 		},{
+			name : 'artificialDate' ,
+			text : '人工评卷时间',
+			render:'datetime',
+			width:  120
+		},{
 			name : 'artificialScore' ,
 			text : '人工分数',
 			width: '70'

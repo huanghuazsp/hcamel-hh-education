@@ -124,4 +124,16 @@ public class EduExamination  extends BaseTwoEntity{
 	}
 	
 	
+	private Date artificialDate;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "ARTIFICIAL_DATE", length = 7)
+	public Date getArtificialDate() {
+		return artificialDate;
+	}
+	public void setArtificialDate(Date artificialDate) {
+		this.artificialDate = artificialDate;
+	}
+
+	
 }

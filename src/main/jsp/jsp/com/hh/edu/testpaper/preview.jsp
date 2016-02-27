@@ -72,6 +72,10 @@ var menuConfig = {
 		
 }
 
+function setHeight(height){
+	$('#centerdiv').height(height-35);
+}
+
 function init(){
 	var dataList = [];
 	$('[title=true]').each(function(){
@@ -92,7 +96,7 @@ function init(){
 			'text': '<div title="'+title+'" subjectId="'+subjectId+'">'+text+'</div>',
 			domId : $(this).attr('id'),
 			onClick:function(){
-				$('#centerdiv').animate({scrollTop:$('#centerdiv').scrollTop()+$('#'+this.domId).offset().top-20},500);
+				$('#centerdiv').animate({scrollTop:$('#centerdiv').scrollTop()+$('#'+this.domId).offset().top-55},500);
 			}
 		});
 	});
@@ -290,7 +294,24 @@ function updateA(answer,submit){
 <%
 }
 %>
-
+<%
+if( "artificial".equals(exatype)){
+%>
+function artificial(){
+	$.hh.validation.check('form', function(formData) {
+		Request.request('edu-Examination-artificial', {
+			data : {
+				'releaseTestPaperId':'<%=id%>',
+				'artificial' : BaseUtil.toString(formData)
+			},
+			callback : function(result) {
+				
+			}
+		});
+	});
+}
+<%
+}%>
 </script>
 </head>
 <body>
@@ -305,14 +326,25 @@ function updateA(answer,submit){
 			</div>
 			<span xtype=menu  id="menu"  configVar="menuConfig"></span>
 		</div>
-		<div style="" id=centerdiv>
+		<div>
 
 <div xtype="toolbar" config="type:'head'" style="text-align:center;">
-	<span xtype="button"
-		config="onClick : submit ,text : '交卷'   "></span>
+	<%
+	if( "artificial".equals(exatype)){
+	%>
+	<span xtype="button" config="onClick : artificial ,text : '提交评分'   "></span>
+	<%
+	}else{
+	%>
+	<span xtype="button" config="onClick : submit ,text : '交卷'   "></span>
+	<%
+	}
+	%>
+	
 </div>
 
-
+<div  id=centerdiv  style="overflow:auto;">
+<form id="form" xtype="form">
 <table width=100% ><tr><td align=center>
 	<div style="width:794px;text-align:left;">
 	<br/><%=eduTestPaper.getHead() %><br/>
@@ -378,6 +410,9 @@ function updateA(answer,submit){
 				if(Check.isNoEmpty(answer)){
 					answer="<div >&nbsp;&nbsp;<font color='"+color+"'>正确答案："+answer+"</font></div>";
 				}
+				if("shortAnswer".equals(titleType)){
+					answer = "评分：<span xtype=text config='name : \""+eduSubject.getId()+"\",min : 0,required:true,integer : true ,max:"+eduSubject.getScore()+",width:100' ></span>"+answer;
+				}
 			}
 			
 			if(!"fillEmpty".equals(titleType)){
@@ -419,8 +454,8 @@ function updateA(answer,submit){
 	<%}%>
 	</div>
 </td></tr></table>
-
-
+</form>
+</div>
 		</div>
 	</div>
 </body>

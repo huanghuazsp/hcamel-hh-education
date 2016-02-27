@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javassist.expr.NewArray;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -115,8 +117,32 @@ public class EduExaminationService extends BaseService<EduExamination> {
 				}
 
 			}
-			update(eduExamination.getId(), "calculationScore", score);
+			eduExamination.setCalculationScore(score);
+			eduExamination.setScore(eduExamination.getCalculationScore()+eduExamination.getArtificialScore());
+			dao.updateEntity(eduExamination);
 		}
 
+	}
+
+	public void artificial(EduExamination object) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("artificial",object.getArtificial());
+		map.put("releaseTestPaperId", object.getReleaseTestPaperId());
+		map.put("userId", loginUserService.findUserId());
+		map.put("artificialDate",new Date());
+		
+		Map<String, Object> artificialMap=Json.toMap(object.getArtificial());
+		
+		int score = 0;
+		for (String key : artificialMap.keySet()) {
+			score+=Convert.toInt(artificialMap.get(key));
+		}
+		map.put("artificialScore",score);
+		dao.updateEntity(
+				"update "
+						+ EduExamination.class.getName()
+						+ " set artificial=:artificial,artificialDate = :artificialDate,artificialScore=:artificialScore where releaseTestPaperId=:releaseTestPaperId and userId=:userId ",
+				map);
+		
 	}
 }

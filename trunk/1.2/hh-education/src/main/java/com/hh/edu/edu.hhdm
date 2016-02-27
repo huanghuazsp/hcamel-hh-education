@@ -12,4 +12,5 @@
     <column defaultValue="" empty="true" id="5e010520-374f-4b49-9eb7-88a801db7f2f" length="" name="answer" primary="false" text="answer" type="String"/>
     <column defaultValue="" empty="true" id="f4568472-e036-4d08-be87-0cf86f041edb" length="" name="score" primary="false" text="score" type="String"/>
   </table>
+  <table id="48283eb6-a44c-4506-9650-2a7b32f1634a" name="ReleaseSubject" text="ReleaseSubject" type="table"/>
 </project>

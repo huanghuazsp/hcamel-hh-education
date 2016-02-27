@@ -1,3 +1,5 @@
+<%@page import="com.hh.system.util.dto.ParamInf"%>
+<%@page import="com.hh.system.util.dto.ParamFactory"%>
 <%@page import="com.hh.system.util.Check"%>
 <%@page import="com.hh.edu.bean.EduReleaseSubject"%>
 <%@page import="com.hh.edu.bean.BaseSubject"%>
@@ -26,6 +28,8 @@
 
 	String exatype = request.getParameter("type");
 	
+	String userId = request.getParameter("userId");
+	
 	boolean exa = "exa".equals(exatype);
 
 	EduTestPaperService eduTestPaperService = BeanFactoryHelper.getBean(EduTestPaperService.class);
@@ -35,14 +39,22 @@
 	
 	EduExaminationService eduExaminationService = BeanFactoryHelper.getBean(EduExaminationService.class);
 	EduExamination eduExamination = new EduExamination();
-	if(exa){
+	if(exa || "artificial".equals(exatype)){
 		eduExamination.setReleaseTestPaperId(id);
 		eduExamination = eduExaminationService.examination(eduExamination);
 	}
 	
+	Map<String,Object> answermap = Json.toMap(eduExamination.getAnswer());
+	
+	if( "artificial".equals(exatype) && Check.isNoEmpty(userId)){
+		eduExamination = eduExaminationService.findObject(ParamFactory.getParamHb()
+				.is("releaseTestPaperId",id)
+				.is("userId",userId));
+	}
+	
 	
 	BaseTestPaper eduTestPaper = null;
-	if(exa){
+	if(exa || "artificial".equals(exatype)){
 		eduTestPaper = eduReleaseTestPaperService.findObjectById(id);
 	}else{
 		eduTestPaper = eduTestPaperService.findObjectById(id);
@@ -89,7 +101,7 @@ function init(){
 	regEvent();
 	
 	<%
-	if(exa){
+	if(exa || "artificial".equals(exatype)){
 	%>
 	eduExaminationFun();
 	<%
@@ -98,7 +110,7 @@ function init(){
 	
 }
 <%
-if(exa){
+if(exa || "artificial".equals(exatype)){
 %>
 function eduExaminationFun(){
 	$('[type=subject]').each(function(){
@@ -309,10 +321,11 @@ function updateA(answer,submit){
 	for(int i =0;i<mapList.size();i++){
 		Map<String,Object> map = mapList.get(i);
 		String subjects = Convert.toString(map.get("subjects"));
+		String score = Convert.toString(map.get("score"));
 		List<String> subjectList = Convert.strToList(subjects);
 		List<BaseSubject> eduSubjectList = new ArrayList<BaseSubject>();;
-		if(exa){
-			List<EduReleaseSubject> eduSubjectList1 = eduReleaseSubjectService.queryListByProperty("subjectId",subjectList);
+		if(exa|| "artificial".equals(exatype)){
+			List<EduReleaseSubject> eduSubjectList1 = eduReleaseSubjectService.queryList(ParamFactory.getParamHb().in("subjectId",subjectList).is("releaseTestPaperId",id));
 			for(EduReleaseSubject subject : eduSubjectList1){
 				eduSubjectList.add(subject);
 			}
@@ -322,8 +335,9 @@ function updateA(answer,submit){
 				eduSubjectList.add(subject);
 			}
 		}
+		String titleMes = "（本大题共"+subjectList.size()+"小题，共"+score+"分）";
 	%>
-		<h3  id="<%=PrimaryKey.getPrimaryKeyUUID() %>"  title=true bigtitle=true><%=((Convert.numberToChina(i+1)+"、"+map.get("title")).replaceAll("\n","<br>").replaceAll(" ","&nbsp;"))%></h3><br/>
+		<h3  id="<%=PrimaryKey.getPrimaryKeyUUID() %>"  title=true bigtitle=true><%=((Convert.numberToChina(i+1)+"、"+map.get("title")).replaceAll("\n","<br>").replaceAll(" ","&nbsp;"))+titleMes%></h3><br/>
 		<%
 		for(int j =0;j<eduSubjectList.size();j++){
 			BaseSubject eduSubject = eduSubjectList.get(j);
@@ -333,9 +347,43 @@ function updateA(answer,submit){
 				type="checkbox";
 			}
 			String tmid  = eduSubject.getId();
+			
+			String answer = "";
+			String  scoreStr = "";
+			if( "artificial".equals(exatype)){
+				String userAnswer  = Convert.toString(answermap.get(eduSubject.getId()));
+				String color = "green";
+				scoreStr="（共"+eduSubject.getScore()+"分）";
+				if("radio".equals(titleType)){
+					answer = Convert.numberToLetter(Convert.toInt(eduSubject.getAnswer()));
+					if(!userAnswer.equals(eduSubject.getAnswer())){
+						color="red";
+					}
+				}else if("check".equals(titleType)){
+					String[] answers = Convert.toString(eduSubject.getAnswer()).split(",");
+					for(String str :answers ){
+						answer += Convert.numberToLetter(Convert.toInt(str));
+					}
+					if(!userAnswer.equals(eduSubject.getAnswer())){
+						color="red";
+					}
+				}else if("fillEmpty".equals(titleType)){
+					answer = eduSubject.getAnswer();
+					if (!userAnswer.equals(Convert.toString(eduSubject.getAnswer()).replaceAll("、", ","))) {
+						color="red";
+					}
+				}else if("shortAnswer".equals(titleType)){
+					answer = eduSubject.getAnswer();
+				}
+				if(Check.isNoEmpty(answer)){
+					answer="<div >&nbsp;&nbsp;<font color='"+color+"'>正确答案："+answer+"</font></div>";
+				}
+			}
+			
 			if(!"fillEmpty".equals(titleType)){
 		%><br/>
-			<strong title=true  id="<%=PrimaryKey.getPrimaryKeyUUID() %>"  subjectId="<%=tmid%>" ><%=(aa)+"、"+eduSubject.getText() %></strong><br/><br/>
+			<strong title=true  id="<%=PrimaryKey.getPrimaryKeyUUID() %>"  subjectId="<%=tmid%>" ><%=(aa)+"、"+eduSubject.getText() +scoreStr%></strong><br/><br/>
+			<%=answer %>
 			<div type=subject subjectId="<%=tmid%>" subjectType="<%=titleType%>">
 		<%
 			aa++;
@@ -345,7 +393,7 @@ function updateA(answer,submit){
 					List<Map<String,Object>> mapList2 = Json.toMapList(dataitemstr);
 					for(int k =0;k<mapList2.size();k++){
 						Map<String,Object> item = mapList2.get(k);
-						String letter = Convert.letterToNumber(k+1);
+						String letter = Convert.numberToLetter(k+1);
 						%>
 						<div style="padding:3px;">&nbsp;&nbsp;<input value=<%=k+1 %> name="<%=tmid %>" type="<%=type %>" id="<%=tmid+"_"+k %>" /><label for="<%=tmid+"_"+k %>"><%=letter %>.<%=item.get("text") %></label><br/></div>
 						<%
@@ -358,10 +406,11 @@ function updateA(answer,submit){
 				String[] answers = Convert.toString(eduSubject.getAnswer()).split("、");
 				String content = (aa)+"、"+eduSubject.getText();
 				for(String str : answers){
-					content = content.replace(str, "<input style='width:100px;' />");
+					content = content.replace(str, "<input style='width:100px;' />")+scoreStr;
 				}
 				%>
 				<div type=subject subjectId="<%=tmid%>" subjectType="<%=titleType%>">
+				<%=answer %>
 				<strong  title=true  id="<%=PrimaryKey.getPrimaryKeyUUID() %>"  subjectId="<%=tmid%>" ><%=content %></strong><br/><br/>
 				<%aa++;
 			} %></div><%

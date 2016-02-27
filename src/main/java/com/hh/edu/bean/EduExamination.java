@@ -50,6 +50,17 @@ public class EduExamination  extends BaseTwoEntity{
 		this.answer = answer;
 	}
 	
+	private String artificial;
+	
+	@Lob
+	@Column(name="ARTIFICIAL_")
+	public String getArtificial() {
+		return artificial;
+	}
+	public void setArtificial(String artificial) {
+		this.artificial = artificial;
+	}
+
 	//score
 	private int score;
 	
@@ -82,4 +93,35 @@ public class EduExamination  extends BaseTwoEntity{
 	public void setSubmitDate(Date submitDate) {
 		this.submitDate = submitDate;
 	}
+	
+	private int calculationScore;
+	private int artificialScore;
+	
+	private int openScore;
+
+	@Column(name="CALCULATION_SCORE")
+	public int getCalculationScore() {
+		return calculationScore;
+	}
+	public void setCalculationScore(int calculationScore) {
+		this.calculationScore = calculationScore;
+	}
+	
+	@Column(name="ARTIFICIAL_SCORE")
+	public int getArtificialScore() {
+		return artificialScore;
+	}
+	public void setArtificialScore(int artificialScore) {
+		this.artificialScore = artificialScore;
+	}
+	
+	@Column(name="OPEN_SCORE")
+	public int getOpenScore() {
+		return openScore;
+	}
+	public void setOpenScore(int openScore) {
+		this.openScore = openScore;
+	}
+	
+	
 }

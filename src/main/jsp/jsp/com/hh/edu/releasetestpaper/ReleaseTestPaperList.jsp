@@ -44,6 +44,15 @@
 			params : $('#queryForm').getValue()
 		});
 	}
+	function doView(){
+		$.hh.pagelist.callRow("pagelist", function(row) {
+			BaseUtil.addTab({
+				id : row.id,
+				text :  '结果',
+				src : 'jsp-edu-releasetestpaper-TestResult?id=' +row.id + '&text=' +row.text
+			});
+		});
+	}
 </script>
 </head>
 <body>
@@ -51,6 +60,9 @@
 		 <span xtype="button"
 			config="onClick:doEdit,text:'修改' , itype :'edit' "></span>  <span
 			xtype="button" config="onClick:doDelete,text:'删除' , itype :'delete' "></span>
+		<span
+			xtype="button" config="onClick:doView,text:'查看考试结果', itype:'view' "></span>
+		
 		<!--  <span
 			xtype="button" config="onClick: doQuery ,text:'查询' , itype :'query' "></span>  <span
 			xtype="button"

@@ -14,6 +14,8 @@ public class BaseSubject extends BaseTwoEntity {
 	private String dataitems;
 	private String answer;
 	private String titleType;
+	
+	private int score;
 
 	@Column(name = "TYPE_", length = 36)
 	public String getType() {
@@ -63,4 +65,13 @@ public class BaseSubject extends BaseTwoEntity {
 		this.titleType = titleType;
 	}
 
+	@Column(name = "SCORE_")
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
 }

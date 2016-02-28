@@ -1,8 +1,11 @@
 package com.hh.edu.bean;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 
 import com.hh.hibernate.util.base.BaseTwoEntity;
 
@@ -64,5 +67,14 @@ public class BaseTestPaper extends BaseTwoEntity{
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	
+	@Transient
+	public Date getStartDate() {
+		return null;
+	}
+	@Transient
+	public long getWhenLong() {
+		return 0;
 	}
 }

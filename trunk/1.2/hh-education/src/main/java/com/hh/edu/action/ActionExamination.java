@@ -34,6 +34,10 @@ public class ActionExamination extends BaseServiceAction<EduExamination> {
 		 eduexaminationService.calculation(this.object);
 	}
 
+	public void openScore(){
+		 eduexaminationService.openScore(this.object);
+	}
+	
 	public String getSubmitType() {
 		return submitType;
 	}

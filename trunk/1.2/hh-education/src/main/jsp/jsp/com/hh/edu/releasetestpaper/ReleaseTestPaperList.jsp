@@ -61,7 +61,7 @@
 			config="onClick:doEdit,text:'修改' , itype :'edit' "></span>  <span
 			xtype="button" config="onClick:doDelete,text:'删除' , itype :'delete' "></span>
 		<span
-			xtype="button" config="onClick:doView,text:'查看考试结果', itype:'view' "></span>
+			xtype="button" config="onClick:doView,text:'查看结果/成绩发布/人工评卷', itype:'view' "></span>
 		
 		<!--  <span
 			xtype="button" config="onClick: doQuery ,text:'查询' , itype :'query' "></span>  <span

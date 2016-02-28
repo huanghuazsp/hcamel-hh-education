@@ -8,6 +8,7 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.hh.hibernate.dao.inf.Order;
 
@@ -23,6 +24,9 @@ public class EduReleaseTestPaper extends BaseTestPaper {
 	private String userNames;
 	
 	private String testPaperId;
+	
+	private String score;
+	private Date openDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "START_DATE", length = 7)
@@ -80,5 +84,24 @@ public class EduReleaseTestPaper extends BaseTestPaper {
 	public void setTestPaperId(String testPaperId) {
 		this.testPaperId = testPaperId;
 	}
+
+	@Transient
+	public String getScore() {
+		return score;
+	}
+
+	public void setScore(String score) {
+		this.score = score;
+	}
+	@Transient
+	public Date getOpenDate() {
+		return openDate;
+	}
+
+	public void setOpenDate(Date openDate) {
+		this.openDate = openDate;
+	}
+	
+	
 
 }

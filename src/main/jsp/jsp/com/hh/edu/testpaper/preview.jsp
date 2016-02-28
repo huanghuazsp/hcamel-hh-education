@@ -1,3 +1,4 @@
+<%@page import="com.hh.system.util.date.DateFormat"%>
 <%@page import="com.hh.system.util.dto.ParamInf"%>
 <%@page import="com.hh.system.util.dto.ParamFactory"%>
 <%@page import="com.hh.system.util.Check"%>
@@ -31,6 +32,13 @@
 	String userId = request.getParameter("userId");
 	
 	boolean exa = "exa".equals(exatype);
+	
+	boolean view ="view".equals(exatype);
+	
+	boolean artificial = "artificial".equals(exatype) ;
+	if(view){
+		artificial = true;
+	}
 
 	EduTestPaperService eduTestPaperService = BeanFactoryHelper.getBean(EduTestPaperService.class);
 	EduSubjectService eduSubjectService = BeanFactoryHelper.getBean(EduSubjectService.class);
@@ -39,14 +47,16 @@
 	
 	EduExaminationService eduExaminationService = BeanFactoryHelper.getBean(EduExaminationService.class);
 	EduExamination eduExamination = new EduExamination();
-	if(exa || "artificial".equals(exatype)){
+	if(exa || artificial){
 		eduExamination.setReleaseTestPaperId(id);
 		eduExamination = eduExaminationService.examination(eduExamination);
 	}
 	
 	Map<String,Object> answermap = Json.toMap(eduExamination.getAnswer());
 	
-	if( "artificial".equals(exatype) && Check.isNoEmpty(userId)){
+	Map<String,Object> artificialmap = Json.toMap(eduExamination.getArtificial());
+	
+	if( artificial && Check.isNoEmpty(userId)){
 		eduExamination = eduExaminationService.findObject(ParamFactory.getParamHb()
 				.is("releaseTestPaperId",id)
 				.is("userId",userId));
@@ -54,7 +64,7 @@
 	
 	
 	BaseTestPaper eduTestPaper = null;
-	if(exa || "artificial".equals(exatype)){
+	if(exa || artificial){
 		eduTestPaper = eduReleaseTestPaperService.findObjectById(id);
 	}else{
 		eduTestPaper = eduTestPaperService.findObjectById(id);
@@ -105,7 +115,7 @@ function init(){
 	regEvent();
 	
 	<%
-	if(exa || "artificial".equals(exatype)){
+	if(exa || artificial){
 	%>
 	eduExaminationFun();
 	<%
@@ -114,7 +124,7 @@ function init(){
 	
 }
 <%
-if(exa || "artificial".equals(exatype)){
+if(exa || artificial){
 %>
 function eduExaminationFun(){
 	$('[type=subject]').each(function(){
@@ -295,7 +305,7 @@ function updateA(answer,submit){
 }
 %>
 <%
-if( "artificial".equals(exatype)){
+if( artificial){
 %>
 function artificial(){
 	$.hh.validation.check('form', function(formData) {
@@ -328,15 +338,19 @@ function artificial(){
 		</div>
 		<div>
 
-<div xtype="toolbar" config="type:'head'" style="text-align:center;">
+<div xtype="toolbar" config="type:'head'" style="text-align:center;height:28px;vertical-align:middle;">
 	<%
-	if( "artificial".equals(exatype)){
+	if( artificial && !view){
 	%>
 	<span xtype="button" config="onClick : artificial ,text : '提交评分'   "></span>
 	<%
-	}else{
+	}else if(exa){
 	%>
 	<span xtype="button" config="onClick : submit ,text : '交卷'   "></span>
+	<%
+	}else if(view){
+	%>
+	<div style="margin-top:5px;">	<%=eduExamination.getUserName() %>您的成绩为：<%=eduExamination.getScore() %>,成绩发布时间为：<%=DateFormat.dateToStr(eduExamination.getOpenDate(), "yyyy-MM-dd HH:mm:ss")%></div>
 	<%
 	}
 	%>
@@ -356,7 +370,7 @@ function artificial(){
 		String score = Convert.toString(map.get("score"));
 		List<String> subjectList = Convert.strToList(subjects);
 		List<BaseSubject> eduSubjectList = new ArrayList<BaseSubject>();;
-		if(exa|| "artificial".equals(exatype)){
+		if(exa|| artificial){
 			List<EduReleaseSubject> eduSubjectList1 = eduReleaseSubjectService.queryList(ParamFactory.getParamHb().in("subjectId",subjectList).is("releaseTestPaperId",id));
 			for(EduReleaseSubject subject : eduSubjectList1){
 				eduSubjectList.add(subject);
@@ -382,10 +396,10 @@ function artificial(){
 			
 			String answer = "";
 			String  scoreStr = "";
-			if( "artificial".equals(exatype)){
+			if( artificial){
 				String userAnswer  = Convert.toString(answermap.get(eduSubject.getId()));
 				String color = "green";
-				scoreStr="（共"+eduSubject.getScore()+"分）";
+				scoreStr="（"+eduSubject.getScore()+"分）";
 				if("radio".equals(titleType)){
 					answer = Convert.numberToLetter(Convert.toInt(eduSubject.getAnswer()));
 					if(!userAnswer.equals(eduSubject.getAnswer())){
@@ -411,7 +425,12 @@ function artificial(){
 					answer="<div >&nbsp;&nbsp;<font color='"+color+"'>正确答案："+answer+"</font></div>";
 				}
 				if("shortAnswer".equals(titleType)){
-					answer = "评分：<span xtype=text config='name : \""+eduSubject.getId()+"\",min : 0,required:true,integer : true ,max:"+eduSubject.getScore()+",width:100' ></span>"+answer;
+					String vv = Convert.toString(artificialmap.get(eduSubject.getId()));
+					if(view){
+						answer = "&nbsp;&nbsp;得分："+vv+"<br/>"+answer;
+					}else{
+						answer = "评分：<span xtype=text config='value: "+vv+",name : \""+eduSubject.getId()+"\",min : 0,required:true,integer : true ,max:"+eduSubject.getScore()+",width:100' ></span>"+answer;
+					}
 				}
 			}
 			
@@ -441,12 +460,12 @@ function artificial(){
 				String[] answers = Convert.toString(eduSubject.getAnswer()).split("、");
 				String content = (aa)+"、"+eduSubject.getText();
 				for(String str : answers){
-					content = content.replace(str, "<input style='width:100px;' />")+scoreStr;
+					content = content.replace(str, "<input style='width:100px;' />");
 				}
 				%>
 				<div type=subject subjectId="<%=tmid%>" subjectType="<%=titleType%>">
 				<%=answer %>
-				<strong  title=true  id="<%=PrimaryKey.getPrimaryKeyUUID() %>"  subjectId="<%=tmid%>" ><%=content %></strong><br/><br/>
+				<strong  title=true  id="<%=PrimaryKey.getPrimaryKeyUUID() %>"  subjectId="<%=tmid%>" ><%=content +scoreStr%></strong><br/><br/>
 				<%aa++;
 			} %></div><%
 		}

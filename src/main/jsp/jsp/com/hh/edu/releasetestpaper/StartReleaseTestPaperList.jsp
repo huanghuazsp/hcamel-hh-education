@@ -21,6 +21,13 @@
 			src : 'jsp-edu-testpaper-preview?type=exa&id=' +id
 		});
 	}
+	function viewResult(id){
+		BaseUtil.addTab({
+			id : 'ks'+id,
+			text :  '考试',
+			src : 'jsp-edu-testpaper-preview?type=view&id=' +id
+		});
+	}
 	function renderoper(value, row) {
 		if(row.state==0){
 			return '<a  href="javascript:start(\'' + value
@@ -31,6 +38,15 @@
 			return '已结束';
 		}
 	}
+	function renderscore(value, row) {
+		if(value!='未发布'){
+			return '<a  href="javascript: viewResult(\'' + row.id
+			+ '\')" >'+value+'</a>';
+		}else{
+			return value;
+		}
+	}
+	
 </script>
 </head>
 <body>
@@ -49,11 +65,22 @@
 		
 		{
 			name : 'mc' ,
-			text : '名称'
+			text : '考卷名称'
 		},{
 			name : 'startDate' ,
 			text : '考试开始时间',
-			render:'datetime'
+			render:'datetime',
+			width:120
+		},{
+			name : 'openDate' ,
+			text : '成绩发布时间',
+			render:'datetime',
+			width:120
+		},{
+			name : 'score' ,
+			text : '分数',
+			width: '40',
+			render : renderscore
 		},{
 			name : 'id' ,
 			text : '操作',

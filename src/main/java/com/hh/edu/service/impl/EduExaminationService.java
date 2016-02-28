@@ -141,8 +141,24 @@ public class EduExaminationService extends BaseService<EduExamination> {
 		dao.updateEntity(
 				"update "
 						+ EduExamination.class.getName()
-						+ " set artificial=:artificial,artificialDate = :artificialDate,artificialScore=:artificialScore where releaseTestPaperId=:releaseTestPaperId and userId=:userId ",
+						+ " set score=:artificialScore + calculationScore,artificial=:artificial,artificialDate = :artificialDate,artificialScore=:artificialScore where releaseTestPaperId=:releaseTestPaperId and userId=:userId ",
 				map);
 		
+	}
+
+	@Transactional
+	public void openScore(EduExamination object) {
+		
+		calculation(object);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("openScore",1);
+		map.put("releaseTestPaperId", object.getReleaseTestPaperId());
+		map.put("openDate",new Date());
+		dao.updateEntity(
+				"update "
+						+ EduExamination.class.getName()
+						+ " set openScore=:openScore,openDate=:openDate where releaseTestPaperId=:releaseTestPaperId  ",
+				map);
 	}
 }

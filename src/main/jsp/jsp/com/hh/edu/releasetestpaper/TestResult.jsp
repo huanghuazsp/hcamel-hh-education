@@ -16,10 +16,17 @@
 		});
 	}
 	function renderoper(value, row) {
-		return '<a  href="javascript: artificial(\'' + value
-		+ '\',\'' + row.releaseTestPaperId
-		+ '\',\'' + row.userId
-		+ '\')" >人工评卷</a>';
+		if(row.openScore==1){
+			return '';
+		}else{
+			return '<a  href="javascript: artificial(\'' + value
+			+ '\',\'' + row.releaseTestPaperId
+			+ '\',\'' + row.userId
+			+ '\')" >人工评卷</a>';
+		}
+	}
+	function renderopenScore(value, row) {
+		return value==1?'已发布':'未发布';
 	}
 	function calculation(){
 		Request.request('edu-Examination-calculation', {
@@ -39,7 +46,14 @@
 		});
 	}
 	function openScore(){
-		
+		Request.request('edu-Examination-openScore', {
+			data : {
+				'releaseTestPaperId':'<%=Convert.toString(request.getParameter("id"))%>'
+			},
+			callback : function(result) {
+				doQuery();
+			}
+		});
 	}
 </script>
 </head>
@@ -79,6 +93,11 @@
 			name : 'score' ,
 			text : '最终分数',
 			width: '70'
+		},{
+			name : 'openScore' ,
+			text : '发布',
+			width: '50',
+			render : renderopenScore
 		},{
 			name : 'id' ,
 			text : '操作',

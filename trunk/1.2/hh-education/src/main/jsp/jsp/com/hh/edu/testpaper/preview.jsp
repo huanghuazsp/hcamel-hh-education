@@ -456,7 +456,7 @@ function artificial(){
 					if(view){
 						answer = "&nbsp;&nbsp;得分："+vv+"<br/>"+answer;
 					}else{
-						answer = "评分：<span xtype=text config='value: "+vv+",name : \""+eduSubject.getId()+"\",min : 0,required:true,integer : true ,max:"+eduSubject.getScore()+",width:100' ></span>"+answer;
+						answer = "评分：<span xtype=text config='value: \""+vv+"\",name : \""+eduSubject.getId()+"\",min : 0,required:true,integer : true ,max:"+eduSubject.getScore()+",width:100' ></span>"+answer;
 					}
 				}
 			}

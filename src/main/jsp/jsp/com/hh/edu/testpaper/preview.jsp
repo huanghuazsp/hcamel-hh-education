@@ -48,20 +48,18 @@
 	
 	EduExaminationService eduExaminationService = BeanFactoryHelper.getBean(EduExaminationService.class);
 	EduExamination eduExamination = new EduExamination();
-	if(exa || artificial){
+	if(exa){
 		eduExamination.setReleaseTestPaperId(id);
 		eduExamination = eduExaminationService.examination(eduExamination);
+	}else if(artificial && Check.isNoEmpty(userId)){
+		eduExamination = eduExaminationService.findExamination(id,userId);
+	}else if(view){
+		eduExamination = eduExaminationService.findExamination(id,userId);
 	}
 	
 	Map<String,Object> answermap = Json.toMap(eduExamination.getAnswer());
 	
 	Map<String,Object> artificialmap = Json.toMap(eduExamination.getArtificial());
-	
-	if( artificial && Check.isNoEmpty(userId)){
-		eduExamination = eduExaminationService.findObject(ParamFactory.getParamHb()
-				.is("releaseTestPaperId",id)
-				.is("userId",userId));
-	}
 	
 	
 	BaseTestPaper eduTestPaper = null;
@@ -339,6 +337,7 @@ function artificial(){
 		Request.request('edu-Examination-artificial', {
 			data : {
 				'releaseTestPaperId':'<%=id%>',
+				'userId':'<%=userId%>',
 				'artificial' : BaseUtil.toString(formData)
 			},
 			callback : function(result) {

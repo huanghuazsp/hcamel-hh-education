@@ -54,6 +54,17 @@ public class EduExaminationService extends BaseService<EduExamination> {
 		}
 		return eduExamination;
 	}
+	
+	public EduExamination findExamination(String pageId,String userId) {
+		if (Check.isEmpty(userId)) {
+			userId=loginUserService.findUserId();
+		}
+		EduExamination eduExamination = findObject(ParamFactory.getParamHb()
+				.is("releaseTestPaperId",pageId)
+				.is("userId", userId));
+
+		return eduExamination;
+	}
 
 	public void updateAnswer(EduExamination object, String submitType) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -128,7 +139,7 @@ public class EduExaminationService extends BaseService<EduExamination> {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("artificial",object.getArtificial());
 		map.put("releaseTestPaperId", object.getReleaseTestPaperId());
-		map.put("userId", loginUserService.findUserId());
+		map.put("userId", object.getUserId());
 		map.put("artificialDate",new Date());
 		
 		Map<String, Object> artificialMap=Json.toMap(object.getArtificial());

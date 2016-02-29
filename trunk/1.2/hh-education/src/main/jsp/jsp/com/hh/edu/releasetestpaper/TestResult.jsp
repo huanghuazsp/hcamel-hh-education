@@ -16,6 +16,9 @@
 		});
 	}
 	function renderoper(value, row) {
+		if((row.userName+'').indexOf('（缺考）')>-1){
+			return "缺考";
+		}
 		if(row.openScore==1){
 			return '';
 		}else{
@@ -55,10 +58,31 @@
 			}
 		});
 	}
+	
+	function dataLoad(items){
+		var j = 0;
+		var total = items.length;
+		
+		var souceTotal = 0;
+		
+		for(var i =0;i<items.length;i++){
+			var row = items[i];
+			if((row.userName+'').indexOf('（缺考）')>-1){
+				j++;
+			}
+			souceTotal+=row.score;
+		}
+		
+		$('#remark').html('应参加考试人数<font color=red>'
+				+total+'</font>人；实际参加考试人数<font color=red>'
+				+(total-j)+'</font>人；缺考人数<font color=red>'
+				+j+'</font>人；平均分：'+$.hh.formatText(souceTotal/total,'0.00')+'分；');
+	}
 </script>
 </head>
 <body>
 	<div  style="text-align:center;font-weight: bold; font-size: 25px;padding:10px;"><%=Convert.toString(request.getParameter("text"))%></div>
+	<div id="remark" style="text-align:center;padding:10px;"></div>
 	<div xtype="toolbar" config="type:'head'">
 			<span xtype="button"
 			config="onClick:calculation,text:'计算分数'"></span>
@@ -66,7 +90,7 @@
 			config="onClick:openScore,text:'发布分数'"></span>
 	</div>
 	<div id="pagelist" xtype="pagelist"
-		config=" url: 'edu-ReleaseTestPaper-queryTestResult?id=<%=Convert.toString(request.getParameter("id"))%>' ,column : [
+		config=" dataLoad : dataLoad , url: 'edu-ReleaseTestPaper-queryTestResult?id=<%=Convert.toString(request.getParameter("id"))%>' ,column : [
 		
 		{
 			name : 'userName' ,

@@ -20,7 +20,10 @@
 			return "缺考";
 		}
 		if(row.openScore==1){
-			return '';
+			return '<a  href="javascript: viewPage(\'' + row.userName
+			+ '\',\'' + row.releaseTestPaperId
+			+ '\',\'' + row.userId
+			+ '\')" >查看试卷</a>';
 		}else{
 			return '<a  href="javascript: artificial(\'' + value
 			+ '\',\'' + row.releaseTestPaperId
@@ -43,11 +46,19 @@
 	}
 	function artificial(value,id,userId){
 		BaseUtil.addTab({
-			id : 'pj'+id,
+			id : 'pj'+id+userId,
 			text :  '评卷',
 			src : 'jsp-edu-testpaper-preview?type=artificial&id=' +id +'&userId=' +userId
 		});
 	}
+	function viewPage(value,id,userId){
+		BaseUtil.addTab({
+			id : 'cksj'+id+userId,
+			text :  '查看试卷-'+value,
+			src : 'jsp-edu-testpaper-preview?type=view&id=' +id +'&userId=' +userId
+		});
+	}
+	
 	function openScore(){
 		Request.request('edu-Examination-openScore', {
 			data : {
@@ -78,6 +89,12 @@
 				+(total-j)+'</font>人；缺考人数<font color=red>'
 				+j+'</font>人；平均分：'+$.hh.formatText(souceTotal/total,'0.00')+'分；');
 	}
+	
+	function doQuery() {
+		$('#pagelist').loadData({
+			params : $('#queryForm').getValue()
+		});
+	}
 </script>
 </head>
 <body>
@@ -88,6 +105,8 @@
 			config="onClick:calculation,text:'计算分数'"></span>
 			<span xtype="button"
 			config="onClick:openScore,text:'发布分数'"></span>
+			<span xtype="button"
+			config="onClick:doQuery,text:'刷新'"></span>
 	</div>
 	<div id="pagelist" xtype="pagelist"
 		config=" dataLoad : dataLoad , url: 'edu-ReleaseTestPaper-queryTestResult?id=<%=Convert.toString(request.getParameter("id"))%>' ,column : [

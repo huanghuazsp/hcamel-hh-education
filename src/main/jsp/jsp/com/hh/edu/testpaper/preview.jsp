@@ -1,3 +1,4 @@
+<%@page import="com.hh.system.util.statics.StaticVar"%>
 <%@page import="com.hh.system.util.MessageException"%>
 <%@page import="com.hh.system.util.date.DateFormat"%>
 <%@page import="com.hh.system.util.dto.ParamInf"%>
@@ -63,31 +64,29 @@
 	
 	
 	BaseTestPaper eduTestPaper = null;
+	System.err.println(exa || artificial);
 	if(exa || artificial){
 		eduTestPaper = eduReleaseTestPaperService.findObjectById(id);
 		long currTime = new Date().getTime();
+		
+		if(exa){ 
+			long when = eduTestPaper.getWhenLong() * 60 * 1000;
+			long start = eduTestPaper.getStartDate().getTime();
+			if (start > currTime) {
+				out.print(StaticVar.getMessage("考试未开始！"));
+				return;
+			}
+			if ((when + start) < currTime) {
+				out.print(StaticVar.getMessage("考试已结束！"));
+				return;
+			}
+		}
+		
+		
+		
 		if(view){
 			if (eduExamination.getOpenScore()!=1) {
-					out.print("<table cellpadding='0' cellspacing='0' border='0' width='100%'	height='100%'>"
-							+"<tr>"
-							+"<td align='center' valign='middle'>"
-								+"<table>"
-									+"<tr>"
-										+"<td><div class='hh_blue'"
-												+"style='border-radius: 8px; -moz-border-radius: 8px; margin-top: 2px; padding: 10px 15px;'>"
-												+"<table>"
-													+"<tr>"
-														+"<td width='50px'><div class='hh_img_blue'></div></td>"
-														+"<td style='font-weight: bold; font-size: 25px;'>考试结果未发布不能查看结果"
-														+"</td>"
-													+"</tr>"
-												+"</table>"
-											+"</div></td>"
-									+"</tr>"
-								+"</table>"
-							+"</td>"
-						+"</tr>"
-					+"</table>");
+				out.print(StaticVar.getMessage("考试结果未发布不能查看结果"));
 				return;
 			}
 		}

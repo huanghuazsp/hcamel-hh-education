@@ -12,6 +12,7 @@ import com.hh.edu.service.impl.EduExaminationService;
 import com.hh.edu.service.impl.EduReleaseTestPaperService;
 import com.hh.system.service.impl.BaseService;
 import com.hh.system.util.Convert;
+import com.hh.system.util.MessageException;
 import com.hh.system.util.base.BaseServiceAction;
 import com.hh.system.util.dto.PagingData;
 import com.hh.system.util.dto.ParamFactory;
@@ -26,6 +27,16 @@ public class ActionReleaseTestPaper extends BaseServiceAction<EduReleaseTestPape
 
 	public BaseService<EduReleaseTestPaper> getService() {
 		return edureleasetestpaperService;
+	}
+	
+	
+	public Object emailRemind() {
+		try {
+			 edureleasetestpaperService.emailRemind(this.object);
+			 return null;
+		} catch (MessageException e) {
+			return e;
+		}
 	}
 
 	public PagingData<EduReleaseTestPaper> queryStartPagingData() {

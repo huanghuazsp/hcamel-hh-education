@@ -25,6 +25,8 @@ public class EduSubjectService extends BaseService<EduSubject> {
 		}
 		return super.queryPagingData(entity, pageRange,paramInf);
 	}
+
+	
 	
 }
  

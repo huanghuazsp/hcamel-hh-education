@@ -25,6 +25,16 @@
 			}
 		});
 	}
+	function doQuickAdd(){
+		Dialog.open({
+			url : 'jsp-edu-testpaper-QuickTestPaperEdit?type='+type1,
+			params : {
+				callback : function() {
+					$("#pagelist").loadData();
+				}
+			}
+		});
+	}
 	function doEdit() {
 		$.hh.pagelist.callRow("pagelist", function(row) {
 			Dialog.open({
@@ -82,6 +92,7 @@
 <body>
 	<div xtype="toolbar" config="type:'head'">
 		<span xtype="button" config="onClick:doAdd,text:'添加' , itype :'add' "></span>
+		<span xtype="button" config="onClick: doQuickAdd ,text:'快速添加' , itype :'add' "></span>
 		<span xtype="button"
 			config="onClick:doEdit,text:'修改' , itype :'edit' "></span> <span
 			xtype="button" config="onClick:doDelete,text:'删除' , itype :'delete' "></span>

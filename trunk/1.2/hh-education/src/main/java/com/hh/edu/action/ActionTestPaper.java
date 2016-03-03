@@ -9,10 +9,27 @@ import com.hh.system.util.base.BaseServiceAction;
 
 @SuppressWarnings("serial")
 public class ActionTestPaper extends BaseServiceAction< EduTestPaper > {
+	
+	private String titleType;
 	@Autowired
 	private EduTestPaperService edutestpaperService;
 	public BaseService<EduTestPaper> getService() {
 		return edutestpaperService;
 	}
+	
+	public void generate() {
+		edutestpaperService.generate(object,titleType);
+	}
+
+	public String getTitleType() {
+		return titleType;
+	}
+
+	public void setTitleType(String titleType) {
+		this.titleType = titleType;
+	}
+	
+	
+	
 }
  

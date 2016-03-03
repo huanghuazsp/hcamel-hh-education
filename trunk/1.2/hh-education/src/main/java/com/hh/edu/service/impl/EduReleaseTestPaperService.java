@@ -1,6 +1,7 @@
 package com.hh.edu.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,6 @@ import com.hh.edu.bean.EduExamination;
 import com.hh.edu.bean.EduReleaseSubject;
 import com.hh.edu.bean.EduReleaseTestPaper;
 import com.hh.edu.bean.EduSubject;
-import com.hh.edu.bean.EduTestPaper;
 import com.hh.system.service.impl.BaseService;
 import com.hh.system.util.BeanUtils;
 import com.hh.system.util.Check;
@@ -24,7 +24,10 @@ import com.hh.system.util.dto.PageRange;
 import com.hh.system.util.dto.PagingData;
 import com.hh.system.util.dto.ParamFactory;
 import com.hh.system.util.dto.ParamInf;
+import com.hh.system.util.email.JavaMail;
 import com.hh.usersystem.LoginUserServiceInf;
+import com.hh.usersystem.bean.usersystem.UsUser;
+import com.hh.usersystem.service.impl.UserService;
 
 @Service
 public class EduReleaseTestPaperService extends
@@ -44,6 +47,9 @@ public class EduReleaseTestPaperService extends
 
 	@Autowired
 	private EduTestPaperService eduTestPaperService;
+	
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public EduReleaseTestPaper save(EduReleaseTestPaper entity)
@@ -155,6 +161,40 @@ public class EduReleaseTestPaperService extends
 				deleteIds);
 		eduExaminationService.deleteByProperty("releaseTestPaperId", deleteIds);
 		super.deleteByIds(deleteIds);
+	}
+
+	public void emailRemind(EduReleaseTestPaper object) throws MessageException{
+		EduReleaseTestPaper eduReleaseTestPaper = findObjectById(object.getId());
+		long currTime = new Date().getTime();
+		long when = eduReleaseTestPaper.getWhenLong() * 60 * 1000;
+		long start = eduReleaseTestPaper.getStartDate().getTime();
+		if (start > currTime) {
+
+			
+			List<String> userIdList = Convert.strToList(eduReleaseTestPaper.getUserIds());
+			if (userIdList.size()>0) {
+				List<String> maiList = new ArrayList<String>();
+				List<UsUser> users = userService.queryListByIds(userIdList);
+				
+				
+				for (UsUser usUser : users) {
+					if (Check.isNoEmpty(usUser.getVdzyj())) {
+						maiList.add(usUser.getVdzyj());
+					}
+				}
+				
+				
+				JavaMail se = new JavaMail();
+				String msg = "请于"+ DateFormat.dateToStr(eduReleaseTestPaper.getStartDate(), "YYYY-MM-DD HH:mm:ss")+"参加【"+eduReleaseTestPaper.getText()+"】考试。";
+				
+				se.doSendHtmlEmail(maiList, "考试提醒"  ,msg);
+			}
+			
+		}else{
+			throw new MessageException("只能在考试未开始的时候进行邮件提醒！");
+		}
+		
+	
 	}
 
 }

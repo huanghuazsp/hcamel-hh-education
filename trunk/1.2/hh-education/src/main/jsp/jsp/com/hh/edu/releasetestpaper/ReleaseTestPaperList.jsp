@@ -53,6 +53,20 @@
 			});
 		});
 	}
+	function doEmail(){
+		$.hh.pagelist.callRow("pagelist", function(row) {
+			Request.request('edu-ReleaseTestPaper-emailRemind', {
+				data : {
+					'id':row。id
+				},
+				callback : function(result) {
+					if (result.success!=false) {
+						Dialog.msg('邮件提醒发送成功！')
+					}
+				}
+			});
+		});
+	}
 </script>
 </head>
 <body>
@@ -62,7 +76,8 @@
 			xtype="button" config="onClick:doDelete,text:'删除' , itype :'delete' "></span>
 		<span
 			xtype="button" config="onClick:doView,text:'查看结果/成绩发布/人工评卷', itype:'view' "></span>
-		
+		<span
+			xtype="button" config="onClick: doEmail ,text:'发送邮件提醒参考人员' "></span>
 		<!--  <span
 			xtype="button" config="onClick: doQuery ,text:'查询' , itype :'query' "></span>  <span
 			xtype="button"

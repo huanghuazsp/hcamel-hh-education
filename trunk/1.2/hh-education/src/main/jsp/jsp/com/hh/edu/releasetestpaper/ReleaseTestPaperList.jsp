@@ -57,11 +57,11 @@
 		$.hh.pagelist.callRow("pagelist", function(row) {
 			Request.request('edu-ReleaseTestPaper-emailRemind', {
 				data : {
-					'id':row。id
+					id: row.id
 				},
-				callback : function(result) {
-					if (result.success!=false) {
-						Dialog.msg('邮件提醒发送成功！')
+				callback : function(result){
+					if(result.success!=false){
+						Dialog.ok('邮件提醒发送成功！');
 					}
 				}
 			});

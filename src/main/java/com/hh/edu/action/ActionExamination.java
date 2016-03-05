@@ -38,6 +38,11 @@ public class ActionExamination extends BaseServiceAction<EduExamination> {
 		 eduexaminationService.openScore(this.object);
 	}
 	
+	public void doEmail(){
+		 eduexaminationService.doEmail(this.object);
+	}
+	
+	
 	public String getSubmitType() {
 		return submitType;
 	}

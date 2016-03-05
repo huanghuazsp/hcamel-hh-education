@@ -70,6 +70,20 @@
 		});
 	}
 	
+	function doEmail(){
+		Request.request('edu-Examination-doEmail', {
+			data : {
+				'releaseTestPaperId':'<%=Convert.toString(request.getParameter("id"))%>'
+			},
+			callback : function(result) {
+				if(result.success!=false){
+					Dialog.okmsg('邮件提醒发送成功！');
+					doQuery();
+				}
+			}
+		});
+	}
+	
 	function dataLoad(items){
 		var j = 0;
 		var total = items.length;
@@ -90,11 +104,6 @@
 				+j+'</font>人；平均分：'+$.hh.formatText(souceTotal/total,'0.00')+'分；');
 	}
 	
-	function doQuery() {
-		$('#pagelist').loadData({
-			params : $('#queryForm').getValue()
-		});
-	}
 </script>
 </head>
 <body>
@@ -107,6 +116,8 @@
 			config="onClick:openScore,text:'发布分数'"></span>
 			<span xtype="button"
 			config="onClick:doQuery,text:'刷新'"></span>
+			<span xtype="button"
+			config="onClick:doEmail,text:'发送成绩至参考人邮箱'"></span>
 	</div>
 	<div id="pagelist" xtype="pagelist"
 		config=" dataLoad : dataLoad , url: 'edu-ReleaseTestPaper-queryTestResult?id=<%=Convert.toString(request.getParameter("id"))%>' ,column : [

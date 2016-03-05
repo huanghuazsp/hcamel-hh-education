@@ -202,7 +202,7 @@ public class EduExaminationService extends BaseService<EduExamination> {
 					}
 
 					String msg = "您于" + DateFormat.dateToStr(eduReleaseTestPaper.getStartDate(), "YYYY-MM-DD HH:mm:ss")
-							+ "参加【" + eduReleaseTestPaper.getText() + "】的考试成绩为：" + score + "。";
+							+ "参加【" + eduReleaseTestPaper.getText() + "】的考试成绩为：" + score + "分。";
 
 					se.doSendHtmlEmail(maiList, "考试成绩提醒", msg);
 

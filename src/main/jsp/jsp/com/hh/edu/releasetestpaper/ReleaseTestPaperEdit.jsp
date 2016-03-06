@@ -9,7 +9,7 @@
 <%=BaseSystemUtil.getBaseJs("checkform","date")%>
 
 <script type="text/javascript">
-	var params = BaseUtil.getIframeParams();
+	var params = $.hh.getIframeParams();
 	var width = 600;
 	var height = 450;
 
@@ -22,7 +22,7 @@
 			$.extend(formData,formData1);
 			var userData = $('#userIdsSpan').getValueData();
 			if(userData){
-				formData.userNames = BaseUtil.objsToStr(userData,'text');
+				formData.userNames = $.hh.objsToStr(userData,'text');
 			}
 			formData.dcreate=null;
 			formData.dupdate=null;

@@ -12,7 +12,7 @@
 	String type =   Convert.toString(request.getParameter("type"));
 %>
 <script type="text/javascript">
-	var params = BaseUtil.getIframeParams();
+	var params = $.hh.getIframeParams();
 	var width = 600;
 	var height = 700;
 
@@ -20,7 +20,7 @@
 
 	function save() {
 		$.hh.validation.check('form', function(formData) {
-			formData.dataitems = BaseUtil.toString(formData.dataitems);
+			formData.dataitems = $.hh.toString(formData.dataitems);
 			Request.request('edu-Subject-save', {
 				data : formData,
 				callback : function(result) {

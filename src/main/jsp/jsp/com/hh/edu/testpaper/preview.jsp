@@ -164,7 +164,7 @@ function init(){
 		if(sytime<0){
 			Request.href('jsp-system-tools-messagepage?text=考试已经结束！');
 		}
-		$('#timediv').html('离考试结束还有：<font color=red>'+BaseUtil.millisecondTOHHMMSS(sytime)+'</font>');
+		$('#timediv').html('离考试结束还有：<font color=red>'+$.hh.millisecondTOHHMMSS(sytime)+'</font>');
 	}, 1000 );
 	<%
 	}
@@ -341,7 +341,7 @@ function updateA(answer,submit){
 		defaultMsg : false,
 		data : {
 			'releaseTestPaperId':'<%=id%>',
-			'answer': BaseUtil.toString(answer),
+			'answer': $.hh.toString(answer),
 			submitType : submit
 		},
 		callback : function(result) {
@@ -361,7 +361,7 @@ function artificial(){
 			data : {
 				'releaseTestPaperId':'<%=id%>',
 				'userId':'<%=userId%>',
-				'artificial' : BaseUtil.toString(formData)
+				'artificial' : $.hh.toString(formData)
 			},
 			callback : function(result) {
 				

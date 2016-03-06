@@ -46,7 +46,7 @@
 	}
 	function doView(){
 		$.hh.pagelist.callRow("pagelist", function(row) {
-			BaseUtil.addTab({
+			$.hh.addTab({
 				id : row.id,
 				text :  '结果',
 				src : 'jsp-edu-releasetestpaper-TestResult?id=' +row.id + '&text=' +row.text
@@ -69,7 +69,7 @@
 	}
 	function viewUser(){
 		$.hh.pagelist.callRow("pagelist", function(row) {
-			BaseUtil.addTab({
+			$.hh.addTab({
 				id : 'viewuser'+row.id,
 				text :  '查看参考人',
 				src : 'jsp-edu-releasetestpaper-viewUser?id=' +row.id

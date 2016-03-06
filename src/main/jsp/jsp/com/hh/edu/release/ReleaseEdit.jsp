@@ -11,7 +11,7 @@
 	String type = Convert.toString(request.getParameter("type"));
 %>
 <script type="text/javascript">
-	var params = BaseUtil.getIframeParams();
+	var params = $.hh.getIframeParams();
 	var width = 800;
 	var height = 600;
 
@@ -24,7 +24,7 @@
 			$.extend(formData,formData1);
 			var userData = $('#userIdsSpan').getValueData();
 			if(userData){
-				formData.userNames = BaseUtil.objsToStr(userData,'text');
+				formData.userNames = $.hh.objsToStr(userData,'text');
 			}
 			formData.testPaperId=formData.id;
 			formData.id='';
@@ -55,10 +55,10 @@
 				callback : function(result) {
 					TestPaperObject = result;
 					var total = 0 ;
-					var dataitems = BaseUtil.toObject(result.dataitems);
+					var dataitems = $.hh.toObject(result.dataitems);
 					for(var i=0;i < dataitems.length;i++){
 						var data = dataitems[i];
-						total+= BaseUtil.toInt(data.score);
+						total+= $.hh.toInt(data.score);
 					}
 					if(total!=100){
 						$('body').html('<table cellpadding="0" cellspacing="0" border="0" width="100%"	height="100%">'

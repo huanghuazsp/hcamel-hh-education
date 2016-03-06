@@ -64,7 +64,7 @@
 	
 	function preview(){
 		$.hh.pagelist.callRow("pagelist", function(row) {
-			BaseUtil.addTab({
+			$.hh.addTab({
 				id : row.id,
 				text :  '试卷预览',
 				src : 'jsp-edu-testpaper-preview?id=' +row.id

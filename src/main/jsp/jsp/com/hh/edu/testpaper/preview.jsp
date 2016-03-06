@@ -24,6 +24,14 @@
 <%=BaseSystemUtil.getBaseDoctype()%>
 <html>
 <head>
+<meta HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+<meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+<meta HTTP-EQUIV="expires" CONTENT="0"> 
+<% 
+response.setHeader("Cache-Control","no-store"); 
+response.setHeader("Pragrma","no-cache"); 
+response.setDateHeader("Expires",0); 
+%> 
 <title>数据编辑</title>
 <%=BaseSystemUtil.getBaseJs("layout","checkform")%>
 <%
@@ -64,7 +72,6 @@
 	
 	
 	BaseTestPaper eduTestPaper = null;
-	System.err.println(exa || artificial);
 	if(exa || artificial){
 		eduTestPaper = eduReleaseTestPaperService.findObjectById(id);
 		long currTime = new Date().getTime();
@@ -142,6 +149,23 @@ function init(){
 	if(exa || artificial){
 	%>
 	eduExaminationFun();
+	<%
+	}
+	%>
+	
+	
+	<%
+	if(exa){
+		long sytime = (eduTestPaper.getStartDate().getTime() +(eduTestPaper.getWhenLong()*60*1000))-new Date().getTime();
+	%>
+	var sytime = <%=sytime%>;
+	setInterval(function(){
+		sytime=sytime-1000;
+		if(sytime<0){
+			Request.href('jsp-system-tools-messagepage?text=考试已经结束！');
+		}
+		$('#timediv').html('离考试结束还有：<font color=red>'+BaseUtil.millisecondTOHHMMSS(sytime)+'</font>');
+	}, 1000 );
 	<%
 	}
 	%>
@@ -372,6 +396,7 @@ function artificial(){
 	}else if(exa){
 	%>
 	<span xtype="button" config="onClick : submit ,text : '交卷'   "></span>
+	<span id="timediv"></span>
 	<%
 	}else if(view){
 	%>

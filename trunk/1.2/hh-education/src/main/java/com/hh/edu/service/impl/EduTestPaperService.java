@@ -15,6 +15,7 @@ import com.hh.system.service.impl.BaseService;
 import com.hh.system.util.Check;
 import com.hh.system.util.Convert;
 import com.hh.system.util.Json;
+import com.hh.system.util.MessageException;
 import com.hh.system.util.Random;
 import com.hh.system.util.dto.PageRange;
 import com.hh.system.util.dto.PagingData;
@@ -56,6 +57,9 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 
 			int[] randoms = Random.randomCommon(1, subjectcount+1, subjectCount);
 
+			if(randoms==null){
+				throw new MessageException("您所选的题目类型题目不足，请到题目管理中添加题目！");
+			}
 			StringBuffer subjectStrs = new StringBuffer("");
 
 			for (int i : randoms) {

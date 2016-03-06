@@ -45,14 +45,14 @@
 		});
 	}
 	function artificial(value,id,userId){
-		BaseUtil.addTab({
+		$.hh.addTab({
 			id : 'pj'+id+userId,
 			text :  '评卷',
 			src : 'jsp-edu-testpaper-preview?type=artificial&id=' +id +'&userId=' +userId
 		});
 	}
 	function viewPage(value,id,userId){
-		BaseUtil.addTab({
+		$.hh.addTab({
 			id : 'cksj'+id+userId,
 			text :  '查看试卷-'+value,
 			src : 'jsp-edu-testpaper-preview?type=view&id=' +id +'&userId=' +userId

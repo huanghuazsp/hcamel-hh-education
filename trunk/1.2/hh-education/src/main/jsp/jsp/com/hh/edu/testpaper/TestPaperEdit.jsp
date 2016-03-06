@@ -11,7 +11,7 @@
 	String type = Convert.toString(request.getParameter("type"));
 %>
 <script type="text/javascript">
-	var params = BaseUtil.getIframeParams();
+	var params = $.hh.getIframeParams();
 	var width = 800;
 	var height = 600;
 

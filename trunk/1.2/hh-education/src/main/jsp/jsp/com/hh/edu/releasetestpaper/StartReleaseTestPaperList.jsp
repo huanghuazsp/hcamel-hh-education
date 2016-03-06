@@ -15,14 +15,14 @@
 		});
 	}
 	function start(id){
-		BaseUtil.addTab({
+		$.hh.addTab({
 			id : 'ks'+id,
 			text :  '考试',
 			src : 'jsp-edu-testpaper-preview?type=exa&id=' +id
 		});
 	}
 	function viewResult(id){
-		BaseUtil.addTab({
+		$.hh.addTab({
 			id : 'ks'+id,
 			text :  '考试',
 			src : 'jsp-edu-testpaper-preview?type=view&id=' +id

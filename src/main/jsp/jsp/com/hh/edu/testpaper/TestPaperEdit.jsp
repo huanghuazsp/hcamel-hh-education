@@ -115,7 +115,7 @@
 				</tr>
 				<tr>
 					<td xtype="label">试卷抬头：</td>
-					<td><span xtype="ckeditor" config="name: 'head' "></span></td>
+					<td><span xtype="ckeditor" config="name: 'head' , height : 200 "></span></td>
 				</tr>
 				<tr id="tableitemtr">
 					<td xtype="label">大题配置：</td>

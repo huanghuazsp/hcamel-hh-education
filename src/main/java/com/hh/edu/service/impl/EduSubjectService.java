@@ -20,6 +20,9 @@ public class EduSubjectService extends BaseService<EduSubject> {
 		if (Check.isNoEmpty(entity.getType())) {
 			paramInf.is("type", entity.getType());
 		}
+		if (Check.isNoEmpty(entity.getTitleType())) {
+			paramInf.is("titleType", entity.getTitleType());
+		}
 		if (Check.isNoEmpty(entity.getText())) {
 			paramInf.like("text", entity.getText());
 		}

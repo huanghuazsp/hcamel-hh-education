@@ -488,6 +488,11 @@ function artificial(){
 		%><br/>
 			<strong title=true  id="<%=PrimaryKey.getPrimaryKeyUUID() %>"  subjectId="<%=tmid%>" ><%=(aa)+"、"+eduSubject.getText() +scoreStr%></strong><br/><br/>
 			<%=answer %>
+			
+			<% if(Check.isNoEmpty(eduSubject.getTextpic())){%>
+				<img alt="" src="system-File-download?system_open_page_file_form_params={id:'<%=eduSubject.getTextpic()%>'}">
+			<% }%>
+			
 			<div type=subject subjectId="<%=tmid%>" subjectType="<%=titleType%>">
 		<%
 			aa++;

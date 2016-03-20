@@ -120,6 +120,7 @@
 					<td xtype="label">题目：</td>
 					<td><span xtype="textarea" config=" name : 'text',required :true"></span></td>
 				</tr>
+				
 				<tr id="tableitemtr">
 					<td xtype="label">选择项：</td>
 					<td><span xtype="tableitem" configVar="tableitemConfig"></span></td>
@@ -127,6 +128,10 @@
 				<tr>
 					<td xtype="label">答案：</td>
 					<td id="answertd"></td>
+				</tr>
+				<tr id="titletr">
+					<td xtype="label">题目图片：</td>
+					<td><span xtype="uploadpic" config=" name : 'textpic' ,width:400,height:300 "></span></td>
 				</tr>
 			</table>
 		</form>

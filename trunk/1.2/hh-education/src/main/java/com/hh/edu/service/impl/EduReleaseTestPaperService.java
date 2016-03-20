@@ -116,6 +116,12 @@ public class EduReleaseTestPaperService extends
 			EduReleaseTestPaper entity, PageRange pageRange) {
 		ParamInf paramInf = ParamFactory.getParamHb();
 		paramInf.like("userIds", loginUserService.findUserId());
+		
+		if (Check.isNoEmpty(entity.getText())) {
+			paramInf.like("text", entity.getText());
+		}
+		
+		
 		PagingData<EduReleaseTestPaper> pageData = super.queryPagingData(
 				entity, pageRange, paramInf);
 
@@ -196,5 +202,15 @@ public class EduReleaseTestPaperService extends
 		
 	
 	}
+	@Override
+	public PagingData<EduReleaseTestPaper> queryPagingData(EduReleaseTestPaper entity,
+			PageRange pageRange) {
+		ParamInf paramInf = ParamFactory.getParamHb();
+		if (Check.isNoEmpty(entity.getText())) {
+			paramInf.like("text", entity.getText());
+		}
+		return super.queryPagingData(entity, pageRange,paramInf);
+	}
+	
 
 }

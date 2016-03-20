@@ -103,7 +103,7 @@
 			<td><span xtype="text" config=" name : 'text' ,enter: doQuery "></span></td>
 			<td xtype="label">类型：</td>
 			<td><span xtype="combobox"
-				config="name: 'type'  , data :[{id:2,text:'所有'},{id:1,text:'男'},{id:0,text:'女'}]"></span></td>
+				config="name: 'titleType'  , data :[ {id:'radio',text:'单选题'} , {id:'check',text:'多选题'} , {id:'fillEmpty',text:'填空题'}  , {id:'shortAnswer',text:'简答题'}  ]"></span></td>
 			<td><span
 			xtype="button" config="onClick: doQuery ,text:'查询' , itype :'query' "></span></td>
 		</tr>

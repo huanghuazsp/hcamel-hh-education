@@ -54,12 +54,14 @@
 		<!--  <span
 			xtype="button" config="onClick: doQuery ,text:'查询' , itype :'query' "></span> --> 
 	</div>
-	<!-- <table xtype="form" id="queryForm" style="width:600px;">
+	<table xtype="form" id="queryForm" style="width:700px;">
 		<tr>
-			<td xtype="label">test：</td>
-			<td><span xtype="text" config=" name : 'test'"></span></td>
+			<td xtype="label">名称：</td>
+			<td><span xtype="text" config=" name : 'text' ,enter: doQuery "></span></td>
+			<td><span
+			xtype="button" config="onClick: doQuery ,text:'查询' , itype :'query' "></span></td>
 		</tr>
-	</table> -->
+	</table>
 	<div id="pagelist" xtype="pagelist"
 		config=" url: 'edu-ReleaseTestPaper-queryStartPagingData' ,column : [
 		

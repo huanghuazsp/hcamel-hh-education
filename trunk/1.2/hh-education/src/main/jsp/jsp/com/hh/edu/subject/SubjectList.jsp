@@ -114,7 +114,14 @@
 			width:80,
 		},{
 			name : 'text' ,
-			text : '题目'
+			text : '题目',
+			align:'left',
+			contentwidth:300
+		},{
+			name : 'answer' ,
+			text : '答案',
+			align:'center',
+			contentwidth:100
 		}
 		
 	]">

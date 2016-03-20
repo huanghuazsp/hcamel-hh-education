@@ -40,6 +40,7 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 		return super.queryPagingData(entity, pageRange, paramInf);
 	}
 
+	
 	@Transactional
 	public void generate(EduTestPaper object, String titleType) {
 
@@ -55,6 +56,10 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 			int subjectCount = Convert.toInt(map.get("subjectCount"));
 			int score = Convert.toInt(map.get("score"));
 
+			if(subjectcount+1<=subjectCount){
+				throw new MessageException("您所选的题目类型题目不足，请到题目管理中添加题目！");
+			}
+			
 			int[] randoms = Random.randomCommon(1, subjectcount+1, subjectCount);
 
 			if(randoms==null){

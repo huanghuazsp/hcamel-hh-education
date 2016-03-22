@@ -133,7 +133,7 @@
 		},{
 			name : 'calculationScore' ,
 			text : '计算分数',
-			width: '70'
+			width: 70
 		},{
 			name : 'artificialDate' ,
 			text : '人工评卷时间',
@@ -142,20 +142,20 @@
 		},{
 			name : 'artificialScore' ,
 			text : '人工分数',
-			width: '70'
+			width: 70
 		},{
 			name : 'score' ,
 			text : '最终分数',
-			width: '70'
+			width: 70
 		},{
 			name : 'openScore' ,
 			text : '发布',
-			width: '50',
+			width: 50,
 			render : renderopenScore
 		},{
 			name : 'id' ,
 			text : '操作',
-			width: '70',
+			width: 70,
 			render : renderoper
 		}
 	]">

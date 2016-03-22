@@ -121,12 +121,12 @@
 			name : 'text' ,
 			text : '题目',
 			align:'left',
-			contentwidth:300
+			width:'100%'
 		},{
 			name : 'answer' ,
 			text : '答案',
 			align:'center',
-			contentwidth:100
+			width:80
 		}
 		
 	]">

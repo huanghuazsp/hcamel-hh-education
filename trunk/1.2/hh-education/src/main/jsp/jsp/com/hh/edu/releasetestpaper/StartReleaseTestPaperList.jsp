@@ -81,12 +81,12 @@
 		},{
 			name : 'score' ,
 			text : '分数',
-			width: '40',
+			width: 40,
 			render : renderscore
 		},{
 			name : 'id' ,
 			text : '操作',
-			width: '40',
+			width: 50,
 			render : renderoper
 		}
 	]">

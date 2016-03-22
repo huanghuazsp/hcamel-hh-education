@@ -131,31 +131,33 @@ public class EduReleaseTestPaperService extends
 			releasePageIdList.add(eduReleaseTestPaper.getId());
 		}
 
-		List<EduExamination> examinations = eduExaminationService
-				.queryList(ParamFactory.getParamHb()
-						.is("userId", loginUserService.findUserId())
-						.in("releaseTestPaperId", releasePageIdList));
+		if (releasePageIdList.size()>0) {
+			List<EduExamination> examinations = eduExaminationService
+					.queryList(ParamFactory.getParamHb()
+							.is("userId", loginUserService.findUserId())
+							.in("releaseTestPaperId", releasePageIdList));
 
-		Map<String, EduExamination> examinationMap = new HashMap<String, EduExamination>();
-		for (EduExamination eduExamination : examinations) {
-			if (eduExamination.getOpenScore() == 1) {
-				examinationMap.put(eduExamination.getReleaseTestPaperId(),
-						eduExamination);
+			Map<String, EduExamination> examinationMap = new HashMap<String, EduExamination>();
+			for (EduExamination eduExamination : examinations) {
+				if (eduExamination.getOpenScore() == 1) {
+					examinationMap.put(eduExamination.getReleaseTestPaperId(),
+							eduExamination);
+				}
+
 			}
 
-		}
+			for (EduReleaseTestPaper eduReleaseTestPaper : pageData.getItems()) {
+				EduExamination eduExamination = examinationMap
+						.get(eduReleaseTestPaper.getId());
+				if (eduExamination != null) {
+					eduReleaseTestPaper.setScore(Convert.toString(eduExamination
+							.getScore()));
+					eduReleaseTestPaper.setOpenDate(eduExamination.getOpenDate());
+				} else {
+					eduReleaseTestPaper.setScore("未发布");
+				}
 
-		for (EduReleaseTestPaper eduReleaseTestPaper : pageData.getItems()) {
-			EduExamination eduExamination = examinationMap
-					.get(eduReleaseTestPaper.getId());
-			if (eduExamination != null) {
-				eduReleaseTestPaper.setScore(Convert.toString(eduExamination
-						.getScore()));
-				eduReleaseTestPaper.setOpenDate(eduExamination.getOpenDate());
-			} else {
-				eduReleaseTestPaper.setScore("未发布");
 			}
-
 		}
 
 		return pageData;

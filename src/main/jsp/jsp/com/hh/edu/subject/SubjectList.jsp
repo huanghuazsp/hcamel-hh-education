@@ -118,6 +118,11 @@
 			align:'center',
 			width:80,
 		},{
+			name : 'vcreateName' ,
+			text : '添加人',
+			align:'center',
+			width:80,
+		},{
 			name : 'text' ,
 			text : '题目',
 			align:'left',

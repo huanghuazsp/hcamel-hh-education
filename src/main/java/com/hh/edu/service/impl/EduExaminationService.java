@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javassist.expr.NewArray;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +18,6 @@ import com.hh.system.service.impl.BaseService;
 import com.hh.system.util.Check;
 import com.hh.system.util.Convert;
 import com.hh.system.util.Json;
-import com.hh.system.util.MessageException;
 import com.hh.system.util.date.DateFormat;
 import com.hh.system.util.dto.ParamFactory;
 import com.hh.system.util.email.JavaMail;
@@ -44,15 +41,18 @@ public class EduExaminationService extends BaseService<EduExamination> {
 
 	@Transactional
 	public EduExamination examination(EduExamination entity) {
-
 		EduExamination eduExamination = findObject(ParamFactory.getParamHb()
 				.is("releaseTestPaperId", entity.getReleaseTestPaperId()).is("userId", loginUserService.findUserId()));
-
 		if (eduExamination == null) {
 			eduExamination = entity;
 		}
 		eduExamination.setUserId(loginUserService.findUserId());
 		eduExamination.setUserName(loginUserService.findUserName());
+		return saveExam(eduExamination);
+	}
+
+	@Transactional
+	public EduExamination saveExam(EduExamination eduExamination) {
 		if (Check.isEmpty(eduExamination.getId())) {
 			dao.createEntity(eduExamination);
 		} else {
@@ -90,10 +90,31 @@ public class EduExaminationService extends BaseService<EduExamination> {
 	@Transactional
 	public void calculation(EduExamination object) {
 
-		Map<String, Integer> releaseScoreMap = new HashMap<String, Integer>();
-
+		EduReleaseTestPaper eduReleaseTestPaper = eduReleaseTestPaperService
+				.findObjectById(object.getReleaseTestPaperId());
+		
 		List<EduExamination> eduExaminationList = queryListByProperty("releaseTestPaperId",
 				object.getReleaseTestPaperId());
+		
+		List< String> userIdList = new ArrayList<String>();
+		for (EduExamination eduExamination : eduExaminationList) {
+			userIdList.add(eduExamination.getUserId());
+		}
+		
+		
+		List<UsUser> userList = userService.queryItemsByIdsStr(eduReleaseTestPaper.getUserIds());
+		for (UsUser usUser : userList) {
+			if (!userIdList.contains(usUser.getId())) {
+				EduExamination eduExamination = new EduExamination();
+				eduExamination.setReleaseTestPaperId(object.getReleaseTestPaperId());
+				eduExamination.setUserId(usUser.getId());
+				eduExamination.setUserName(usUser.getText());
+				saveExam(eduExamination);
+			}
+		}
+		
+		Map<String, Integer> releaseScoreMap = new HashMap<String, Integer>();
+		
 		List<EduReleaseSubject> eduReleaseSubjectList = eduReleaseSubjectService
 				.queryListByProperty("releaseTestPaperId", object.getReleaseTestPaperId());
 

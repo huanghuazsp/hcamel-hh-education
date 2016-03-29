@@ -25,8 +25,9 @@ import com.hh.system.util.dto.PagingData;
 import com.hh.system.util.dto.ParamFactory;
 import com.hh.system.util.dto.ParamInf;
 import com.hh.system.util.email.JavaMail;
-import com.hh.usersystem.LoginUserServiceInf;
+import com.hh.usersystem.bean.usersystem.UsRole;
 import com.hh.usersystem.bean.usersystem.UsUser;
+import com.hh.usersystem.service.impl.LoginUserUtilService;
 import com.hh.usersystem.service.impl.UserService;
 
 @Service
@@ -34,7 +35,7 @@ public class EduReleaseTestPaperService extends
 		BaseService<EduReleaseTestPaper> {
 
 	@Autowired
-	private LoginUserServiceInf loginUserService;
+	private LoginUserUtilService loginUserService;
 
 	@Autowired
 	private EduSubjectService eduSubjectService;
@@ -210,6 +211,11 @@ public class EduReleaseTestPaperService extends
 		ParamInf paramInf = ParamFactory.getParamHb();
 		if (Check.isNoEmpty(entity.getText())) {
 			paramInf.like("text", entity.getText());
+		}
+		UsUser user = loginUserService.findLoginUser();
+		List<UsRole> usRoles = user.getHhXtJsList();
+		if (usRoles.size() == 1 && "student".equals(usRoles.get(0).getJssx())) {
+			paramInf.is("vcreate", loginUserService.findUserId());
 		}
 		return super.queryPagingData(entity, pageRange,paramInf);
 	}

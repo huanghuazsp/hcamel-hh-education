@@ -1,3 +1,4 @@
+<%@page import="com.hh.system.util.SystemUtil"%>
 <%@page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@page import="com.hh.system.util.BaseSystemUtil"%>
 <%=BaseSystemUtil.getBaseDoctype()%>
@@ -5,15 +6,45 @@
 <html>
 <head>
 <title>数据列表</title>
-<%=BaseSystemUtil.getBaseJs()%>
+<%=BaseSystemUtil.getBaseJs()+SystemUtil.getUser()%>
 
 <script type="text/javascript">
 	var type1 = '';
 	function doDelete() {
-		$.hh.pagelist.deleteData({
-			pageid : 'pagelist',
-			action : 'edu-Subject-deleteByIds'
+		var as = true;
+		
+		$.hh.pagelist.callRows('pagelist', function(rows) {
+			for(var i =0;i<rows.length;i++){
+				if(rows[i].vcreate!=loginUser.id){
+					as = false;
+				}
+			}
 		});
+		
+		if(!((loginUser.hhXtJsList && loginUser.hhXtJsList.length==1 && loginUser.hhXtJsList[0].jssx=='student')) || as){
+			$.hh.pagelist.deleteData({
+				pageid : 'pagelist',
+				action : 'edu-Subject-deleteByIds'
+			});
+		}else{
+			Dialog.infomsg("您的权限只能删除本人题目！");
+		}
+		
+	}
+	function doSetState() {
+		$.hh.pagelist.callRows( 'pagelist', function(rows) {
+				var ids = $.hh.objsToStr(rows);
+				var data = {};
+				data.ids = ids;
+				Request.request('edu-Subject-doSetState', {
+					data : data
+				}, function(result) {
+					if (result.success != false) {
+						$("#pagelist" ).loadData();
+					}
+				});
+		});
+		
 	}
 	function doAddRadio(){
 		doAdd('radio');
@@ -41,17 +72,21 @@
 	}
 	function doEdit() {
 		$.hh.pagelist.callRow("pagelist", function(row) {
-			Dialog.open({
-				url : 'jsp-edu-subject-SubjectEdit?type='+type1,
-				urlParams : {
-					id : row.id
-				},
-				params : {
-					callback : function() {
-						$("#pagelist").loadData();
+			if(!((loginUser.hhXtJsList && loginUser.hhXtJsList.length==1 && loginUser.hhXtJsList[0].jssx=='student' )) ||  row.vcreate==loginUser.id){
+				Dialog.open({
+					url : 'jsp-edu-subject-SubjectEdit?type='+type1,
+					urlParams : {
+						id : row.id
+					},
+					params : {
+						callback : function() {
+							$("#pagelist").loadData();
+						}
 					}
-				}
-			});
+				});
+			}else{
+				Dialog.infomsg("您的权限只能修改本人题目！");
+			}
 		});
 	}
 	function iframeClick(data) {
@@ -79,6 +114,14 @@
 			return '填空题';
 		}
 	}
+	
+	function renderstate(state){
+		if(state==1){
+			return '学校题库';
+		}else{
+			return '个人题库';
+		}
+	}
 </script>
 </head>
 <body>
@@ -96,6 +139,7 @@
 			config="onClick: $.hh.pagelist.doUp , params:{ pageid :'pagelist',action:'edu-Subject-order'}  ,  icon : 'hh_up' "></span>
 		<span xtype="button"
 			config="onClick: $.hh.pagelist.doDown , params:{ pageid :'pagelist',action:'edu-Subject-order'} , icon : 'hh_down' "></span>
+		<span xtype="button" config="onClick: doSetState ,text:'转入学校题库'  "></span>
 	</div>
 	<table xtype="form" id="queryForm" style="width:700px;">
 		<tr>
@@ -132,6 +176,11 @@
 			text : '答案',
 			align:'center',
 			width:80
+		},{
+			name : 'state' ,
+			text : '状态',
+			width: 55,
+			render : renderstate
 		}
 		
 	]">

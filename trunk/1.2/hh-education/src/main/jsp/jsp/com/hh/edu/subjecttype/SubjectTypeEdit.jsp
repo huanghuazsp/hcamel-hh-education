@@ -59,11 +59,11 @@
 			<span xtype="text" config=" hidden:true,name : 'id'"></span>
 			<table xtype="form" width=80% align=center>
 				<tr>
-					<td xtype="label">名称：</td>
+					<td xtype="label" config="width:120">（学段/学科）名称：</td>
 					<td><span xtype="text" config=" name : 'text',required :true"></span></td>
 				</tr>
 				<tr>
-					<td xtype="label">父节点：</td>
+					<td xtype="label">学段：</td>
 					<td><span id="node_span" xtype="selectTree"
 						config="name: 'node' , findTextAction : 'edu-SubjectType-findObjectById' , url : 'edu-SubjectType-queryTreeList' "></span>
 					</td>
@@ -71,7 +71,7 @@
 				<tr>
 					<td xtype="label">类型：</td>
 					<td><span xtype="radio"
-						config="name: 'leaf' ,defaultValue : 0,  data :[{id:1,text:'子节点'},{id:0,text:'父节点'}]"></span></td>
+						config="name: 'leaf' ,defaultValue : 0,  data :[{id:1,text:'学科'},{id:0,text:'学段'}]"></span></td>
 				</tr>
 				<tr>
 					<td xtype="label">是否展开：</td>

@@ -17,7 +17,7 @@
 		var iframe = window.frames[iframeId];
 		iframe.callback = function() {
 			$.hh.tree.refresh('tree');
-			$('#centerdiv').disabled('请选择要编辑的树节点或添加新的数据！');
+			$('#centerdiv').disabled('请选择要编辑的学段或者学科！');
 		}
 		if (selectNode) {
 			iframe.newData({
@@ -55,7 +55,7 @@
 			id : treeNode.id,
 			callback : function(result) {
 				if (result.success!=false) {
-					$('#centerdiv').disabled('请选择要编辑的树节点或添加新的数据！');
+					$('#centerdiv').disabled('请选择要编辑的学段或者学科！');
 				}
 			}
 		});
@@ -72,7 +72,7 @@
 		iframe.findData(treeNode.id);
 	}
 	function init(){
-		$('#centerdiv').disabled('请选择要编辑的树节点或添加新的数据！');
+		$('#centerdiv').disabled('请选择要编辑的学段或者学科！');
 	}
 </script>
 </head>

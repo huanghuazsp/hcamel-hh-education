@@ -109,7 +109,7 @@
 	</div>
 	<table xtype="form" id="queryForm" style="width:700px;">
 		<tr>
-			<td xtype="label">名称：</td>
+			<td xtype="label">试卷名称：</td>
 			<td><span xtype="text" config=" name : 'text' ,enter: doQuery "></span></td>
 			<td><span
 			xtype="button" config="onClick: doQuery ,text:'查询' , itype :'query' "></span></td>
@@ -125,7 +125,7 @@
 			width:80,
 		},{
 			name : 'text' ,
-			text : '名称'
+			text : '试卷名称'
 		}
 		
 	]">

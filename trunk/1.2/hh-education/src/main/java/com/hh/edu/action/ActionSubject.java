@@ -22,6 +22,9 @@ public class ActionSubject extends BaseServiceAction< EduSubject > {
 		return edusubjectService;
 	}
 	
+	public void doSetState() {
+		edusubjectService.doSetState(this.getIds());
+	}
 	public Object findTextById() {
 		List<EduSubject> list = getService().queryList(ParamFactory.getParamHb().in("id", Convert.strToList(object.getId())));
 		String ids = "";

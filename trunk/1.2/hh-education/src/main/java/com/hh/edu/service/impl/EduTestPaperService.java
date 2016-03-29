@@ -21,12 +21,18 @@ import com.hh.system.util.dto.PageRange;
 import com.hh.system.util.dto.PagingData;
 import com.hh.system.util.dto.ParamFactory;
 import com.hh.system.util.dto.ParamInf;
+import com.hh.usersystem.bean.usersystem.UsRole;
+import com.hh.usersystem.bean.usersystem.UsUser;
+import com.hh.usersystem.service.impl.LoginUserUtilService;
 
 @Service
 public class EduTestPaperService extends BaseService<EduTestPaper> {
 
 	@Autowired
 	private EduSubjectService eduSubjectService;
+
+	@Autowired
+	private LoginUserUtilService loginUserUtilService;
 
 	@Override
 	public PagingData<EduTestPaper> queryPagingData(EduTestPaper entity, PageRange pageRange) {
@@ -37,39 +43,44 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 		if (Check.isNoEmpty(entity.getText())) {
 			paramInf.like("text", entity.getText());
 		}
+		UsUser user = loginUserUtilService.findLoginUser();
+		List<UsRole> usRoles = user.getHhXtJsList();
+		if (usRoles.size() == 1 && "student".equals(usRoles.get(0).getJssx())) {
+			paramInf.is("vcreate", loginUserUtilService.findUserId());
+		}
 		return super.queryPagingData(entity, pageRange, paramInf);
 	}
 
-	
 	@Transactional
 	public void generate(EduTestPaper object, String titleType) {
 
 		object.setHead("<div style=\"text-align: center;\"><span style=\"font-size:36px;\">" + object.getText()
 				+ "</span></div>");
 		List<Map<String, Object>> mapList = Json.toMapList(object.getDataitems());
-		List<Map<String, Object>> newMapList = new ArrayList<Map<String,Object>>();
+		List<Map<String, Object>> newMapList = new ArrayList<Map<String, Object>>();
 		for (Map<String, Object> map : mapList) {
 			String type = Convert.toString(map.get("type"));
 			int subjectcount = eduSubjectService
-					.findCount(ParamFactory.getParamHb().is("type", titleType).is("titleType", type));
+					.findCount(ParamFactory.getParamHb().is("type", titleType).is("titleType", type).or(ParamFactory.getParamHb().is("state", 1).is("vcreate", loginUserUtilService.findUserId())));
 
 			int subjectCount = Convert.toInt(map.get("subjectCount"));
 			int score = Convert.toInt(map.get("score"));
 
-			if(subjectcount+1<=subjectCount){
+			if (subjectcount + 1 <= subjectCount) {
 				throw new MessageException("您所选的题目类型题目不足，请到题目管理中添加题目！");
 			}
-			
-			int[] randoms = Random.randomCommon(1, subjectcount+1, subjectCount);
 
-			if(randoms==null){
+			int[] randoms = Random.randomCommon(1, subjectcount + 1, subjectCount);
+
+			if (randoms == null) {
 				throw new MessageException("您所选的题目类型题目不足，请到题目管理中添加题目！");
 			}
 			StringBuffer subjectStrs = new StringBuffer("");
 
 			for (int i : randoms) {
+				
 				List<EduSubject> eduSubjects = eduSubjectService.queryList(
-						ParamFactory.getParamHb().is("type", titleType).is("titleType", type), new PageRange(i-1, 1));
+						ParamFactory.getParamHb().is("type", titleType).is("titleType", type).or(ParamFactory.getParamHb().is("state", 1).is("vcreate", loginUserUtilService.findUserId())), new PageRange(i - 1, 1));
 				subjectStrs.append(eduSubjects.get(0).getId() + ",");
 
 			}
@@ -95,7 +106,7 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 			newMap.put("title", title);
 			newMapList.add(newMap);
 		}
-		
+
 		object.setDataitems(Json.toStr(newMapList));
 		save(object);
 	}

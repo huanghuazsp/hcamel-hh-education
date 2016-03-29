@@ -99,9 +99,9 @@
 	</div>
 	<table xtype="form" id="queryForm" style="width:700px;">
 		<tr>
-			<td xtype="label">名称：</td>
+			<td xtype="label">题目名称：</td>
 			<td><span xtype="text" config=" name : 'text' ,enter: doQuery "></span></td>
-			<td xtype="label">类型：</td>
+			<td xtype="label">题目类型：</td>
 			<td><span xtype="combobox"
 				config="name: 'titleType'  , data :[ {id:'radio',text:'单选题'} , {id:'check',text:'多选题'} , {id:'fillEmpty',text:'填空题'}  , {id:'shortAnswer',text:'简答题'}  ]"></span></td>
 			<td><span

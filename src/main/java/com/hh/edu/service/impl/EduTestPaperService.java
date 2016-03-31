@@ -67,13 +67,13 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 			int score = Convert.toInt(map.get("score"));
 
 			if (subjectcount + 1 <= subjectCount) {
-				throw new MessageException("您所选的题目类型题目不足，请到题目管理中添加题目！");
+				throw new MessageException("您所选的题目学科题目不足，请到题目管理中添加题目！");
 			}
 
 			int[] randoms = Random.randomCommon(1, subjectcount + 1, subjectCount);
 
 			if (randoms == null) {
-				throw new MessageException("您所选的题目类型题目不足，请到题目管理中添加题目！");
+				throw new MessageException("您所选的题目学科题目不足，请到题目管理中添加题目！");
 			}
 			StringBuffer subjectStrs = new StringBuffer("");
 

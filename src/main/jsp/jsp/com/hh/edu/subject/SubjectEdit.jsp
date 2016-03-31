@@ -111,7 +111,7 @@
 			<div id="bz"></div>
 			<table xtype="form">
 				<tr>
-					<td xtype="label">类型：</td>
+					<td xtype="label">学科：</td>
 					<td><span id="node_span" xtype="selectTree"
 						config="  value:'<%=type %>' , name: 'type' , findTextAction : 'edu-SubjectType-findObjectById' , url : 'edu-SubjectType-queryTreeList' ,required :true "></span>
 					</td>

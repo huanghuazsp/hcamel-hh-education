@@ -49,6 +49,9 @@ public class EduSubjectService extends BaseService<EduSubject> {
 			as=0;
 		}
 		entity.setState(as);
+		if (checkOnly("text", entity)) {
+			throw new MessageException("题目已存在！");
+		}
 		return super.save(entity);
 	}
 

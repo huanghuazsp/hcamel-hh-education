@@ -486,7 +486,7 @@ function artificial(){
 			
 			if(!"fillEmpty".equals(titleType)){
 		%><br/>
-			<strong title=true  id="<%=PrimaryKey.getPrimaryKeyUUID() %>"  subjectId="<%=tmid%>" ><%=(aa)+"、"+eduSubject.getText() +scoreStr%></strong><br/><br/>
+			<strong title=true  id="<%=PrimaryKey.getPrimaryKeyUUID() %>"  subjectId="<%=tmid%>" ><%=(aa)+"、"+(eduSubject.getText().replaceAll("\\\n", "<br />")) +scoreStr%></strong><br/><br/>
 			<%=answer %>
 			
 			<% if(Check.isNoEmpty(eduSubject.getTextpic())){%>

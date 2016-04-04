@@ -144,7 +144,7 @@
 			if(data.answer){
 				var answers = data.answer.split(',');
 				for(var i=0;i<answers.length;i++){
-					answerStr+=letter[answers[i]];
+					answerStr+=letter[answers[i]-1];
 				}
 			}
 		}else if(data.titleType=='fillEmpty'){

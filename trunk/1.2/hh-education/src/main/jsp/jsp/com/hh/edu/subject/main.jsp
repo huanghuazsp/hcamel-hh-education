@@ -30,7 +30,7 @@
 		</div>
 		<div style="overflow: visible;" id=centerdiv>
 			<iframe id="<%=iframeId%>" name="<%=iframeId%>" width=100%
-				height=100% frameborder=0 src="jsp-edu-subject-SubjectList"></iframe>
+				height=100% frameborder=0 src="jsp-edu-subject-SubjectList?type=<%=request.getParameter("type")%>"></iframe>
 		</div>
 	</div>
 </body>

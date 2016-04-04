@@ -163,7 +163,7 @@
 		
 		td.append(text);
 		
-		var tr1 = $('<tr></tr>');
+		var tr1 = $('<tr style="display:none;" trid="'+data.id+'"></tr>');
 		var td1 = $('<td style="text-align:left;"></td>');
 		tr1.append(td1);
 		table.append(tr1);
@@ -175,8 +175,11 @@
 		table.append(tr2);
 		
 		var toolbar = renderstate(data.state);
-		td2.append(toolbar+'&nbsp;&nbsp;&nbsp;&nbsp;'+(data.vcreateName || '')+'&nbsp;&nbsp;&nbsp;&nbsp;'+$.hh.dateTimeToString(data.dcreate || ''));
+		td2.append(toolbar+'&nbsp;&nbsp;&nbsp;&nbsp;'+(data.vcreateName || '')+'&nbsp;&nbsp;&nbsp;&nbsp;'+$.hh.dateTimeToString(data.dcreate || '')+'&nbsp;&nbsp;<a href="javascript:viewAnswer(\''+data.id+'\')">查看答案</a>');
 		return table;
+	}
+	function viewAnswer(id){
+		$('[trid='+id+']').show();
 	}
 </script>
 </head>

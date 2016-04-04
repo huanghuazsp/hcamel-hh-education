@@ -181,6 +181,9 @@
 </script>
 </head>
 <body>
+	<% 
+		if(!"view".equals(request.getParameter("type"))){
+	%>
 	<div xtype="toolbar" config="type:'head'">
 		<span xtype="button" config="onClick: doAddRadio ,text:'添加单选题' , itype :'add' "></span>
 		<span xtype="button" config="onClick: doAddCheck ,text:'添加多选题' , itype :'add' "></span>
@@ -197,6 +200,7 @@
 			config="onClick: $.hh.pagelist.doDown , params:{ pageid :'pagelist',action:'edu-Subject-order'} , icon : 'hh_down' "></span>
 		<span xtype="button" config="onClick: doSetState ,text:'转入学校题库'  "></span>
 	</div>
+	<%} %>
 	<table xtype="form" id="queryForm" style="width:700px;">
 		<tr>
 			<td xtype="label">题目名称：</td>
@@ -209,7 +213,7 @@
 		</tr>
 	</table>
 	<div id="pagelist" xtype="pagelist"
-		config=" url: 'edu-Subject-queryPagingData' ,column : [
+		config=" url: 'edu-Subject-queryPagingData' ,title:false,column : [
 		
 		{
 			name : 'text' ,

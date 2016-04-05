@@ -48,8 +48,10 @@
 	}
 	
 	function doQuery() {
+		var params = $('#queryForm').getValue();
+		params.type = type1;
 		$('#pagelist').loadData({
-			params : $('#queryForm').getValue()
+			params : params
 		});
 	}
 	function fileRender(value){

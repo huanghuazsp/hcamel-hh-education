@@ -14,6 +14,8 @@ import com.hh.usersystem.util.steady.StaticProperties;
 public class SetupInitializerEdu {
 	public static void main(String[] args) {
 		System.out.println(UUID.randomUUID());
+		System.out.println(UUID.randomUUID());
+		System.out.println(UUID.randomUUID());
 	}
 
 	@PostConstruct

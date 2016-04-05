@@ -60,12 +60,12 @@
 						config="  value:'<%=type%>' , name: 'type' , findTextAction : 'edu-TestPaperType-findObjectById' , url : 'edu-TestPaperType-queryTreeList' ,required :true "></span>
 					</td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td xtype="label">名称：</td>
 					<td><span xtype="text" config=" name : 'text',required :true"></span></td>
-				</tr>
+				</tr> -->
 				<tr>
-					<td xtype="label">名称：</td>
+					<td xtype="label">资源：</td>
 					<td><span config="'name':'files','type':'eduresources' "  xtype="fileUpload" ></span></td>
 				</tr>
 				<tr>

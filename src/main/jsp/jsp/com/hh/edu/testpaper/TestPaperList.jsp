@@ -124,6 +124,12 @@
 			align:'center',
 			width:80,
 		},{
+			name : 'dcreate' ,
+			text : '创建时间',
+			align:'center',
+			width:150,
+			render :'datetime'
+		},{
 			name : 'text' ,
 			text : '试卷名称'
 		}

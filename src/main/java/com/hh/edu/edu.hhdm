@@ -13,4 +13,5 @@
     <column defaultValue="" empty="true" id="f4568472-e036-4d08-be87-0cf86f041edb" length="" name="score" primary="false" text="score" type="String"/>
   </table>
   <table id="48283eb6-a44c-4506-9650-2a7b32f1634a" name="ReleaseSubject" text="ReleaseSubject" type="table"/>
+  <table id="715f1784-9189-49d4-bb94-c880801049ca" name="resources" text="resources" type="table"/>
 </project>

@@ -52,6 +52,22 @@
 			params : $('#queryForm').getValue()
 		});
 	}
+	function fileRender(value){
+		var table = $('<table></table>');
+	
+		if(value){
+			var fileList = $.hh.toObject(value);
+			for(var i=0;i<fileList.length;i++){
+				var data = fileList[i];
+				var tr = $('<tr></tr>');
+				var td = $('<td></td>');
+				tr.append(td);
+				table.append(tr);
+				td.append('<a href="javascript:Request.download(\''+data.id+'\');">'+(data.text||'')+'</a>');
+			}
+		}
+		return table;
+	}
 </script>
 </head>
 <body>
@@ -88,8 +104,10 @@
 			width:150,
 			render :'datetime'
 		},{
-			name : 'text' ,
-			text : '试卷名称'
+			name : 'files' ,
+			align:'left',
+			text : '资源',
+			render : fileRender
 		}
 		
 	]">

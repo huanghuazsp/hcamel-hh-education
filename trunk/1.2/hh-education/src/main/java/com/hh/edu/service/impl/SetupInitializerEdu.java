@@ -54,6 +54,10 @@ public class SetupInitializerEdu {
 						"jsp-edu-releasetestpaper-ReleaseTestPaperList",
 						"/hhcommon/images/icons/world/world.png", 0, 1));
 		
+		rootHhXtCd.getChildren().add(
+				new SysMenu("78b91fe0-adb6-4637-97e2-fccc1a1a4ad4", "资源共享",
+						"jsp-edu-resources-main",
+						"/hhcommon/images/icons/world/world.png", 0, 1));
 		
 		StaticProperties.hhXtCds.add(rootHhXtCd);
 

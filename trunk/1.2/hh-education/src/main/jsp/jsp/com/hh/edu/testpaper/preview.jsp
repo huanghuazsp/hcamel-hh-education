@@ -492,6 +492,12 @@ function artificial(){
 			<% if(Check.isNoEmpty(eduSubject.getTextpic())){%>
 				<img alt="" src="system-File-download?system_open_page_file_form_params={id:'<%=eduSubject.getTextpic()%>'}">
 			<% }%>
+			<% if(Check.isNoEmpty(eduSubject.getTextpic2())){%>
+				<img alt="" src="system-File-download?system_open_page_file_form_params={id:'<%=eduSubject.getTextpic2()%>'}">
+			<% }%>
+			<% if(Check.isNoEmpty(eduSubject.getTextpic3())){%>
+				<img alt="" src="system-File-download?system_open_page_file_form_params={id:'<%=eduSubject.getTextpic3()%>'}">
+			<% }%>
 			
 			<div type=subject subjectId="<%=tmid%>" subjectType="<%=titleType%>">
 		<%

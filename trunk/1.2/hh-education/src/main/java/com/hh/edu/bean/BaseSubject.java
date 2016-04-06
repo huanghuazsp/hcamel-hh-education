@@ -17,6 +17,8 @@ public class BaseSubject extends BaseTwoEntity {
 	private int score;
 
 	private String textpic;
+	private String textpic2;
+	private String textpic3;
 
 	@Column(name = "TYPE_", length = 36)
 	public String getType() {
@@ -84,4 +86,23 @@ public class BaseSubject extends BaseTwoEntity {
 		this.textpic = textpic;
 	}
 
+	@Column(name = "TEXT_PIC2", length = 36)
+	public String getTextpic2() {
+		return textpic2;
+	}
+
+	public void setTextpic2(String textpic2) {
+		this.textpic2 = textpic2;
+	}
+
+	@Column(name = "TEXT_PIC3", length = 36)
+	public String getTextpic3() {
+		return textpic3;
+	}
+
+	public void setTextpic3(String textpic3) {
+		this.textpic3 = textpic3;
+	}
+
+	
 }

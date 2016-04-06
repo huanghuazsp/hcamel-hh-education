@@ -13,7 +13,7 @@
 %>
 <script type="text/javascript">
 	var params = $.hh.getIframeParams();
-	var width = 600;
+	var width = 800;
 	var height = 700;
 
 	var objectid = '<%=Convert.toString(request.getParameter("id"))%>';
@@ -112,26 +112,34 @@
 			<table xtype="form">
 				<tr>
 					<td xtype="label">学科：</td>
-					<td><span id="node_span" xtype="selectTree"
+					<td colspan="3"><span id="node_span" xtype="selectTree"
 						config="  value:'<%=type %>' , name: 'type' , findTextAction : 'edu-SubjectType-findObjectById' , url : 'edu-SubjectType-queryTreeList' ,required :true "></span>
 					</td>
 				</tr>
 				<tr id="titletr">
 					<td xtype="label">题目：</td>
-					<td><span xtype="textarea" config=" name : 'text',required :true"></span></td>
+					<td colspan="3"><span xtype="textarea" config=" name : 'text',required :true"></span></td>
 				</tr>
 				
 				<tr id="tableitemtr">
 					<td xtype="label">选择项：</td>
-					<td><span xtype="tableitem" configVar="tableitemConfig"></span></td>
+					<td colspan="3"><span xtype="tableitem" configVar="tableitemConfig"></span></td>
 				</tr>
 				<tr>
 					<td xtype="label">答案：</td>
-					<td id="answertd"></td>
+					<td id="answertd" colspan="3"></td>
 				</tr>
 				<tr id="titletr">
 					<td xtype="label">题目图片：</td>
-					<td><span xtype="uploadpic" config=" name : 'textpic' ,width:400,height:300 "></span></td>
+					<td>
+					<span xtype="uploadpic" config=" name : 'textpic' ,width:200,height:200 "></span>
+					</td>
+					<td>
+					<span xtype="uploadpic" config=" name : 'textpic2' ,width:200,height:200 "></span>
+					</td>
+					<td>
+					<span xtype="uploadpic" config=" name : 'textpic3' ,width:200,height:200 "></span>
+					</td>
 				</tr>
 			</table>
 		</form>

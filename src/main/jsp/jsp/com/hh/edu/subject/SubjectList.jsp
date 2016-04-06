@@ -129,6 +129,12 @@
 		if(data.textpic){
 			text +='<img alt="" src="system-File-download?system_open_page_file_form_params={id:\''+data.textpic+'\'}">';
 		}
+		if(data.textpic2){
+			text +='<img alt="" src="system-File-download?system_open_page_file_form_params={id:\''+data.textpic2+'\'}">';
+		}
+		if(data.textpic3){
+			text +='<img alt="" src="system-File-download?system_open_page_file_form_params={id:\''+data.textpic3+'\'}">';
+		}
 		var table =$( '<table style="width:100%;"></table>');
 		var tr = $('<tr></tr>');
 		var td = $('<td style="text-align:left;"></td>');

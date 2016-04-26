@@ -45,7 +45,7 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 		}
 		UsUser user = loginUserUtilService.findLoginUser();
 		List<UsRole> usRoles = user.getHhXtJsList();
-		if (usRoles.size() == 1 && "student".equals(usRoles.get(0).getJssx())) {
+		if (usRoles.size() == 1 && !"admin".equals(usRoles.get(0).getJssx())) {
 			paramInf.is("vcreate", loginUserUtilService.findUserId());
 		}
 		return super.queryPagingData(entity, pageRange, paramInf);

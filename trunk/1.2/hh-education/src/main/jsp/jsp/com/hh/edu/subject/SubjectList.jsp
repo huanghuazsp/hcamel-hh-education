@@ -6,7 +6,7 @@
 <html>
 <head>
 <title>数据列表</title>
-<%=BaseSystemUtil.getBaseJs()+SystemUtil.getUser()%>
+<%=SystemUtil.getBaseJs()+SystemUtil.getUser()%>
 
 <script type="text/javascript">
 	var type1 = '';

@@ -130,7 +130,11 @@ function typeClick(type1){
 		params : {type:type1}
 	});
 }
-
+function search(){
+	$('#pagelist').loadData({
+		params : {text:$('#searchInput').val()}
+	});
+}
 function fileRender(value){
 	var table = $('<table></table>');
 
@@ -173,8 +177,8 @@ function fileRender(value){
         	<a href="login.jsp"><font color=#0095CC>登陆</font></a>┊<a href="reg.jsp"><font color=#0095CC>注册</font></a></p>
             <div class="search">
             	<form action="" method="post">
-                	<input name="" type="text" placeholder="请输入搜索关键词">
-                    <input name="" type="submit" class="s_btn" value="">
+                	<input id="searchInput" name="" type="text" placeholder="请输入搜索关键词">
+                    <input name="" type=button class="s_btn" value="" onClick="search()" >
                 </form>
             </div>
         </div>

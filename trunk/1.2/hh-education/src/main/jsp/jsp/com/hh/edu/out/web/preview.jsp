@@ -417,11 +417,11 @@ function artificial(){
 	<span xtype="button" config="onClick : submit ,text : '交卷'   "></span>
 	<span id="timediv"></span>
 	<%
-	}else if(view){
+	}else if(view && tempAnswer==false){
 	%>
 	<div style="margin-top:5px;">	<%=eduExamination.getUserName() %>您的成绩为：<%=eduExamination.getScore() %>,成绩发布时间为：<%=DateFormat.dateToStr(eduExamination.getOpenDate(), "yyyy-MM-dd HH:mm:ss")%></div>
 	<%
-	}else{
+	}else if(tempAnswer==false){
 	%>
 	<span xtype="button" config="onClick : viewResult ,text : '查看结果'   "></span>
 	<%

@@ -67,7 +67,7 @@
 			$.hh.addTab({
 				id : row.id,
 				text :  '试卷预览',
-				src : 'jsp-edu-testpaper-preview?id=' +row.id
+				src : 'outjsp-edu-web-preview?id=' +row.id
 			});
 		});
 	}

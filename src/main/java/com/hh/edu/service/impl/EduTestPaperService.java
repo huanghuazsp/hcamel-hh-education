@@ -44,10 +44,13 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 			paramInf.like("text", entity.getText());
 		}
 		UsUser user = loginUserUtilService.findLoginUser();
-		List<UsRole> usRoles = user.getHhXtJsList();
-		if (usRoles.size() == 1 && !"admin".equals(usRoles.get(0).getJssx())) {
-			paramInf.is("vcreate", loginUserUtilService.findUserId());
+		if ( user!=null) {
+			List<UsRole> usRoles = user.getHhXtJsList();
+			if (usRoles.size() == 1 && !"admin".equals(usRoles.get(0).getJssx())) {
+				paramInf.is("vcreate", loginUserUtilService.findUserId());
+			}
 		}
+		
 		return super.queryPagingData(entity, pageRange, paramInf);
 	}
 

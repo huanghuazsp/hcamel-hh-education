@@ -18,14 +18,14 @@
 		$.hh.addTab({
 			id : 'ks'+id,
 			text :  '考试',
-			src : 'jsp-edu-testpaper-preview?type=exa&id=' +id
+			src : 'outjsp-edu-web-preview?type=exa&id=' +id
 		});
 	}
 	function viewResult(id){
 		$.hh.addTab({
 			id : 'ks'+id,
 			text :  '考试',
-			src : 'jsp-edu-testpaper-preview?type=view&id=' +id
+			src : 'outjsp-edu-web-preview?type=view&id=' +id
 		});
 	}
 	function renderoper(value, row) {

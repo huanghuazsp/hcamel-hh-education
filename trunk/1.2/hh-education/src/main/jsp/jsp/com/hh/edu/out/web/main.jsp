@@ -60,6 +60,14 @@ function renderstate(state){
 }
 var letter =  ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
 		"P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+		
+		
+function renderTestPaper(value,data){
+	return '<a target="_blank" href="outjsp-edu-web-preview?id='+data.id+'">'+value+'</a>';
+}	
+function renderTestPaperOper(value,data){
+	return '<a target="_blank" href="outjsp-edu-web-preview?id='+data.id+'"><img src="/hhcommon/opensource/jquery/image/16/query.gif" /></a>';
+}	
 function renderTitle(value,data){
 	var text ='<strong>'+ data.text.replace(/\n/g, "<br />")+'</strong>'+'<br/>'+'<br/>';
 	if(data.textpic){
@@ -135,9 +143,13 @@ function search(){
 		params : {text:$('#searchInput').val()}
 	});
 }
+
+function fileRenderDownLoad(value,data){
+	return '<a href="javascript:Request.download(\''+data.id+'\');">下载</a>';
+}
 function fileRender(value){
 	var table = $('<table></table>');
-
+	
 	if(value){
 		var fileList = $.hh.toObject(value);
 		for(var i=0;i<fileList.length;i++){
@@ -294,8 +306,16 @@ function fileRender(value){
 					render :'datetime'
 				},{
 					name : 'text' ,
+					render : renderTestPaper ,
 					text : '试卷名称'
+				},{
+					name : 'text1' ,
+					render : renderTestPaperOper ,
+					text : '操作',
+					width : 40
 				}
+				
+				
 			]">
 			</div>
         	 <%
@@ -315,6 +335,12 @@ function fileRender(value){
 						align:'left',
 						text : '资源',
 						render : fileRender
+					},{
+						name : 'files1' ,
+						align:'left',
+						text : '操作',
+						render : fileRenderDownLoad,
+						width : 40
 					}
 					
 				]">

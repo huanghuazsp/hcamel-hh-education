@@ -41,6 +41,18 @@ response.setDateHeader("Expires",0);
 	
 	String userId = request.getParameter("userId");
 	
+	boolean tempAnswer = false;
+	String params = request.getParameter("params");
+	EduExamination eduExamination = new EduExamination();
+	if (Check.isNoEmpty(params)) {
+		Map<String, Object> paramsMap = new HashMap<String, Object>();
+		paramsMap = Json.toMap(params);
+		eduExamination.setAnswer(Convert.toString(paramsMap.get("answer")));
+		exatype="view";
+		eduExamination.setOpenScore(1);
+		tempAnswer=true;
+	} 
+	
 	boolean exa = "exa".equals(exatype);
 	
 	boolean view ="view".equals(exatype);
@@ -56,15 +68,17 @@ response.setDateHeader("Expires",0);
 	EduReleaseSubjectService eduReleaseSubjectService = BeanFactoryHelper.getBean(EduReleaseSubjectService.class);
 	
 	EduExaminationService eduExaminationService = BeanFactoryHelper.getBean(EduExaminationService.class);
-	EduExamination eduExamination = new EduExamination();
-	if(exa){
-		eduExamination.setReleaseTestPaperId(id);
-		eduExamination = eduExaminationService.examination(eduExamination);
-	}else if(artificial && Check.isNoEmpty(userId)){
-		eduExamination = eduExaminationService.findExamination(id,userId);
-	}else if(view){
-		eduExamination = eduExaminationService.findExamination(id,userId);
+	if(eduExamination.getOpenScore()!=1){
+		if(exa){
+			eduExamination.setReleaseTestPaperId(id);
+			eduExamination = eduExaminationService.examination(eduExamination);
+		}else if(artificial && Check.isNoEmpty(userId)){
+			eduExamination = eduExaminationService.findExamination(id,userId);
+		}else if(view){
+			eduExamination = eduExaminationService.findExamination(id,userId);
+		}
 	}
+	
 	
 	Map<String,Object> answermap = Json.toMap(eduExamination.getAnswer());
 	
@@ -72,7 +86,7 @@ response.setDateHeader("Expires",0);
 	
 	
 	BaseTestPaper eduTestPaper = null;
-	if(exa || artificial){
+	if((exa || artificial) && tempAnswer==false){
 		eduTestPaper = eduReleaseTestPaperService.findObjectById(id);
 		long currTime = new Date().getTime();
 		
@@ -263,6 +277,11 @@ function submit(){
 	%>
 }
 
+function viewResult(){
+	var objectMap =  bc();
+	Request.submit('outjsp-edu-web-preview?id=<%=id%>',{answer: $.hh.toString(objectMap)});
+}
+
 function save(){
 	var objectMap =  bc();
 	<%
@@ -402,6 +421,10 @@ function artificial(){
 	%>
 	<div style="margin-top:5px;">	<%=eduExamination.getUserName() %>您的成绩为：<%=eduExamination.getScore() %>,成绩发布时间为：<%=DateFormat.dateToStr(eduExamination.getOpenDate(), "yyyy-MM-dd HH:mm:ss")%></div>
 	<%
+	}else{
+	%>
+	<span xtype="button" config="onClick : viewResult ,text : '查看结果'   "></span>
+	<%
 	}
 	%>
 	
@@ -419,8 +442,8 @@ function artificial(){
 		String subjects = Convert.toString(map.get("subjects"));
 		String score = Convert.toString(map.get("score"));
 		List<String> subjectList = Convert.strToList(subjects);
-		List<BaseSubject> eduSubjectList = new ArrayList<BaseSubject>();;
-		if(exa|| artificial){
+		List<BaseSubject> eduSubjectList = new ArrayList<BaseSubject>();
+		if((exa || artificial) && tempAnswer==false){
 			List<EduReleaseSubject> eduSubjectList1 = eduReleaseSubjectService.queryList(ParamFactory.getParamHb().in("subjectId",subjectList).is("releaseTestPaperId",id));
 			for(EduReleaseSubject subject : eduSubjectList1){
 				eduSubjectList.add(subject);

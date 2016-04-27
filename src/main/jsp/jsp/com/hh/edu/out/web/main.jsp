@@ -66,7 +66,7 @@ function renderTestPaper(value,data){
 	return '<a target="_blank" href="outjsp-edu-web-preview?id='+data.id+'">'+value+'</a>';
 }	
 function renderTestPaperOper(value,data){
-	return '<a target="_blank" href="outjsp-edu-web-preview?id='+data.id+'"><img src="/hhcommon/opensource/jquery/image/16/query.gif" /></a>';
+	return '<a target="_blank" href="outjsp-edu-web-preview?id='+data.id+'">进行测试</a>';
 }	
 function renderTitle(value,data){
 	var text ='<strong>'+ data.text.replace(/\n/g, "<br />")+'</strong>'+'<br/>'+'<br/>';
@@ -312,7 +312,7 @@ function fileRender(value){
 					name : 'text1' ,
 					render : renderTestPaperOper ,
 					text : '操作',
-					width : 40
+					width : 60
 				}
 				
 				

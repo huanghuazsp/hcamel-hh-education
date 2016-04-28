@@ -9,6 +9,7 @@
 <%=BaseSystemUtil.getBaseJs("checkform", "date")%>
 <%
 	String type = Convert.toString(request.getParameter("type"));
+	String typeName = Convert.toString(request.getParameter("typeName"));
 %>
 <script type="text/javascript">
 	var params = $.hh.getIframeParams();
@@ -29,6 +30,7 @@
 		});
 	}
 	var subjectTypeConfig={
+			defaultValue:'radio',
 			data :[
 				{id:'radio',text:'单选题'},
 				{id:'check',text:'多选题'},
@@ -41,11 +43,14 @@
 		required : true,
 		trhtml : '<table width=100%>'
 		+'<tr><td style="text-align:right;width:60px;">题目类型：</td><td><span xtype="radio" valuekey="type" configVar=" subjectTypeConfig  "></span></td></tr>'
-		+'<tr><td style="text-align:right;width:60px;">题目数量：</td><td><span xtype="text" valuekey="subjectCount" config=" integer : true  "></span></td></tr>'
-		+'<tr><td style="text-align:right;width:60px;">分数总分：</td><td><span xtype="text" valuekey="score" config=" integer : true  "></span></td></tr>'
+		+'<tr><td style="text-align:right;width:60px;">题目数量：</td><td><span xtype="text" valuekey="subjectCount" config=" integer : true,value:50  "></span></td></tr>'
+		+'<tr><td style="text-align:right;width:60px;">分数总分：</td><td><span xtype="text" valuekey="score" config=" integer : true ,value:100 "></span></td></tr>'
 	}
-
+	function testpaperChange(data){
+		$('#span_text').setValue(data.name+$.hh.dateToString($.hh.getDate()));
+	}
 	function init() {
+		$('#span_text').setValue('<%=Convert.toString(typeName)%>'+$.hh.dateToString($.hh.getDate()));
 	}
 </script>
 </head>
@@ -57,7 +62,7 @@
 				<tr>
 					<td xtype="label">试卷类型：</td>
 					<td><span id="node_span" xtype="selectTree"
-						config="  value:'<%=type%>' , name: 'type' , findTextAction : 'edu-TestPaperType-findObjectById' , url : 'edu-TestPaperType-queryTreeList' ,required :true "></span>
+						config=" onChange: testpaperChange , value:'<%=type%>' , name: 'type' , findTextAction : 'edu-TestPaperType-findObjectById' , url : 'edu-TestPaperType-queryTreeList' ,required :true "></span>
 					</td>
 				</tr>
 				<tr>
@@ -68,7 +73,7 @@
 				</tr>
 				<tr>
 					<td xtype="label">名称：</td>
-					<td><span xtype="text" config=" name : 'text',required :true"></span></td>
+					<td><span xtype="text" config=" name : 'text',required :true  "></span></td>
 				</tr>
 				<tr id="tableitemtr">
 					<td xtype="label">大题配置：</td>

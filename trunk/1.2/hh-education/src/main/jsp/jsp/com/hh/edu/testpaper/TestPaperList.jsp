@@ -9,6 +9,7 @@
 
 <script type="text/javascript">
 	var type1 = '';
+	var typeName = '';
 	function doDelete() {
 		$.hh.pagelist.deleteData({
 			pageid : 'pagelist',
@@ -27,7 +28,7 @@
 	}
 	function doQuickAdd(){
 		Dialog.open({
-			url : 'jsp-edu-testpaper-QuickTestPaperEdit?type='+type1,
+			url : 'jsp-edu-testpaper-QuickTestPaperEdit?type='+type1+'&typeName='+typeName,
 			params : {
 				callback : function() {
 					$("#pagelist").loadData();
@@ -57,6 +58,7 @@
 	}
 	function iframeClick(data) {
 		type1=data.id;
+		typeName=data.name;
 		$('#pagelist').loadData({
 			params : {type:type1}
 		});

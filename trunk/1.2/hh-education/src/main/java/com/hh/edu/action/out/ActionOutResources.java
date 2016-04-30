@@ -14,5 +14,10 @@ public class ActionOutResources extends BaseServiceAction< EduResources > {
 	public BaseService<EduResources> getService() {
 		return eduresourcesService;
 	}
+	
+	public Object queryPagingDataAll() {
+		return eduresourcesService.queryPagingDataAll(object,
+				this.getPageRange());
+	}
 }
  

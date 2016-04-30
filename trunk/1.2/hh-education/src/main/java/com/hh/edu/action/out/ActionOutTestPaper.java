@@ -11,7 +11,6 @@ import com.hh.system.util.base.BaseServiceAction;
 @SuppressWarnings("serial")
 public class ActionOutTestPaper extends BaseServiceAction<EduTestPaper> {
 
-	private String titleType;
 	@Autowired
 	private EduTestPaperService edutestpaperService;
 
@@ -19,22 +18,11 @@ public class ActionOutTestPaper extends BaseServiceAction<EduTestPaper> {
 		return edutestpaperService;
 	}
 
-	public Object generate() {
-		try {
-			edutestpaperService.generate(object, titleType);
-			return null;
-		} catch (MessageException e) {
-			return e;
-		}
-
+	public Object queryPagingDataAll() {
+		return edutestpaperService.queryPagingDataAll(object,
+				this.getPageRange());
 	}
 
-	public String getTitleType() {
-		return titleType;
-	}
 
-	public void setTitleType(String titleType) {
-		this.titleType = titleType;
-	}
 
 }

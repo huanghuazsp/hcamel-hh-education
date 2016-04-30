@@ -14,6 +14,21 @@
 			action : 'edu-Resources-deleteByIds'
 		});
 	}
+	function doSetState() {
+		$.hh.pagelist.callRows( 'pagelist', function(rows) {
+				var ids = $.hh.objsToStr(rows);
+				var data = {};
+				data.ids = ids;
+				Request.request('edu-Resources-doSetState', {
+					data : data
+				}, function(result) {
+					if (result.success != false) {
+						$("#pagelist" ).loadData();
+					}
+				});
+		});
+		
+	}
 	function doAdd() {
 		Dialog.open({
 			url : 'jsp-edu-resources-ResourcesEdit?type='+type1,
@@ -70,6 +85,13 @@
 		}
 		return table;
 	}
+	function renderstate(state){
+		if(state==1){
+			return '[已发布]';
+		}else{
+			return '[未发布]';
+		}
+	}
 </script>
 </head>
 <body>
@@ -84,6 +106,7 @@
 			config="onClick: $.hh.pagelist.doUp , params:{ pageid :'pagelist',action:'edu-Resources-order'}  ,  icon : 'hh_up' "></span>
 		<span xtype="button"
 			config="onClick: $.hh.pagelist.doDown , params:{ pageid :'pagelist',action:'edu-Resources-order'} , icon : 'hh_down' "></span>
+		<span xtype="button" config="onClick: doSetState ,text:'发布共享'  "></span>
 	</div>
 	<table xtype="form" id="queryForm" style="width:700px;">
 		<tr>
@@ -100,7 +123,13 @@
 			name : 'vcreateName' ,
 			text : '添加人',
 			align:'center',
+			width:80
+		},{
+			name : 'state' ,
+			text : '状态',
+			align:'center',
 			width:80,
+			render : renderstate
 		},{
 			name : 'dcreate' ,
 			text : '创建时间',

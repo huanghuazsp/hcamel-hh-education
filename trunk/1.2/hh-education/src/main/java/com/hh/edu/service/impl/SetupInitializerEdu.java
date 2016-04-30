@@ -31,10 +31,10 @@ public class SetupInitializerEdu {
 						"jsp-edu-releasetestpaper-StartReleaseTestPaperList",
 						"/hhcommon/images/icons/world/world.png", 0, 1));
 
-		rootHhXtCd.getChildren().add(
-				new SysMenu("f6d6f3bf-4865-469c-8ef6-7edc0881ab7d", "题目类型管理",
-						"jsp-edu-subjecttype-SubjectTypeList",
-						"/hhcommon/images/icons/world/world.png", 0, 1));
+//		rootHhXtCd.getChildren().add(
+//				new SysMenu("f6d6f3bf-4865-469c-8ef6-7edc0881ab7d", "题目类型管理",
+//						"jsp-edu-subjecttype-SubjectTypeList",
+//						"/hhcommon/images/icons/world/world.png", 0, 1));
 		
 		rootHhXtCd.getChildren().add(
 				new SysMenu("34467895-4196-4403-bb4f-5c67bbb9f3bd", "试卷类型管理",

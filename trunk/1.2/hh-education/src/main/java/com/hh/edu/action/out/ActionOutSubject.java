@@ -44,5 +44,10 @@ public class ActionOutSubject extends BaseServiceAction< EduSubject > {
 		map.put("object", list);
 		return map;
 	}
+	
+	public Object queryPagingDataAll() {
+		return edusubjectService.queryPagingDataAll(object,
+				this.getPageRange());
+	}
 }
  

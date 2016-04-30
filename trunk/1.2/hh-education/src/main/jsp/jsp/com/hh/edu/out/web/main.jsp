@@ -3,8 +3,6 @@
 <%@page import="com.hh.edu.bean.EduSubject"%>
 <%@page import="com.hh.edu.bean.EduTestPaperType"%>
 <%@page import="com.hh.edu.service.impl.EduTestPaperTypeService"%>
-<%@page import="com.hh.edu.bean.EduSubjectType"%>
-<%@page import="com.hh.edu.service.impl.EduSubjectTypeService"%>
 <%@page import="com.hh.system.util.dto.ParamFactory"%>
 <%@page import="com.hh.system.util.dto.ParamInf"%>
 <%@page import="com.hh.system.service.impl.BeanFactoryHelper"%>
@@ -32,7 +30,6 @@
 <link rel="stylesheet" type="text/css" href="edu/Assets/css/thems.css">
 <!--幻灯片-->
 <%
-EduSubjectTypeService eduSubjectTypeService = BeanFactoryHelper.getBean(EduSubjectTypeService.class);
 EduTestPaperTypeService eduTestPaperTypeService = BeanFactoryHelper.getBean(EduTestPaperTypeService.class);
 String sysImg = SysParam.sysParam.getSysImg2();
 if (Check.isNoEmpty(sysImg)) {
@@ -42,13 +39,8 @@ String type = request.getParameter("type");
 if(Check.isEmpty(type)){
 	type="subject";
 }
-List<EduSubjectType> eduSubjectlist = new ArrayList<EduSubjectType>();
 List<EduTestPaperType> eduTestPaperTypelist = new ArrayList<EduTestPaperType>();
-if("subject".equals(type)){
-	eduSubjectlist = eduSubjectTypeService.queryListByProperty("node", "6f5275db-30dc-4986-9a8d-b46f6bdf3987");
-}else{
-	eduTestPaperTypelist = eduTestPaperTypeService.queryListByProperty("node", "100bada1-ba3e-4792-996b-809704397172");
-}
+eduTestPaperTypelist = eduTestPaperTypeService.queryListByProperty("node", "100bada1-ba3e-4792-996b-809704397172");
 
 
 String path = request.getContextPath();
@@ -148,9 +140,9 @@ function logout_click() {
 
 function renderstate(state){
 	if(state==1){
-		return '[学校题库]';
+		return '[已发布]';
 	}else{
-		return '[个人题库]';
+		return '[未发布]';
 	}
 }
 var letter =  ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
@@ -287,15 +279,14 @@ function fileRender(value){
         	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         	<%if(hhXtYh==null){ %>
         	<a href="javascript:login()"><font color=#0095CC>登陆</font></a>
         	<%}else{ %>
         	<a href="javascript:logout_click();"><font color=#0095CC>注销</font></a>
         	<%} %>
-        	┊<a href="reg.jsp"><font color=#0095CC>注册</font></a></p>
+        	┊<a href="reg.jsp"><font color=#0095CC>注册</font></a>
+        	┊<a href="webapp-desktop-jquerydesktop"><font color=#0095CC>进入后台</font></a>
+        	</p>
             <div class="search">
             	<form action="" method="post">
                 	<input id="searchInput" name="" type="text" placeholder="请输入搜索关键词">
@@ -307,9 +298,9 @@ function fileRender(value){
     <div class="nav clearfix">
     	<div class="nav_l">&nbsp;</div>
         <ul class="nav_m">
-            <li <%="subject".equals(type) ?" class=now ":"" %> ><a href="outjsp-edu-web-main?type=subject">题目</a></li>
+            <li <%="subject".equals(type) ?" class=now ":"" %> ><a href="outjsp-edu-web-main?type=subject">题库</a></li>
             <li <%="testpaper".equals(type) ?" class=now ":"" %>><a href="outjsp-edu-web-main?type=testpaper">试卷</a></li>
-            <li <%="resources".equals(type) ?" class=now ":"" %>><a href="outjsp-edu-web-main?type=resources">资源</a></li>
+            <li <%="resources".equals(type) ?" class=now ":"" %>><a href="outjsp-edu-web-main?type=resources">资源库</a></li>
             <!-- <li><a href="news.html">新闻中心</a></li>
             <li><a href="contact.html">联系我们</a></li>
             <li><a href="book.html">用户留言</a></li> -->
@@ -364,19 +355,11 @@ function fileRender(value){
         <li><a href="">自拍杆系列产品</a></li>
         <li><a href="">蓝牙音响闪灯方案</a></li> -->
         <%
-        if("subject".equals(type)){
-        	for(EduSubjectType eduSubjectType : eduSubjectlist){
-       	 %>
-       	   <li><a href="javascript:typeClick('<%= eduSubjectType.getId()%>')"><%= eduSubjectType.getText()%></a></li>
-       	 <%
-        	}
-        }else{
         for(EduTestPaperType eduTestPaperType : eduTestPaperTypelist){
        	 %>
        	   <li><a href="javascript:typeClick('<%= eduTestPaperType.getId()%>')"><%= eduTestPaperType.getText()%></a></li>
        	 <%
         	}
-        }
         %>
     </ul>
     <div class="i_about">
@@ -390,7 +373,7 @@ function fileRender(value){
         if("subject".equals(type)){
         	 %>
         	 <div id="pagelist" xtype="pagelist"
-				config=" url: 'outedu-OutSubject-queryPagingData' ,title:false,column : [
+				config=" url: 'outedu-OutSubject-queryPagingDataAll' ,title:false,column : [
 				
 				{
 					name : 'text' ,
@@ -406,7 +389,7 @@ function fileRender(value){
         }else if("testpaper".equals(type)){
         	 %>
         	<div id="pagelist" xtype="pagelist"
-			config=" url: 'outedu-OutTestPaper-queryPagingData' ,column : [
+			config=" url: 'outedu-OutTestPaper-queryPagingDataAll' ,column : [
 				{
 					name : 'dcreate' ,
 					text : '创建时间',
@@ -431,7 +414,7 @@ function fileRender(value){
         }else if("resources".equals(type)){
         	 %>
          	<div id="pagelist" xtype="pagelist"
-					config=" url: 'outedu-OutResources-queryPagingData' ,column : [
+					config=" url: 'outedu-OutResources-queryPagingDataAll' ,column : [
 					
 					{
 						name : 'dcreate' ,

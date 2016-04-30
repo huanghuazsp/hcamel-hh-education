@@ -14,5 +14,8 @@ public class ActionResources extends BaseServiceAction< EduResources > {
 	public BaseService<EduResources> getService() {
 		return eduresourcesService;
 	}
+	public void doSetState() {
+		eduresourcesService.doSetState(this.getIds());
+	}
 }
  

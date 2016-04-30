@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hh.edu.bean.EduResources;
 import com.hh.edu.bean.EduSubject;
 import com.hh.edu.bean.EduTestPaper;
 import com.hh.system.service.impl.BaseService;
@@ -53,9 +54,21 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 		
 		return super.queryPagingData(entity, pageRange, paramInf);
 	}
+	
+	public PagingData<EduTestPaper> queryPagingDataAll(EduTestPaper entity, PageRange pageRange) {
+		ParamInf paramInf = ParamFactory.getParamHb();
+		if (Check.isNoEmpty(entity.getType())) {
+			paramInf.is("type", entity.getType());
+		}
+		if (Check.isNoEmpty(entity.getText())) {
+			paramInf.like("text", entity.getText());
+		}
+		paramInf.is("state", 1);
+		return super.queryPagingData(entity, pageRange, paramInf);
+	}
 
 	@Transactional
-	public void generate(EduTestPaper object, String titleType) {
+	public void generate(EduTestPaper object) {
 
 		object.setHead("<div style=\"text-align: center;\"><span style=\"font-size:36px;\">" + object.getText()
 				+ "</span></div>");
@@ -64,7 +77,7 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 		for (Map<String, Object> map : mapList) {
 			String type = Convert.toString(map.get("type"));
 			int subjectcount = eduSubjectService
-					.findCount(ParamFactory.getParamHb().is("type", titleType).is("titleType", type).or(ParamFactory.getParamHb().is("state", 1).is("vcreate", loginUserUtilService.findUserId())));
+					.findCount(ParamFactory.getParamHb().is("type", object.getType()).is("titleType", type).or(ParamFactory.getParamHb().is("state", 1).is("vcreate", loginUserUtilService.findUserId())));
 
 			int subjectCount = Convert.toInt(map.get("subjectCount"));
 			int score = Convert.toInt(map.get("score"));
@@ -83,7 +96,7 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 			for (int i : randoms) {
 				
 				List<EduSubject> eduSubjects = eduSubjectService.queryList(
-						ParamFactory.getParamHb().is("type", titleType).is("titleType", type).or(ParamFactory.getParamHb().is("state", 1).is("vcreate", loginUserUtilService.findUserId())), new PageRange(i - 1, 1));
+						ParamFactory.getParamHb().is("type", object.getType()).is("titleType", type).or(ParamFactory.getParamHb().is("state", 1).is("vcreate", loginUserUtilService.findUserId())), new PageRange(i - 1, 1));
 				subjectStrs.append(eduSubjects.get(0).getId() + ",");
 
 			}
@@ -112,5 +125,12 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 
 		object.setDataitems(Json.toStr(newMapList));
 		save(object);
+	}
+	
+	public void doSetState(String ids) {
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("id", Convert.strToList(ids));
+		dao.updateEntity("update " + EduTestPaper.class.getName()
+				+ " o set o.state=1 where o.id in :id", map);
 	}
 }

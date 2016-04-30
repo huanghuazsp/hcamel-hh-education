@@ -117,9 +117,9 @@
 	
 	function renderstate(state){
 		if(state==1){
-			return '[学校题库]';
+			return '[已发布]';
 		}else{
-			return '[个人题库]';
+			return '[未发布]';
 		}
 	}
 	var letter =  ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
@@ -207,7 +207,7 @@
 			config="onClick: $.hh.pagelist.doUp , params:{ pageid :'pagelist',action:'edu-Subject-order'}  ,  icon : 'hh_up' "></span>
 		<span xtype="button"
 			config="onClick: $.hh.pagelist.doDown , params:{ pageid :'pagelist',action:'edu-Subject-order'} , icon : 'hh_down' "></span>
-		<span xtype="button" config="onClick: doSetState ,text:'转入学校题库'  "></span>
+		<span xtype="button" config="onClick: doSetState ,text:'发布共享'  "></span>
 	</div>
 	<%} %>
 	<table xtype="form" id="queryForm" style="width:700px;">

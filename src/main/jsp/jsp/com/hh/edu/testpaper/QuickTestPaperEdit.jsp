@@ -66,12 +66,6 @@
 					</td>
 				</tr>
 				<tr>
-					<td xtype="label">题目类型：</td>
-					<td><span id="node_span" xtype="selectTree"
-						config="    name: 'titleType' , findTextAction : 'edu-SubjectType-findObjectById' , url : 'edu-SubjectType-queryTreeList' ,required :true "></span>
-					</td>
-				</tr>
-				<tr>
 					<td xtype="label">名称：</td>
 					<td><span xtype="text" config=" name : 'text',required :true  "></span></td>
 				</tr>

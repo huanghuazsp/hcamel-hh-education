@@ -26,6 +26,13 @@
 			}
 		});
 	}
+	function renderstate(state){
+		if(state==1){
+			return '[已发布]';
+		}else{
+			return '[未发布]';
+		}
+	}
 	function doQuickAdd(){
 		Dialog.open({
 			url : 'jsp-edu-testpaper-QuickTestPaperEdit?type='+type1+'&typeName='+typeName,
@@ -35,6 +42,21 @@
 				}
 			}
 		});
+	}
+	function doSetState() {
+		$.hh.pagelist.callRows( 'pagelist', function(rows) {
+				var ids = $.hh.objsToStr(rows);
+				var data = {};
+				data.ids = ids;
+				Request.request('edu-TestPaper-doSetState', {
+					data : data
+				}, function(result) {
+					if (result.success != false) {
+						$("#pagelist" ).loadData();
+					}
+				});
+		});
+		
 	}
 	function doEdit() {
 		$.hh.pagelist.callRow("pagelist", function(row) {
@@ -107,7 +129,8 @@
 		<span
 			xtype="button" config="onClick: preview ,text:'预览'  "></span>
 		<span
-			xtype="button" config="onClick: release ,text:'发布'  "></span>
+			xtype="button" config="onClick: release ,text:'开考'  "></span>
+		<span xtype="button" config="onClick: doSetState ,text:'发布共享'  "></span>
 	</div>
 	<table xtype="form" id="queryForm" style="width:700px;">
 		<tr>
@@ -124,7 +147,13 @@
 			name : 'vcreateName' ,
 			text : '添加人',
 			align:'center',
+			width:80
+		},{
+			name : 'state' ,
+			text : '状态',
+			align:'center',
 			width:80,
+			render:renderstate
 		},{
 			name : 'dcreate' ,
 			text : '创建时间',

@@ -62,7 +62,7 @@
 				queryHtml : '<table xtype="form" id="queryForm" style="">'
 					+'<tr>'
 						+'<td xtype="label">类型：</td>'
-						+'<td><span xtype="selectTree" config=" name : \'type\' ,url : \'edu-SubjectType-queryTreeList\' "></span></td>'
+						+'<td><span xtype="selectTree" config=" name : \'type\' ,url : \'edu-TestPaperType-queryTreeList\' "></span></td>'
 						+'<td xtype="label">名称：</td>'
 						+'<td><span xtype="text" config=" name : \'text\' ,enter: doQuery "></span></td>'
 						+'<td style="width:100px;"><span	xtype="button" config="onClick: doQuery ,text:\'查询\' , itype :\'query\' "></span></td>'
@@ -75,7 +75,7 @@
 		       			text : '题型',
 		       			render : renderTitleType,
 		       			align:'center',
-		       			width:80,
+		       			width:80
 		       		},{
 		       			name : 'text' ,
 		       			text : '题目'

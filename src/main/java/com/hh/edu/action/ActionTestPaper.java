@@ -18,10 +18,12 @@ public class ActionTestPaper extends BaseServiceAction<EduTestPaper> {
 	public BaseService<EduTestPaper> getService() {
 		return edutestpaperService;
 	}
-
+	public void doSetState() {
+		edutestpaperService.doSetState(this.getIds());
+	}
 	public Object generate() {
 		try {
-			edutestpaperService.generate(object, titleType);
+			edutestpaperService.generate(object);
 			return null;
 		} catch (MessageException e) {
 			return e;

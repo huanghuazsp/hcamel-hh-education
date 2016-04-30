@@ -113,7 +113,7 @@
 				<tr>
 					<td xtype="label">学科：</td>
 					<td colspan="3"><span id="node_span" xtype="selectTree"
-						config="  value:'<%=type %>' , name: 'type' , findTextAction : 'edu-SubjectType-findObjectById' , url : 'edu-SubjectType-queryTreeList' ,required :true "></span>
+						config="  value:'<%=type %>' , name: 'type' , findTextAction : 'edu-TestPaperType-findObjectById' , url : 'edu-TestPaperType-queryTreeList' ,required :true "></span>
 					</td>
 				</tr>
 				<tr id="titletr">

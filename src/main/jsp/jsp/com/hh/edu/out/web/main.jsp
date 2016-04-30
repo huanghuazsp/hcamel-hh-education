@@ -1,3 +1,5 @@
+<%@page import="com.hh.usersystem.bean.usersystem.UsRole"%>
+<%@page import="com.hh.usersystem.bean.usersystem.UsUser"%>
 <%@page import="com.hh.edu.bean.EduSubject"%>
 <%@page import="com.hh.edu.bean.EduTestPaperType"%>
 <%@page import="com.hh.edu.service.impl.EduTestPaperTypeService"%>
@@ -48,8 +50,101 @@ if("subject".equals(type)){
 	eduTestPaperTypelist = eduTestPaperTypeService.queryListByProperty("node", "100bada1-ba3e-4792-996b-809704397172");
 }
 
+
+String path = request.getContextPath();
+String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+		+ path + "/";
+String headpic = "";
+UsUser hhXtYh = null;
+String objectId="";
+if(session.getAttribute("loginuser")!=null){
+hhXtYh = (UsUser) session.getAttribute("loginuser");
+objectId=hhXtYh.getId();
+headpic = hhXtYh.getHeadpic();
+
+List<UsRole> hhXtJsList = hhXtYh.getHhXtJsList();
+String jsTextStr = "";
+for (UsRole hhXtJs : hhXtJsList) {
+	jsTextStr += hhXtJs.getText() + ",";
+}
+if (!"".equals(jsTextStr)) {
+	jsTextStr = "角色【" + jsTextStr.substring(0, jsTextStr.length() - 1) + "】";
+}
+String orgTextStr = "";
+UsOrganization jg = hhXtYh.getOrg();
+UsOrganization bm = hhXtYh.getDept();
+UsOrganization gw = hhXtYh.getJob();
+String str = "";
+if (jg != null) {
+	str += jg.getName() + "/";
+}
+if (bm != null) {
+	str += bm.getName() + "/";
+}
+if (gw != null) {
+	str += gw.getName() + "/";
+}
+if (Check.isNoEmpty(str)) {
+	str = str.substring(0, str.length() - 1);
+	orgTextStr = "所在部门【" + str + "】";
+}
+String textStr = "";
+if (!"".equals(orgTextStr) && !"".equals(jsTextStr)) {
+	textStr = jsTextStr + "<br/>" + orgTextStr;
+} else {
+	if (!"".equals(orgTextStr)) {
+		textStr = orgTextStr;
+	}
+	if (!"".equals(jsTextStr)) {
+		textStr = jsTextStr;
+	}
+}
+
+if (Check.isNoEmpty(headpic) && !headpic.startsWith("/hhcomm")) {
+	headpic = "system-File-download?system_open_page_file_form_params={id:'" + headpic + "'}";
+}
+
+if (Check.isNoEmpty(headpic)) {
+	headpic = " <img id='headpicimg' onClick='updateUser()' style=\"border:1px solid #006894;cursor: pointer;width:50px;height:50px;\" width=\"50\"		height=\"50\"		src=\""
+			+ headpic + "\" />";
+} else {
+	headpic = "<img id='headpicimg' onClick='updateUser()' style=\"border:1px solid #006894;cursor: pointer;width:50px;height:50px;\" width=\"50\"		height=\"50\"		src=\"/hhcommon/images/icons/user/100/no_on_line_user.jpg\" />";
+}
+
+}
 %>
 <script type="text/javascript">
+function updateUser() {
+	Dialog.open({
+		url : 'jsp-usersystem-user-useredit',
+		params : {
+			objectId : '<%=objectId%>',
+			systemmanagerhide : true,
+			callback : function(data) {
+				$.hh.timeout({
+					callback : function() {
+						document.location.reload();
+					}
+				});
+			}
+		}
+	});
+}
+
+function login(){
+	$.hh.timeout({callback : function() {		document.location.reload();	}});
+}
+
+function logout_click() {
+	Dialog.confirm({
+		message : '您确认要退出系统？',
+		callback : function(result) {
+			if (result == 1) {
+				Request.href("usersystem-login-logoutMain");
+			}
+		}
+	});
+}
 
 function renderstate(state){
 	if(state==1){
@@ -169,16 +264,25 @@ function fileRender(value){
 <!--头部-->
 <div class="header">
 	<div class="head_m clearfix">
-        <div class="logo"><a href="javascript:void();">
-        <table width=300px;>
+        <div class="logo">
+        <table width=600 >
 			<tr>
-				<td><%=sysImg%></td>
-				<td><font
+				<td style="width:50px;"><%=sysImg%></td>
+				<td style="width:200px;"><font
 					style="font-size: 30px; font-weight: 200; padding: 0px 7px; text-shadow: 0 1px 0 #fff;" color=#0095CC><%=SysParam.sysParam.getSysName()%></font>
 				</td>
+				<%if(hhXtYh!=null){ %>
+				<td style="width:100px;">
+				</td>
+				<td>
+				<%=headpic %>
+				</td>
+				<td style="text-align: left;">欢迎您，<%=hhXtYh.getText()%>！</td>
+				<%} %>
 			</tr>
 		</table>
-        <!-- <img src="edu/Assets/images/logo.png" alt="彬之蓝"/> --></a></div>
+        <!-- <img src="edu/Assets/images/logo.png" alt="彬之蓝"/> -->
+        </div>
         <div class="head_mr" style="text-align">
         	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -186,7 +290,12 @@ function fileRender(value){
         	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        	<a href="login.jsp"><font color=#0095CC>登陆</font></a>┊<a href="reg.jsp"><font color=#0095CC>注册</font></a></p>
+        	<%if(hhXtYh==null){ %>
+        	<a href="javascript:login()"><font color=#0095CC>登陆</font></a>
+        	<%}else{ %>
+        	<a href="javascript:logout_click();"><font color=#0095CC>注销</font></a>
+        	<%} %>
+        	┊<a href="reg.jsp"><font color=#0095CC>注册</font></a></p>
             <div class="search">
             	<form action="" method="post">
                 	<input id="searchInput" name="" type="text" placeholder="请输入搜索关键词">

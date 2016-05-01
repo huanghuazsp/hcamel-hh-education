@@ -1,3 +1,5 @@
+<%@page import="com.hh.edu.bean.EduSelfTestExamination"%>
+<%@page import="com.hh.edu.service.impl.EduSelfTestExaminationService"%>
 <%@page import="com.hh.system.util.statics.StaticVar"%>
 <%@page import="com.hh.system.util.MessageException"%>
 <%@page import="com.hh.system.util.date.DateFormat"%>
@@ -36,14 +38,26 @@ response.setDateHeader("Expires",0);
 <%=BaseSystemUtil.getBaseJs("layout","checkform")%>
 <%
 	String id = request.getParameter("id");
-
+	String selfTest = request.getParameter("selfTest");
 	String exatype = request.getParameter("type");
 	
 	String userId = request.getParameter("userId");
-	
 	boolean tempAnswer = false;
 	String params = request.getParameter("params");
 	EduExamination eduExamination = new EduExamination();
+	
+	boolean selfTestAs = false;
+	
+	//临时查看结果
+	if(Check.isNoEmpty(selfTest)){
+		EduSelfTestExaminationService eduSelfTestExaminationService = BeanFactoryHelper.getBean(EduSelfTestExaminationService.class);
+		EduSelfTestExamination eduSelfTestExamination = eduSelfTestExaminationService.findMyObject(id);
+		eduExamination.setAnswer(eduSelfTestExamination.getAnswer());
+		exatype="view";
+		eduExamination.setOpenScore(1);
+		tempAnswer=true;
+		selfTestAs = true;
+	}
 	if (Check.isNoEmpty(params)) {
 		Map<String, Object> paramsMap = new HashMap<String, Object>();
 		paramsMap = Json.toMap(params);
@@ -52,13 +66,13 @@ response.setDateHeader("Expires",0);
 		eduExamination.setOpenScore(1);
 		tempAnswer=true;
 	} 
-	
+	//答题
 	boolean exa = "exa".equals(exatype);
-	
+	//查看结果
 	boolean view ="view".equals(exatype);
-	
+	//人工评测
 	boolean artificial = "artificial".equals(exatype) ;
-	if(view){
+	if(view && selfTestAs==false){
 		artificial = true;
 	}
 
@@ -160,7 +174,7 @@ function init(){
 	regEvent();
 	
 	<%
-	if(exa || artificial){
+	if(exa || artificial || selfTestAs){
 	%>
 	eduExaminationFun();
 	<%
@@ -186,14 +200,13 @@ function init(){
 	
 }
 <%
-if(exa || artificial){
+if(exa || artificial || selfTestAs){
 %>
 function eduExaminationFun(){
 	$('[type=subject]').each(function(){
 		var span = $(this);
 		var subjectId = span.attr('subjectId');
 		var value =  eduExamination[subjectId];
-		
 		var type = span.attr('subjectType');
 		if(type=='radio' ){
 			span.find("input[type=radio]").prop("checked", false);
@@ -280,6 +293,21 @@ function submit(){
 function viewResult(){
 	var objectMap =  bc();
 	Request.submit('outjsp-edu-web-preview?id=<%=id%>',{answer: $.hh.toString(objectMap)});
+}
+
+function saveResult(){
+	var objectMap =  bc();
+	Request.request('edu-SelfTestExamination-saveAnswer', {
+		defaultMsg : false,
+		data : {
+			'testPaperId':'<%=id%>',
+			'answer': $.hh.toString(objectMap),
+			testPaperName : '<%=eduTestPaper.getText()%>'
+		},
+		callback : function(result) {
+			//console.log(result);
+		}
+	});
 }
 
 function save(){
@@ -421,9 +449,10 @@ function artificial(){
 	%>
 	<div style="margin-top:5px;">	<%=eduExamination.getUserName() %>您的成绩为：<%=eduExamination.getScore() %>,成绩发布时间为：<%=DateFormat.dateToStr(eduExamination.getOpenDate(), "yyyy-MM-dd HH:mm:ss")%></div>
 	<%
-	}else if(tempAnswer==false){
+	}else if(tempAnswer==false || selfTestAs){
 	%>
 	<span xtype="button" config="onClick : viewResult ,text : '查看结果'   "></span>
+	<span xtype="button" config="onClick : saveResult ,text : '保存结果'   "></span>
 	<%
 	}
 	%>
@@ -434,7 +463,7 @@ function artificial(){
 <form id="form" xtype="form">
 <table width=100% ><tr><td align=center>
 	<div style="width:794px;text-align:left;">
-	<br/><%=eduTestPaper.getHead() %><br/>
+	<br/><div style="text-align:center;"><h1><%=eduTestPaper.getHead() %></h1></div><br/>
 	<%
 	int aa = 1;
 	for(int i =0;i<mapList.size();i++){
@@ -472,7 +501,9 @@ function artificial(){
 			if( artificial){
 				String userAnswer  = Convert.toString(answermap.get(eduSubject.getId()));
 				String color = "green";
-				scoreStr="（"+eduSubject.getScore()+"分）";
+				if(tempAnswer==false){
+					scoreStr="（"+eduSubject.getScore()+"分）";
+				}
 				if("radio".equals(titleType)){
 					answer = Convert.numberToLetter(Convert.toInt(eduSubject.getAnswer()));
 					if(!userAnswer.equals(eduSubject.getAnswer())){

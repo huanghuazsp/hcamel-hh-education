@@ -18,7 +18,7 @@
 	}
 	function doAdd() {
 		Dialog.open({
-			url : 'jsp-edu-testpaper-TestPaperEdit?type='+type1,
+			url : 'jsp-edu-testpaper-TestPaperEdit?type='+type1+'&typeName='+typeName,
 			params : {
 				callback : function() {
 					$("#pagelist").loadData();
@@ -91,7 +91,7 @@
 			$.hh.addTab({
 				id : row.id,
 				text :  '试卷预览',
-				src : 'outjsp-edu-web-preview?id=' +row.id
+				src : 'outjsp-edu-web-preview?selfTest=1&id=' +row.id
 			});
 		});
 	}

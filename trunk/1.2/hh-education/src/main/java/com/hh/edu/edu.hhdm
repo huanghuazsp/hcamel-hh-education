@@ -14,4 +14,9 @@
   </table>
   <table id="48283eb6-a44c-4506-9650-2a7b32f1634a" name="ReleaseSubject" text="ReleaseSubject" type="table"/>
   <table id="715f1784-9189-49d4-bb94-c880801049ca" name="resources" text="resources" type="table"/>
+  <table id="ec57173a-3b68-458d-a00f-a2ae13e78152" name="SelfTestExamination" text="SelfTestExamination" type="table">
+    <column defaultValue="" empty="true" id="b8115221-4a13-45e5-b5d8-79e3ee943616" length="" name="answer" primary="false" text="answer" type="String"/>
+    <column defaultValue="" empty="true" id="8ba2a285-ac68-487a-a11d-528a00697dea" length="" name="testPaperId" primary="false" text="testPaperId" type="String"/>
+    <column defaultValue="" empty="true" id="6158cbf1-2e96-417d-93f2-8a2b99683f10" length="" name="testPaperName" primary="false" text="testPaperName" type="String"/>
+  </table>
 </project>

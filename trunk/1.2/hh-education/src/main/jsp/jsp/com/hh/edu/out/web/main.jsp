@@ -106,11 +106,13 @@ if (Check.isNoEmpty(headpic)) {
 }
 %>
 <script type="text/javascript">
+var userId = '<%=objectId%>';
+var sysName = '<%=SysParam.sysParam.getSysName()%>';
 function updateUser() {
 	Dialog.open({
 		url : 'jsp-usersystem-user-useredit',
 		params : {
-			objectId : '<%=objectId%>',
+			objectId : userId,
 			systemmanagerhide : true,
 			callback : function(data) {
 				$.hh.timeout({
@@ -250,6 +252,122 @@ function fileRender(value){
 	}
 	return table;
 }
+
+$(function(){
+	<%if(hhXtYh!=null){%>
+	var mysetInterval = null;
+	var mysetInterval2 = null;
+
+	function loadData() {
+		Request
+				.request(
+						'usersystem-System-loadDataTime',
+						{
+							doing : false,
+							callback : function(result) {
+								if (result.success != false == false
+										|| result.sessionstatus == 'timeout') {
+									clearInterval(mysetInterval);
+								} else {
+									var message_span = $('#message_span');
+									var message = result.message;
+									
+									var onlineuser = result.onlineuser;
+									
+									if (message || onlineuser) {
+										var messageText = '';
+										
+										if(onlineuser){
+											messageText+='在线<font class=hh_green>'
+												+ onlineuser.count
+												+ '</font>人;';
+										}
+										if(message){
+											messageText+='您有<font class=hh_red>'
+												+ message.count
+												+ '</font>条未读消息;';
+										}
+										
+										message_span
+												.render({
+													'text' : messageText,
+													params : message
+												});
+									}
+									
+									var allMessage = result.allMessage;
+									if (allMessage) {
+										try{
+											if($.hh.property.mainWindow){
+												$.hh.property.mainWindow.renderAllMessage(allMessage);
+											}
+										}catch(e){
+											
+										}
+									}
+
+									if ( message
+											&& ( message.count > 0)) {
+										if (mysetInterval2 == null) {
+											mysetInterval2 = setInterval(
+													function() {
+														if (document.title == sysName) {
+															document.title = "您有新的未读消息！！";
+														} else {
+															document.title = sysName;
+														}
+													}, 700);
+										}
+									} else {
+										document.title = sysName;
+										clearInterval(mysetInterval2);
+										mysetInterval2 = null;
+									}
+								}
+							}
+						});
+	}
+
+	setTimeout(function() {
+		loadData();
+		mysetInterval = setInterval(loadData, 1000 * 60);
+	}, 3000);
+	
+	
+	<%
+	}
+	%>
+	
+})
+
+function selftesting(){
+	if(userId){
+		Request.href('outjsp-edu-web-main?type=selftesting');
+	}else{
+		login();
+	}
+}
+
+function doQuickAdd(){
+	Dialog.open({
+		url : 'jsp-edu-testpaper-QuickTestPaperEdit',
+		params : {
+			callback : function() {
+				$("#pagelist").loadData();
+			}
+		}
+	});
+}
+function doAddTestPage() {
+	Dialog.open({
+		url : 'jsp-edu-testpaper-TestPaperEdit',
+		params : {
+			callback : function() {
+				$("#pagelist").loadData();
+			}
+		}
+	});
+}
 </script>
 </head>
 <body>
@@ -301,6 +419,7 @@ function fileRender(value){
             <li <%="subject".equals(type) ?" class=now ":"" %> ><a href="outjsp-edu-web-main?type=subject">题库</a></li>
             <li <%="testpaper".equals(type) ?" class=now ":"" %>><a href="outjsp-edu-web-main?type=testpaper">试卷</a></li>
             <li <%="resources".equals(type) ?" class=now ":"" %>><a href="outjsp-edu-web-main?type=resources">资源库</a></li>
+            <li <%="selftesting".equals(type) ?" class=now ":"" %>><a href="javascript:selftesting();">组卷自测</a></li>
             <!-- <li><a href="news.html">新闻中心</a></li>
             <li><a href="contact.html">联系我们</a></li>
             <li><a href="book.html">用户留言</a></li> -->
@@ -439,7 +558,34 @@ function fileRender(value){
 				</div>
 
          	 <%
-        }
+        }else if("selftesting".equals(type)){
+       	 %>
+       	 <div xtype="toolbar" config="type:'head'">
+			<span xtype="button" config="onClick:doAddTestPage,text:'添加' , itype :'add' "></span>
+			<span xtype="button" config="onClick: doQuickAdd ,text:'快速添加' , itype :'add' "></span>
+		</div>
+       	<div id="pagelist" xtype="pagelist"
+			config=" url: 'edu-TestPaper-queryPagingData' ,column : [
+				{
+					name : 'dcreate' ,
+					text : '创建时间',
+					align:'center',
+					width:150,
+					render :'datetime'
+				},{
+					name : 'text' ,
+					render : renderTestPaper ,
+					text : '试卷名称'
+				},{
+					name : 'text1' ,
+					render : renderTestPaperOper ,
+					text : '操作',
+					width : 60
+				}
+			]">
+			</div>
+       	 <%
+       }
         %>
 		
 		

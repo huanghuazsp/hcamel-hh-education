@@ -9,6 +9,7 @@
 <%=BaseSystemUtil.getBaseJs("checkform", "date", "ckeditor")%>
 <%
 	String type = Convert.toString(request.getParameter("type"));
+	String typeName = Convert.toString(request.getParameter("typeName"));
 %>
 <script type="text/javascript">
 	var params = $.hh.getIframeParams();
@@ -54,21 +55,27 @@
 			return '填空题';
 		}
 	}
+	
+	function queryHtml(type){
+		return '<table xtype="form" id="queryForm" style="">'
+							+'<tr>'
+							+'<td xtype="label">类型：</td>'
+							+'<td><span xtype="selectTree" config=" value:\''+type+'\', findTextAction :\'edu-TestPaperType-findObjectById\' , name : \'type\' ,url : \'edu-TestPaperType-queryTreeList\' "></span></td>'
+							+'<td xtype="label">名称：</td>'
+							+'<td><span xtype="text" config=" name : \'text\' ,enter: doQuery "></span></td>'
+							+'<td style="width:100px;"><span	xtype="button" config="onClick: doQuery ,text:\'查询\' , itype :\'query\' "></span></td>'
+						+'</tr>'
+					+'</table>';
+	}
+	
 	var subjectConfig = {
 			textarea :true,
 			openWidth:700,
 			findTextAction :'edu-Subject-findTextById' ,
 			pageconfig:{
-				queryHtml : '<table xtype="form" id="queryForm" style="">'
-					+'<tr>'
-						+'<td xtype="label">类型：</td>'
-						+'<td><span xtype="selectTree" config=" name : \'type\' ,url : \'edu-TestPaperType-queryTreeList\' "></span></td>'
-						+'<td xtype="label">名称：</td>'
-						+'<td><span xtype="text" config=" name : \'text\' ,enter: doQuery "></span></td>'
-						+'<td style="width:100px;"><span	xtype="button" config="onClick: doQuery ,text:\'查询\' , itype :\'query\' "></span></td>'
-					+'</tr>'
-				+'</table>',
-				url:'edu-Subject-queryPagingData' ,
+				queryHtml : queryHtml('<%=type%>'),
+				url:'outedu-OutSubject-queryPagingDataAll' ,
+				params:{type:'<%=type%>'},
 				column : [
 		       		{
 		       			name : 'titleType' ,
@@ -94,7 +101,16 @@
 	}
 
 	function init() {
+		$('#span_text').setValue('<%=Convert.toString(typeName)%>'+$.hh.dateToString($.hh.getDate()));
 		findData();
+	}
+	function testpaperChange(data){
+		if(data){
+			subjectConfig.pageconfig.queryHtml=queryHtml(data.id);
+			subjectConfig.pageconfig.params.type=data.id;
+			
+			$('#span_text').setValue(data.name+$.hh.dateToString($.hh.getDate()));
+		}
 	}
 </script>
 </head>
@@ -104,19 +120,19 @@
 			<span xtype="text" config=" hidden:true,name : 'id'"></span>
 			<table xtype="form">
 				<tr>
-					<td xtype="label">类型：</td>
+					<td xtype="label">学科：</td>
 					<td><span id="node_span" xtype="selectTree"
-						config="  value:'<%=type%>' , name: 'type' , findTextAction : 'edu-TestPaperType-findObjectById' , url : 'edu-TestPaperType-queryTreeList' ,required :true "></span>
+						config=" onChange: testpaperChange , value:'<%=type%>' , name: 'type' , findTextAction : 'edu-TestPaperType-findObjectById' , url : 'edu-TestPaperType-queryTreeList' ,required :true "></span>
 					</td>
 				</tr>
 				<tr>
 					<td xtype="label">名称：</td>
 					<td><span xtype="text" config=" name : 'text',required :true"></span></td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td xtype="label">试卷抬头：</td>
 					<td><span xtype="ckeditor" config="name: 'head' , height : 200 "></span></td>
-				</tr>
+				</tr> -->
 				<tr id="tableitemtr">
 					<td xtype="label">大题配置：</td>
 					<td><span xtype="tableitem" configVar="tableitemConfig"></span></td>

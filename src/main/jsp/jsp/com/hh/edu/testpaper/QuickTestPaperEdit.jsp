@@ -47,7 +47,9 @@
 		+'<tr><td style="text-align:right;width:60px;">分数总分：</td><td><span xtype="text" valuekey="score" config=" integer : true ,value:100 "></span></td></tr>'
 	}
 	function testpaperChange(data){
-		$('#span_text').setValue(data.name+$.hh.dateToString($.hh.getDate()));
+		if(data){
+			$('#span_text').setValue(data.name+$.hh.dateToString($.hh.getDate()));
+		}
 	}
 	function init() {
 		$('#span_text').setValue('<%=Convert.toString(typeName)%>'+$.hh.dateToString($.hh.getDate()));
@@ -60,7 +62,7 @@
 			<span xtype="text" config=" hidden:true,name : 'id'"></span>
 			<table xtype="form">
 				<tr>
-					<td xtype="label">试卷类型：</td>
+					<td xtype="label">学科：</td>
 					<td><span id="node_span" xtype="selectTree"
 						config=" onChange: testpaperChange , value:'<%=type%>' , name: 'type' , findTextAction : 'edu-TestPaperType-findObjectById' , url : 'edu-TestPaperType-queryTreeList' ,required :true "></span>
 					</td>

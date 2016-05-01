@@ -127,6 +127,16 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 		save(object);
 	}
 	
+	
+	
+	@Override
+	public EduTestPaper save(EduTestPaper entity) throws MessageException {
+		if (Check.isEmpty(entity.getHead())) {
+			entity.setHead(entity.getText());
+		}
+		return super.save(entity);
+	}
+
 	public void doSetState(String ids) {
 		Map<String, Object> map = new HashMap<String,Object>();
 		map.put("id", Convert.strToList(ids));

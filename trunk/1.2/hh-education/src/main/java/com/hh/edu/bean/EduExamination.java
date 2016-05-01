@@ -146,4 +146,13 @@ public class EduExamination  extends BaseTwoEntity{
 		this.openDate = openDate;
 	}
 	
+	private int qk;
+
+	@Column(name="QK_")
+	public int getQk() {
+		return qk;
+	}
+	public void setQk(int qk) {
+		this.qk = qk;
+	}
 }

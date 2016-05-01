@@ -34,6 +34,7 @@
 			formData.vcreate=null;
 			formData.vorgid=null;
 			formData.vupdate=null;
+			formData.state=0;
 			Request.request('edu-ReleaseTestPaper-save', {
 				data : formData,
 				callback : function(result) {

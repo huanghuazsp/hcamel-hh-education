@@ -109,6 +109,7 @@ public class EduExaminationService extends BaseService<EduExamination> {
 				eduExamination.setReleaseTestPaperId(object.getReleaseTestPaperId());
 				eduExamination.setUserId(usUser.getId());
 				eduExamination.setUserName(usUser.getText());
+				eduExamination.setQk(1);
 				saveExam(eduExamination);
 			}
 		}

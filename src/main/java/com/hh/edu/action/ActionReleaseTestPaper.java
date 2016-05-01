@@ -89,6 +89,13 @@ public class ActionReleaseTestPaper extends BaseServiceAction<EduReleaseTestPape
 		for (EduExamination eduExamination : eduExaminationList) {
 			userIdList.remove(eduExamination.getUserId());
 			userNameList.remove(eduExamination.getUserName());
+			if (Check.isNoEmpty(userMap.get(eduExamination.getUserId()))) {
+				eduExamination.setUserName(
+						eduExamination.getUserName() + "[" + userMap.get(eduExamination.getUserId()).getVdzyj() + "]");
+			}
+			if (eduExamination.getQk()==1) {
+				eduExamination.setUserName(eduExamination.getUserName() + "（缺考）");
+			}
 		}
 		for (int i = 0; i < userIdList.size(); i++) {
 			EduExamination eduExamination = new EduExamination();

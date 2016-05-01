@@ -52,7 +52,9 @@ response.setDateHeader("Expires",0);
 	if(Check.isNoEmpty(selfTest)){
 		EduSelfTestExaminationService eduSelfTestExaminationService = BeanFactoryHelper.getBean(EduSelfTestExaminationService.class);
 		EduSelfTestExamination eduSelfTestExamination = eduSelfTestExaminationService.findMyObject(id);
-		eduExamination.setAnswer(eduSelfTestExamination.getAnswer());
+		if(eduSelfTestExamination!=null){
+			eduExamination.setAnswer(eduSelfTestExamination.getAnswer());
+		}
 		exatype="view";
 		eduExamination.setOpenScore(1);
 		tempAnswer=true;
@@ -452,7 +454,15 @@ function artificial(){
 	}else if(tempAnswer==false || selfTestAs){
 	%>
 	<span xtype="button" config="onClick : viewResult ,text : '查看结果'   "></span>
+	
+	<%
+	if(selfTestAs){
+	%>
 	<span xtype="button" config="onClick : saveResult ,text : '保存结果'   "></span>
+	<%
+	}
+	%>
+	
 	<%
 	}
 	%>

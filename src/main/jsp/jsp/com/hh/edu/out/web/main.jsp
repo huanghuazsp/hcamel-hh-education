@@ -152,11 +152,16 @@ var letter =  ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
 		
 		
 function renderTestPaper(value,data){
-	return '<a target="_blank" href="outjsp-edu-web-preview?id='+data.id+'">'+value+'</a>';
+	return '<a target="_blank" href="outjsp-edu-web-preview?selfTest='+userId+'&id='+data.id+'">'+value+'</a>';
 }	
 function renderTestPaperOper(value,data){
-	return '<a target="_blank" href="outjsp-edu-web-preview?id='+data.id+'">进行测试</a>';
+	return '<a target="_blank" href="outjsp-edu-web-preview?selfTest='+userId+'&id='+data.id+'">进行测试</a>';
 }	
+
+function renderSelfTestExamination(value,data){
+	return '<a target="_blank" href="outjsp-edu-web-preview?selfTest='+userId+'&id='+data.testPaperId+'">继续测试</a>';
+}
+
 function renderTitle(value,data){
 	var text ='<strong>'+ data.text.replace(/\n/g, "<br />")+'</strong>'+'<br/>'+'<br/>';
 	if(data.textpic){
@@ -348,6 +353,14 @@ function selftesting(){
 	}
 }
 
+function selftestingHi(){
+	if(userId){
+		Request.href('outjsp-edu-web-main?type=selftestingHi');
+	}else{
+		login();
+	}
+}
+
 function doQuickAdd(){
 	Dialog.open({
 		url : 'jsp-edu-testpaper-QuickTestPaperEdit',
@@ -420,6 +433,7 @@ function doAddTestPage() {
             <li <%="testpaper".equals(type) ?" class=now ":"" %>><a href="outjsp-edu-web-main?type=testpaper">试卷</a></li>
             <li <%="resources".equals(type) ?" class=now ":"" %>><a href="outjsp-edu-web-main?type=resources">资源库</a></li>
             <li <%="selftesting".equals(type) ?" class=now ":"" %>><a href="javascript:selftesting();">组卷自测</a></li>
+            <li <%="selftestingHi".equals(type) ?" class=now ":"" %>><a href="javascript:selftestingHi();">组卷自测</a></li>
             <!-- <li><a href="news.html">新闻中心</a></li>
             <li><a href="contact.html">联系我们</a></li>
             <li><a href="book.html">用户留言</a></li> -->
@@ -585,7 +599,29 @@ function doAddTestPage() {
 			]">
 			</div>
        	 <%
-       }
+       }else if("selftestingHi".equals(type)){
+         	 %>
+           	<div id="pagelist" xtype="pagelist"
+    			config=" url: 'outedu-SelfTestExamination-queryPagingData' ,column : [
+	    				{
+						name : 'dcreate' ,
+						text : '测试时间',
+						align:'center',
+						width:150,
+						render :'datetime'
+					},{
+						name : 'testPaperName' ,
+						text : '试卷名称'
+					},{
+						name : 'text1' ,
+						render : renderSelfTestExamination ,
+						text : '操作',
+						width : 60
+					}
+    			]">
+    			</div>
+           	 <%
+           }
         %>
 		
 		

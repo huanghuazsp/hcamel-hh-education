@@ -433,7 +433,7 @@ function doAddTestPage() {
             <li <%="testpaper".equals(type) ?" class=now ":"" %>><a href="outjsp-edu-web-main?type=testpaper">试卷</a></li>
             <li <%="resources".equals(type) ?" class=now ":"" %>><a href="outjsp-edu-web-main?type=resources">资源库</a></li>
             <li <%="selftesting".equals(type) ?" class=now ":"" %>><a href="javascript:selftesting();">组卷自测</a></li>
-            <li <%="selftestingHi".equals(type) ?" class=now ":"" %>><a href="javascript:selftestingHi();">组卷自测</a></li>
+            <li <%="selftestingHi".equals(type) ?" class=now ":"" %>><a href="javascript:selftestingHi();">自测历史</a></li>
             <!-- <li><a href="news.html">新闻中心</a></li>
             <li><a href="contact.html">联系我们</a></li>
             <li><a href="book.html">用户留言</a></li> -->

@@ -45,16 +45,13 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 			paramInf.like("text", entity.getText());
 		}
 		UsUser user = loginUserUtilService.findLoginUser();
-		if ( user!=null) {
-			List<UsRole> usRoles = user.getHhXtJsList();
-			if (usRoles.size() == 1 && !"admin".equals(usRoles.get(0).getJssx())) {
-				paramInf.is("vcreate", loginUserUtilService.findUserId());
-			}
+		if (!"admin".equals(user.getRoleIds())) {
+			paramInf.is("vcreate", loginUserUtilService.findUserId());
 		}
-		
+
 		return super.queryPagingData(entity, pageRange, paramInf);
 	}
-	
+
 	public PagingData<EduTestPaper> queryPagingDataAll(EduTestPaper entity, PageRange pageRange) {
 		ParamInf paramInf = ParamFactory.getParamHb();
 		if (Check.isNoEmpty(entity.getType())) {
@@ -77,7 +74,8 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 		for (Map<String, Object> map : mapList) {
 			String type = Convert.toString(map.get("type"));
 			int subjectcount = eduSubjectService
-					.findCount(ParamFactory.getParamHb().is("type", object.getType()).is("titleType", type).or(ParamFactory.getParamHb().is("state", 1).is("vcreate", loginUserUtilService.findUserId())));
+					.findCount(ParamFactory.getParamHb().is("type", object.getType()).is("titleType", type).or(
+							ParamFactory.getParamHb().is("state", 1).is("vcreate", loginUserUtilService.findUserId())));
 
 			int subjectCount = Convert.toInt(map.get("subjectCount"));
 			int score = Convert.toInt(map.get("score"));
@@ -94,9 +92,12 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 			StringBuffer subjectStrs = new StringBuffer("");
 
 			for (int i : randoms) {
-				
+
 				List<EduSubject> eduSubjects = eduSubjectService.queryList(
-						ParamFactory.getParamHb().is("type", object.getType()).is("titleType", type).or(ParamFactory.getParamHb().is("state", 1).is("vcreate", loginUserUtilService.findUserId())), new PageRange(i - 1, 1));
+						ParamFactory.getParamHb()
+								.is("type", object.getType()).is("titleType", type).or(ParamFactory.getParamHb()
+										.is("state", 1).is("vcreate", loginUserUtilService.findUserId())),
+						new PageRange(i - 1, 1));
 				subjectStrs.append(eduSubjects.get(0).getId() + ",");
 
 			}
@@ -126,9 +127,7 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 		object.setDataitems(Json.toStr(newMapList));
 		save(object);
 	}
-	
-	
-	
+
 	@Override
 	public EduTestPaper save(EduTestPaper entity) throws MessageException {
 		if (Check.isEmpty(entity.getHead())) {
@@ -138,9 +137,8 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 	}
 
 	public void doSetState(String ids) {
-		Map<String, Object> map = new HashMap<String,Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", Convert.strToList(ids));
-		dao.updateEntity("update " + EduTestPaper.class.getName()
-				+ " o set o.state=1 where o.id in :id", map);
+		dao.updateEntity("update " + EduTestPaper.class.getName() + " o set o.state=1 where o.id in :id", map);
 	}
 }

@@ -36,12 +36,9 @@ public class EduResourcesService extends BaseService<EduResources> {
 			paramInf.like("text", entity.getText());
 		}
 		UsUser user = loginUserService.findLoginUser();
-		if ( user!=null) {
-			List<UsRole> usRoles = user.getHhXtJsList();
-			if (usRoles.size() == 1 && !"admin".equals(usRoles.get(0).getJssx())) {
+		if (!"admin".equals(user.getRoleIds())) {
 				paramInf.is("vcreate", loginUserService.findUserId());
 			}
-		}
 		return super.queryPagingData(entity, pageRange, paramInf);
 	}
 	public void doSetState(String ids) {

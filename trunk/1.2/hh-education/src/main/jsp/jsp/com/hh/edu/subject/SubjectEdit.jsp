@@ -6,7 +6,7 @@
 <html>
 <head>
 <title>数据编辑</title>
-<%=BaseSystemUtil.getBaseJs("checkform","date")%>
+<%=BaseSystemUtil.getBaseJs("checkform","date","ckeditor")%>
 <%
 	String titleType =   request.getParameter("titleType");
 	String type =   Convert.toString(request.getParameter("type"));
@@ -49,7 +49,7 @@
 			$('#answertd').append(span);
 			span.render();
 			if(titleType=='fillEmpty'){
-				$('#bz').html('例：<br/>题目：【家庭系统存在两种机制，即:${平衡机制}、${改变机制}】<br/>答案：${平衡机制}、${改变机制}<br/>这样【平衡机制】和【改变机制】就会作为这道题目的填空项');
+				$('#bz').html('例：<br/>题目：【家庭系统存在两种机制，即:\$\{平衡机制\}、\$\{改变机制\}】<br/>答案：\$\{平衡机制\}、\$\{改变机制\}<br/>这样【平衡机制】和【改变机制】就会作为这道题目的填空项');
 				$('[name=answer]').height(150);
 			}
 		}
@@ -118,7 +118,7 @@
 				</tr>
 				<tr id="titletr">
 					<td xtype="label">题目：</td>
-					<td colspan="3"><span xtype="textarea" config=" name : 'text',required :true"></span></td>
+					<td colspan="3"><span xtype="ckeditor" config=" name : 'text',required :true , height : 100"></span></td>
 				</tr>
 				
 				<tr id="tableitemtr">

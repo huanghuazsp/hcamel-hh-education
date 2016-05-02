@@ -31,6 +31,9 @@
 <!--幻灯片-->
 <%
 EduTestPaperTypeService eduTestPaperTypeService = BeanFactoryHelper.getBean(EduTestPaperTypeService.class);
+EduSubjectService eduSubjectService = BeanFactoryHelper.getBean(EduSubjectService.class);
+EduTestPaperService eduTestPaperService = BeanFactoryHelper.getBean(EduTestPaperService.class);
+
 String sysImg = SysParam.sysParam.getSysImg2();
 if (Check.isNoEmpty(sysImg)) {
 	sysImg = "<img style='width:50px;height:50px;'src=" + sysImg + " />";
@@ -41,7 +44,12 @@ if(Check.isEmpty(type)){
 }
 List<EduTestPaperType> eduTestPaperTypelist = new ArrayList<EduTestPaperType>();
 eduTestPaperTypelist = eduTestPaperTypeService.queryListByProperty("node", "100bada1-ba3e-4792-996b-809704397172");
-
+if("subject".equals(type)){
+	eduTestPaperTypeService.converSubjecttText(eduTestPaperTypelist,true);
+}else if("testpaper".equals(type)){
+	eduTestPaperTypeService.converTestPagerText(eduTestPaperTypelist,true);
+}
+	
 
 String path = request.getContextPath();
 String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -575,8 +583,8 @@ function doAddTestPage() {
         }else if("selftesting".equals(type)){
        	 %>
        	 <div xtype="toolbar" config="type:'head'">
-			<span xtype="button" config="onClick:doAddTestPage,text:'添加' , itype :'add' "></span>
-			<span xtype="button" config="onClick: doQuickAdd ,text:'快速添加' , itype :'add' "></span>
+			<span xtype="button" config="onClick:doAddTestPage,text:'组卷' , itype :'add' "></span>
+			<span xtype="button" config="onClick: doQuickAdd ,text:'快速组卷' , itype :'add' "></span>
 		</div>
        	<div id="pagelist" xtype="pagelist"
 			config=" url: 'edu-TestPaper-queryPagingData' ,column : [

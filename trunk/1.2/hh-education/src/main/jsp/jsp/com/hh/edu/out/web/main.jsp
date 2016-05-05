@@ -399,11 +399,11 @@ function doAddTestPage() {
         <table width=600 >
 			<tr>
 				<td style="width:50px;"><%=sysImg%></td>
-				<td style="width:200px;"><font
+				<td style="width:260px;"><font
 					style="font-size: 30px; font-weight: 200; padding: 0px 7px; text-shadow: 0 1px 0 #fff;" color=#0095CC><%=SysParam.sysParam.getSysName()%></font>
 				</td>
 				<%if(hhXtYh!=null){ %>
-				<td style="width:100px;">
+				<td style="width:40px;">
 				</td>
 				<td>
 				<%=headpic %>
@@ -441,7 +441,7 @@ function doAddTestPage() {
             <li <%="testpaper".equals(type) ?" class=now ":"" %>><a href="outjsp-edu-web-main?type=testpaper">试卷</a></li>
             <li <%="resources".equals(type) ?" class=now ":"" %>><a href="outjsp-edu-web-main?type=resources">资源库</a></li>
             <li <%="selftesting".equals(type) ?" class=now ":"" %>><a href="javascript:selftesting();">组卷自测</a></li>
-            <li <%="selftestingHi".equals(type) ?" class=now ":"" %>><a href="javascript:selftestingHi();">自测历史</a></li>
+            <li <%="selftestingHi".equals(type) ?" class=now ":"" %>><a href="javascript:selftestingHi();">自测存档</a></li>
             <!-- <li><a href="news.html">新闻中心</a></li>
             <li><a href="contact.html">联系我们</a></li>
             <li><a href="book.html">用户留言</a></li> -->

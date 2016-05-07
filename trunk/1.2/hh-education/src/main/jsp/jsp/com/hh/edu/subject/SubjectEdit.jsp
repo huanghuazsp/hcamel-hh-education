@@ -117,8 +117,15 @@
 					</td>
 				</tr>
 				<tr id="titletr">
-					<td xtype="label">题目：</td>
-					<td colspan="3"><span xtype="ckeditor" config=" name : 'text',required :true , height : 100"></span></td>
+					<td xtype="label"></td>
+					<td colspan="3"><span xtype="ckeditor" config=" name : 'text',required :true , height : 100 , toolbar : [ 'Source', 'NewPage', 'Maximize',
+											'Format',  '-',
+											 'Bold', 'Italic',
+											'Underline', 'Strike', 'Subscript',
+											'Superscript', '-', 'RemoveFormat',
+											'JustifyLeft', 'JustifyCenter',
+											'JustifyRight', 'JustifyBlock',
+											'SpecialChar']"></span></td>
 				</tr>
 				
 				<tr id="tableitemtr">

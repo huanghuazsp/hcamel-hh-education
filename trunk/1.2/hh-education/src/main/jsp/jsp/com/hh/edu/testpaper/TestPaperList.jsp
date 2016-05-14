@@ -80,7 +80,7 @@
 	}
 	function iframeClick(data) {
 		type1=data.id;
-		typeName=data.name;
+		typeName=data.text;
 		$('#pagelist').loadData({
 			params : {type:type1}
 		});

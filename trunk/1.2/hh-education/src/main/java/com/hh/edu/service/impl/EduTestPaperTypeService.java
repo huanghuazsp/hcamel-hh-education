@@ -82,7 +82,7 @@ public class EduTestPaperTypeService extends BaseService<EduTestPaperType> {
 					}
 				}
 				int count = eduTestPaperService.findCount(paramInf);
-				eduTestPaperType.setText(eduTestPaperType.getName() + "(" + count + ")");
+				eduTestPaperType.setName(eduTestPaperType.getName() + "(" + count + ")");
 			}
 		}
 

@@ -424,7 +424,7 @@ function doAddTestPage() {
         	<a href="javascript:logout_click();"><font color=#0095CC>注销</font></a>
         	<%} %>
         	┊<a href="reg.jsp"><font color=#0095CC>注册</font></a>
-        	┊<a href="webapp-desktop-jquerydesktop"><font color=#0095CC>进入后台</font></a>
+        	┊<a href="webapp-desktop-desktop"><font color=#0095CC>进入后台</font></a>
         	</p>
             <div class="search">
             	<form action="" method="post">

@@ -173,7 +173,7 @@
 		var td1 = $('<td style="text-align:left;"></td>');
 		tr1.append(td1);
 		table.append(tr1);
-		td1.append('<strong>'+((answerStr||'').replace(/\n/g, "<br />"))+'</strong>');
+		td1.append('<strong  color=green>'+((answerStr||'').replace(/\n/g, "<br />"))+'</strong>');
 		
 		var tr2 = $('<tr></tr>');
 		var td2 = $('<td style="text-align:left;border-top: 1.0pt solid windowtext;"></td>');

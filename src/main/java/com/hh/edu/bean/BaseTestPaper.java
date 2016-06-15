@@ -77,4 +77,16 @@ public class BaseTestPaper extends BaseTwoEntity{
 	public long getWhenLong() {
 		return 0;
 	}
+	
+	private Integer state;
+	@Column(name="STATE_")
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		if (state!=null) {
+			this.state = state;
+		}
+	}
 }

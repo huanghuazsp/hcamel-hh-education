@@ -246,9 +246,6 @@ function search(){
 	});
 }
 
-function fileRenderDownLoad(value,data){
-	return '<a href="javascript:Request.download(\''+data.id+'\');">下载</a>';
-}
 function fileRender(value){
 	var table = $('<table></table>');
 	
@@ -260,7 +257,7 @@ function fileRender(value){
 			var td = $('<td></td>');
 			tr.append(td);
 			table.append(tr);
-			td.append('<a href="javascript:Request.download(\''+data.id+'\');">'+(data.text||'')+'</a>');
+			td.append('<a href="javascript:Request.download(\''+data.id+'\');">下载&nbsp;&nbsp;'+(data.text||'')+'</a>');
 		}
 	}
 	return table;
@@ -568,14 +565,7 @@ function doAddTestPage() {
 						align:'left',
 						text : '资源',
 						render : fileRender
-					},{
-						name : 'files1' ,
-						align:'left',
-						text : '操作',
-						render : fileRenderDownLoad,
-						width : 40
 					}
-					
 				]">
 				</div>
 

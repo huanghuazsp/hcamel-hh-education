@@ -1,4 +1,4 @@
-<%@page import="com.hh.system.util.statics.StaticVar"%>
+<%@page import="com.hh.system.util.StaticVar"%>
 <%@page import="com.hh.system.util.MessageException"%>
 <%@page import="com.hh.system.util.date.DateFormat"%>
 <%@page import="com.hh.system.util.dto.ParamInf"%>

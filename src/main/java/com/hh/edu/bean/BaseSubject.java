@@ -111,8 +111,9 @@ public class BaseSubject extends BaseTwoEntity {
 	}
 
 	public void setState(Integer state) {
-		if (state!=null) {
-			this.state = state;
+		if (state == null) {
+			state = 0;
 		}
+		this.state = state;
 	}
 }

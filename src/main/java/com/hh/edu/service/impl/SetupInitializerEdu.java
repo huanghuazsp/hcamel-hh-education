@@ -5,8 +5,10 @@ import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hh.system.util.StaticVar;
 import com.hh.usersystem.bean.usersystem.SysMenu;
 import com.hh.usersystem.util.steady.StaticProperties;
 
@@ -17,7 +19,11 @@ public class SetupInitializerEdu {
 		System.out.println(UUID.randomUUID());
 		System.out.println(UUID.randomUUID());
 	}
-
+	
+	@Autowired
+	private EduResourcesService eduResourcesService;
+	@Autowired
+	private EduSubjectService eduSubjectService;
 	@PostConstruct
 	public void initialize() {
 		SysMenu rootHhXtCd = new SysMenu(
@@ -62,6 +68,7 @@ public class SetupInitializerEdu {
 						"/hhcommon/images/icons/world/world.png", 0, 1));
 		
 		StaticProperties.hhXtCds.add(rootHhXtCd);
-
+		StaticVar.fileOperMap.put("subject",eduSubjectService );
+		StaticVar.fileOperMap.put("eduresources",eduResourcesService );
 	}
 }

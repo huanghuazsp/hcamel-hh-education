@@ -139,13 +139,13 @@
 				<tr id="titletr">
 					<td xtype="label">题目图片：</td>
 					<td>
-					<span xtype="uploadpic" config=" name : 'textpic' ,width:200,height:200 "></span>
+					<span xtype="uploadpic" config=" type:'subject', name : 'textpic' ,width:200,height:200 "></span>
 					</td>
 					<td>
-					<span xtype="uploadpic" config=" name : 'textpic2' ,width:200,height:200 "></span>
+					<span xtype="uploadpic" config=" type:'subject',name : 'textpic2' ,width:200,height:200 "></span>
 					</td>
 					<td>
-					<span xtype="uploadpic" config=" name : 'textpic3' ,width:200,height:200 "></span>
+					<span xtype="uploadpic" config=" type:'subject',name : 'textpic3' ,width:200,height:200 "></span>
 					</td>
 				</tr>
 			</table>

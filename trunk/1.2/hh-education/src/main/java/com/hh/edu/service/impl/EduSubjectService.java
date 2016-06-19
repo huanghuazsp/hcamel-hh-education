@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hh.edu.bean.EduSubject;
+import com.hh.system.bean.SystemFile;
 import com.hh.system.service.impl.BaseService;
+import com.hh.system.service.inf.IFileOper;
 import com.hh.system.util.Check;
 import com.hh.system.util.Convert;
 import com.hh.system.util.MessageException;
@@ -19,7 +21,7 @@ import com.hh.usersystem.bean.usersystem.UsUser;
 import com.hh.usersystem.service.impl.LoginUserUtilService;
 
 @Service
-public class EduSubjectService extends BaseService<EduSubject> {
+public class EduSubjectService extends BaseService<EduSubject> implements IFileOper{
 	@Autowired
 	private LoginUserUtilService loginUserService;
 
@@ -69,5 +71,15 @@ public class EduSubjectService extends BaseService<EduSubject> {
 		}
 		paramInf.is("state", 1);
 		return super.queryPagingData(entity, pageRange, paramInf);
+	}
+
+	@Override
+	public void fileOper(SystemFile systemFile) {
+		int count = findCount(ParamFactory.getParamHb().or(
+				ParamFactory.getParamHb().is("textpic", systemFile.getId())
+						.is("textpic2", systemFile.getId()).is("textpic3", systemFile.getId())));
+		if (count == 0) {
+			systemFile.setDestroy(1);
+		}
 	}
 }

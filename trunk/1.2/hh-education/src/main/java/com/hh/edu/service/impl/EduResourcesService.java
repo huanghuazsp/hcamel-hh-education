@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.hh.edu.bean.EduResources;
 import com.hh.edu.bean.EduSubject;
+import com.hh.system.bean.SystemFile;
 import com.hh.system.service.impl.BaseService;
+import com.hh.system.service.inf.IFileOper;
 import com.hh.system.util.Check;
 import com.hh.system.util.Convert;
 import com.hh.system.util.Json;
@@ -23,7 +25,7 @@ import com.hh.usersystem.bean.usersystem.UsUser;
 import com.hh.usersystem.service.impl.LoginUserUtilService;
 
 @Service
-public class EduResourcesService extends BaseService<EduResources> {
+public class EduResourcesService extends BaseService<EduResources> implements IFileOper{
 	@Autowired
 	private LoginUserUtilService loginUserService;
 	@Override
@@ -71,6 +73,13 @@ public class EduResourcesService extends BaseService<EduResources> {
 		}
 		paramInf.is("state", 1);
 		return super.queryPagingData(entity, pageRange, paramInf);
+	}
+	@Override
+	public void fileOper(SystemFile systemFile) {
+		int count = findCount(ParamFactory.getParamHb().like("files", systemFile.getId()));
+		if (count == 0) {
+			systemFile.setDestroy(1);
+		}
 	}
 	
 	

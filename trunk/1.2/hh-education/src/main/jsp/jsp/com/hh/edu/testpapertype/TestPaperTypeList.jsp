@@ -65,7 +65,6 @@
 		var iframe = window.frames[iframeId];
 		iframe.callback = function(object) {
 			treeNode.name = object.text;
-			treeNode.isParent = object.leaf==1?0:1;
 			$.hh.tree.updateNode('tree', treeNode);
 			$.hh.tree.getTree('tree').refresh();
 		}

@@ -44,7 +44,6 @@
 
 	function newData(params) {
 		params.expanded=0;
-		params.leaf=0;
 		$('#form').setValue(params);
 	}
 
@@ -67,11 +66,6 @@
 					<td><span id="node_span" xtype="selectTree"
 						config="name: 'node' , findTextAction : 'edu-TestPaperType-findObjectById' , url : 'edu-TestPaperType-queryTreeList' "></span>
 					</td>
-				</tr>
-				<tr>
-					<td xtype="label">类型：</td>
-					<td><span xtype="radio"
-						config="name: 'leaf' ,defaultValue : 0,  data :[{id:1,text:'学科'},{id:0,text:'学段'}]"></span></td>
 				</tr>
 				<tr>
 					<td xtype="label">是否展开：</td>

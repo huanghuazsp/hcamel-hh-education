@@ -99,8 +99,8 @@
 		url : "edu-Subject-queryPagingData",
 		itemRender : renderTitle,
 		columns : [ {
-			itemclick : function(data) {
-				console.log(data);
+			itemClick : function(data) {
+				//console.log(data);
 			}
 		} ]
 	};

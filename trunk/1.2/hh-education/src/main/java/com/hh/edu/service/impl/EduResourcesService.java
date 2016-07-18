@@ -56,6 +56,9 @@ public class EduResourcesService extends BaseService<EduResources> implements IF
 		for (Map<String, Object> map : mapList) {
 			text+=Convert.toString(map.get("text"))+",";
 		}
+		if (Check.isNoEmpty(text)) {
+			text=text.substring(0,text.length()-1);
+		}
 		if (text.length()>128) {
 			text=text.substring(0, 127);
 		}

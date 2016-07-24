@@ -21,7 +21,7 @@
 			}
 		});
 		
-		if(!((loginUser.hhXtJsList && loginUser.hhXtJsList.length==1 && loginUser.hhXtJsList[0].jssx=='student')) || as){
+		if(!((loginUser.roleList && loginUser.roleList.length==1 && loginUser.roleList[0].jssx=='student')) || as){
 			$.hh.pagelist.deleteData({
 				pageid : 'pagelist',
 				action : 'edu-Subject-deleteByIds'
@@ -72,7 +72,7 @@
 	}
 	function doEdit() {
 		$.hh.pagelist.callRow("pagelist", function(row) {
-			if(!((loginUser.hhXtJsList && loginUser.hhXtJsList.length==1 && loginUser.hhXtJsList[0].jssx=='student' )) ||  row.vcreate==loginUser.id){
+			if(!((loginUser.roleList && loginUser.roleList.length==1 && loginUser.roleList[0].jssx=='student' )) ||  row.vcreate==loginUser.id){
 				Dialog.open({
 					url : 'jsp-edu-subject-SubjectEdit?type='+type1,
 					urlParams : {

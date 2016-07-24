@@ -30,7 +30,7 @@
 <link rel="stylesheet" type="text/css" href="edu/Assets/css/thems.css">
 <!--幻灯片-->
 <%
-EduTestPaperTypeService eduTestPaperTypeService = BeanFactoryHelper.getBean(EduTestPaperTypeService.class);
+	EduTestPaperTypeService eduTestPaperTypeService = BeanFactoryHelper.getBean(EduTestPaperTypeService.class);
 EduSubjectService eduSubjectService = BeanFactoryHelper.getBean(EduSubjectService.class);
 EduTestPaperService eduTestPaperService = BeanFactoryHelper.getBean(EduTestPaperService.class);
 
@@ -62,9 +62,9 @@ hhXtYh = (UsUser) session.getAttribute("loginuser");
 objectId=hhXtYh.getId();
 headpic = hhXtYh.getHeadpic();
 
-List<UsRole> hhXtJsList = hhXtYh.getHhXtJsList();
+List<UsRole> roleList = hhXtYh.getRoleList();
 String jsTextStr = "";
-for (UsRole hhXtJs : hhXtJsList) {
+for (UsRole hhXtJs : roleList) {
 	jsTextStr += hhXtJs.getText() + ",";
 }
 if (!"".equals(jsTextStr)) {
@@ -106,7 +106,7 @@ if (Check.isNoEmpty(headpic) && !headpic.startsWith("/hhcomm")) {
 
 if (Check.isNoEmpty(headpic)) {
 	headpic = " <img id='headpicimg' onClick='updateUser()' style=\"border:1px solid #006894;cursor: pointer;width:50px;height:50px;\" width=\"50\"		height=\"50\"		src=\""
-			+ headpic + "\" />";
+	+ headpic + "\" />";
 } else {
 	headpic = "<img id='headpicimg' onClick='updateUser()' style=\"border:1px solid #006894;cursor: pointer;width:50px;height:50px;\" width=\"50\"		height=\"50\"		src=\"/hhcommon/images/icons/user/100/no_on_line_user.jpg\" />";
 }

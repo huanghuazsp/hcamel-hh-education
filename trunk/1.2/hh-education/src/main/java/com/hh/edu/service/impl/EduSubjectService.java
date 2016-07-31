@@ -41,7 +41,7 @@ public class EduSubjectService extends BaseService<EduSubject> implements IFileO
 		if (!"admin".equals(user.getRoleIds())) {
 			paramInf.is("vcreate", loginUserService.findUserId());
 		}
-		return super.queryPagingData(entity, pageRange, paramInf);
+		return super.queryPagingData( pageRange, paramInf);
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class EduSubjectService extends BaseService<EduSubject> implements IFileO
 			paramInf.like("text", entity.getText());
 		}
 		paramInf.is("state", 1);
-		return super.queryPagingData(entity, pageRange, paramInf);
+		return super.queryPagingData( pageRange, paramInf);
 	}
 
 	@Override

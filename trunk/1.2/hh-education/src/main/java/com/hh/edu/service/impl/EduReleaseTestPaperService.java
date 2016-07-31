@@ -124,7 +124,7 @@ public class EduReleaseTestPaperService extends
 		
 		
 		PagingData<EduReleaseTestPaper> pageData = super.queryPagingData(
-				entity, pageRange, paramInf);
+				 pageRange, paramInf);
 
 		List<String> releasePageIdList = new ArrayList<String>();
 
@@ -216,7 +216,7 @@ public class EduReleaseTestPaperService extends
 		if (!"admin".equals(user.getRoleIds())) {
 			paramInf.is("vcreate", loginUserService.findUserId());
 		}
-		return super.queryPagingData(entity, pageRange,paramInf);
+		return super.queryPagingData( pageRange,paramInf);
 	}
 	
 

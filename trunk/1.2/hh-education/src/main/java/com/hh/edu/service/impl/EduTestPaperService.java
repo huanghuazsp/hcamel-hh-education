@@ -49,7 +49,7 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 			paramInf.is("vcreate", loginUserUtilService.findUserId());
 		}
 
-		return super.queryPagingData(entity, pageRange, paramInf);
+		return super.queryPagingData( pageRange, paramInf);
 	}
 
 	public PagingData<EduTestPaper> queryPagingDataAll(EduTestPaper entity, PageRange pageRange) {
@@ -61,7 +61,7 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 			paramInf.like("text", entity.getText());
 		}
 		paramInf.is("state", 1);
-		return super.queryPagingData(entity, pageRange, paramInf);
+		return super.queryPagingData( pageRange, paramInf);
 	}
 
 	@Transactional

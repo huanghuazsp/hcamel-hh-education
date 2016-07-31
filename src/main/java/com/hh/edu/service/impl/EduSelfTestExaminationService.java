@@ -34,7 +34,7 @@ public class EduSelfTestExaminationService extends
 			paramInf.is("vcreate", loginUserService.findUserId());
 		}
 
-		return super.queryPagingData(entity, pageRange, paramInf);
+		return super.queryPagingData( pageRange, paramInf);
 	}
 	
 

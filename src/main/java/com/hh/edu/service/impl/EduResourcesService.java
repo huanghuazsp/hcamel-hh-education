@@ -41,7 +41,7 @@ public class EduResourcesService extends BaseService<EduResources> implements IF
 		if (!"admin".equals(user.getRoleIds())) {
 				paramInf.is("vcreate", loginUserService.findUserId());
 			}
-		return super.queryPagingData(entity, pageRange, paramInf);
+		return super.queryPagingData( pageRange, paramInf);
 	}
 	public void doSetState(String ids) {
 		Map<String, Object> map = new HashMap<String,Object>();
@@ -75,7 +75,7 @@ public class EduResourcesService extends BaseService<EduResources> implements IF
 			paramInf.like("text", entity.getText());
 		}
 		paramInf.is("state", 1);
-		return super.queryPagingData(entity, pageRange, paramInf);
+		return super.queryPagingData( pageRange, paramInf);
 	}
 	@Override
 	public void fileOper(SystemFile systemFile) {

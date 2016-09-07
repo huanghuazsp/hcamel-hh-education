@@ -13,7 +13,7 @@ import com.hh.usersystem.bean.usersystem.SysMenu;
 import com.hh.usersystem.util.steady.StaticProperties;
 
 @Service
-public class SetupInitializerEdu {
+public class SetupInitializer {
 	public static void main(String[] args) {
 		System.out.println(UUID.randomUUID());
 		System.out.println(UUID.randomUUID());

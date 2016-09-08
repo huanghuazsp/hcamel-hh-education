@@ -50,7 +50,7 @@ public class SetupInitializer {
 		rootHhXtCd.getChildren().add(
 				new SysMenu("df696ccc-63b5-4ed3-94ad-67fe63600a17", "题目管理",
 						"jsp-edu-subject-main",
-						"/hhcommon/images/icons/world/world.png", 0, 1).editMobileUrl("mobilejsp-edu-subject-main"));
+						"/hhcommon/images/icons/world/world.png", 0, 1).editMobileUrl("mobilejsp-edu-subject-SubjectList"));
 		
 		rootHhXtCd.getChildren().add(
 				new SysMenu("0763a83c-b039-4331-ac8c-945903f636a9", "试卷管理",

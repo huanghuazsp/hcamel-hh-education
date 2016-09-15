@@ -7,7 +7,7 @@
 <%@page import="com.hh.edu.service.impl.EduTestPaperService"%>
 <%@page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@page import="com.hh.system.util.BaseSystemUtil"%>
-<%@page import="com.hh.system.util.PrimaryKey"%>
+<%@page import="com.hh.system.util.pk.PrimaryKey"%>
 <%=BaseSystemUtil.getBaseDoctype()%>
 
 <html>

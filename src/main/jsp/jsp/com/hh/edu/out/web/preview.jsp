@@ -13,7 +13,7 @@
 <%@page import="com.hh.edu.bean.BaseTestPaper"%>
 <%@page import="com.hh.edu.bean.EduExamination"%>
 <%@page import="com.hh.edu.service.impl.EduExaminationService"%>
-<%@page import="com.hh.system.util.PrimaryKey"%>
+<%@page import="com.hh.system.util.pk.PrimaryKey"%>
 <%@page import="com.hh.edu.bean.EduSubject"%>
 <%@page import="com.hh.edu.service.impl.EduSubjectService"%>
 <%@page import="com.hh.system.util.Json"%>

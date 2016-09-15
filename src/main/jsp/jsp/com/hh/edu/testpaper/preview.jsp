@@ -433,9 +433,9 @@ function artificial(){
 		}
 		String titleMes = "（本大题共"+subjectList.size()+"小题，共"+score+"分）";
 	%>
-		<h3  id="<%=PrimaryKey.getPrimaryKeyUUID() %>"  title=true bigtitle=true><%=((Convert.numberToChina(i+1)+"、"+map.get("title")).replaceAll("\n","<br>").replaceAll(" ","&nbsp;"))+titleMes%></h3><br/>
+		<h3  id="<%=PrimaryKey.getUUID()%>"  title=true bigtitle=true><%=((Convert.numberToChina(i+1)+"、"+map.get("title")).replaceAll("\n","<br>").replaceAll(" ","&nbsp;"))+titleMes%></h3><br/>
 		<%
-		for(int j =0;j<eduSubjectList.size();j++){
+			for(int j =0;j<eduSubjectList.size();j++){
 			BaseSubject eduSubject = eduSubjectList.get(j);
 			String titleType = eduSubject.getTitleType();
 			String type = "radio";
@@ -486,18 +486,30 @@ function artificial(){
 			
 			if(!"fillEmpty".equals(titleType)){
 		%><br/>
-			<strong title=true  id="<%=PrimaryKey.getPrimaryKeyUUID() %>"  subjectId="<%=tmid%>" ><%=(aa)+"、"+(eduSubject.getText().replaceAll("\\\n", "<br />")) +scoreStr%></strong><br/><br/>
-			<%=answer %>
+			<strong title=true  id="<%=PrimaryKey.getUUID()%>"  subjectId="<%=tmid%>" ><%=(aa)+"、"+(eduSubject.getText().replaceAll("\\\n", "<br />")) +scoreStr%></strong><br/><br/>
+			<%=answer%>
 			
-			<% if(Check.isNoEmpty(eduSubject.getTextpic())){%>
+			<%
+							if(Check.isNoEmpty(eduSubject.getTextpic())){
+						%>
 				<img alt="" src="system-File-download?params={id:'<%=eduSubject.getTextpic()%>'}">
-			<% }%>
-			<% if(Check.isNoEmpty(eduSubject.getTextpic2())){%>
+			<%
+				}
+			%>
+			<%
+				if(Check.isNoEmpty(eduSubject.getTextpic2())){
+			%>
 				<img alt="" src="system-File-download?params={id:'<%=eduSubject.getTextpic2()%>'}">
-			<% }%>
-			<% if(Check.isNoEmpty(eduSubject.getTextpic3())){%>
+			<%
+				}
+			%>
+			<%
+				if(Check.isNoEmpty(eduSubject.getTextpic3())){
+			%>
 				<img alt="" src="system-File-download?params={id:'<%=eduSubject.getTextpic3()%>'}">
-			<% }%>
+			<%
+				}
+			%>
 			
 			<div type=subject subjectId="<%=tmid%>" subjectType="<%=titleType%>">
 		<%
@@ -509,24 +521,24 @@ function artificial(){
 					for(int k =0;k<mapList2.size();k++){
 						Map<String,Object> item = mapList2.get(k);
 						String letter = Convert.numberToLetter(k+1);
-						%>
-						<div style="padding:3px;">&nbsp;&nbsp;<input value=<%=k+1 %> name="<%=tmid %>" type="<%=type %>" id="<%=tmid+"_"+k %>" /><label for="<%=tmid+"_"+k %>"><%=letter %>.<%=item.get("text") %></label><br/></div>
+		%>
+						<div style="padding:3px;">&nbsp;&nbsp;<input value=<%=k+1%> name="<%=tmid%>" type="<%=type%>" id="<%=tmid+"_"+k%>" /><label for="<%=tmid+"_"+k%>"><%=letter%>.<%=item.get("text")%></label><br/></div>
 						<%
-					}
-			}else if("shortAnswer".equals(titleType)){
-				%>
+							}
+							}else if("shortAnswer".equals(titleType)){
+						%>
 				<textarea style="height:100px"></textarea>
 				<%
-			}else if("fillEmpty".equals(titleType)){
-				String[] answers = Convert.toString(eduSubject.getAnswer()).split("、");
-				String content = (aa)+"、"+eduSubject.getText();
-				for(String str : answers){
-					content = content.replace(str, "<input style='width:100px;' />");
-				}
+					}else if("fillEmpty".equals(titleType)){
+						String[] answers = Convert.toString(eduSubject.getAnswer()).split("、");
+						String content = (aa)+"、"+eduSubject.getText();
+						for(String str : answers){
+							content = content.replace(str, "<input style='width:100px;' />");
+						}
 				%>
 				<div type=subject subjectId="<%=tmid%>" subjectType="<%=titleType%>">
-				<%=answer %>
-				<strong  title=true  id="<%=PrimaryKey.getPrimaryKeyUUID() %>"  subjectId="<%=tmid%>" ><%=content +scoreStr%></strong><br/><br/>
+				<%=answer%>
+				<strong  title=true  id="<%=PrimaryKey.getUUID()%>"  subjectId="<%=tmid%>" ><%=content +scoreStr%></strong><br/><br/>
 				<%aa++;
 			} %></div><%
 		}

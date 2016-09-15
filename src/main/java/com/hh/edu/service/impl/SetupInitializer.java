@@ -1,13 +1,13 @@
 package com.hh.edu.service.impl;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hh.system.util.PrimaryKey;
 import com.hh.system.util.StaticVar;
 import com.hh.usersystem.bean.usersystem.SysMenu;
 import com.hh.usersystem.util.steady.StaticProperties;
@@ -15,9 +15,9 @@ import com.hh.usersystem.util.steady.StaticProperties;
 @Service
 public class SetupInitializer {
 	public static void main(String[] args) {
-		System.out.println(UUID.randomUUID());
-		System.out.println(UUID.randomUUID());
-		System.out.println(UUID.randomUUID());
+		System.out.println(PrimaryKey.getPrimaryKeyUUID());
+		System.out.println(PrimaryKey.getPrimaryKeyUUID());
+		System.out.println(PrimaryKey.getPrimaryKeyUUID());
 	}
 	
 	@Autowired

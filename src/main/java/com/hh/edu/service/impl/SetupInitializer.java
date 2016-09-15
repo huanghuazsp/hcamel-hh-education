@@ -26,14 +26,13 @@ public class SetupInitializer {
 	private EduSubjectService eduSubjectService;
 	@PostConstruct
 	public void initialize() {
-		SysMenu rootHhXtCd = new SysMenu(
-				"841722e2-2498-447b-8f9e-c78dead5be74", "教育系统",
+		SysMenu rootHhXtCd = new SysMenu("cYKHlLXmXOzx6khEe3x","教育系统",
 				"com.hh.global.NavigAtionWindow",
 				"/hhcommon/images/icons/world/world.png", 0, 0);
 		rootHhXtCd.setChildren(new ArrayList<SysMenu>());
 		
 		rootHhXtCd.getChildren().add(
-				new SysMenu("7a291966-d38c-4c31-9bfa-a3c43df9556e", "开始考试",
+				new SysMenu("eTA9zB0ieF7P7Jnc6lk","开始考试",
 						"jsp-edu-releasetestpaper-StartReleaseTestPaperList",
 						"/hhcommon/images/icons/world/world.png", 0, 1));
 
@@ -43,27 +42,27 @@ public class SetupInitializer {
 //						"/hhcommon/images/icons/world/world.png", 0, 1));
 		
 		rootHhXtCd.getChildren().add(
-				new SysMenu("34467895-4196-4403-bb4f-5c67bbb9f3bd", "试卷类型管理",
+				new SysMenu( "BIrgaEvXNwhhn5Ai2Zz","试卷类型管理",
 						"jsp-edu-testpapertype-TestPaperTypeList",
 						"/hhcommon/images/icons/world/world.png", 0, 1));
 		
 		rootHhXtCd.getChildren().add(
-				new SysMenu("df696ccc-63b5-4ed3-94ad-67fe63600a17", "题目管理",
+				new SysMenu("DmUm7NqniCqhZvLAekh", "题目管理",
 						"jsp-edu-subject-main",
 						"/hhcommon/images/icons/world/world.png", 0, 1).editMobileUrl("mobilejsp-edu-subject-SubjectList"));
 		
 		rootHhXtCd.getChildren().add(
-				new SysMenu("0763a83c-b039-4331-ac8c-945903f636a9", "试卷管理",
+				new SysMenu( "rfkN1nKaz88oborDUy4","试卷管理",
 						"jsp-edu-testpaper-main",
 						"/hhcommon/images/icons/world/world.png", 0, 1));
 		
 		rootHhXtCd.getChildren().add(
-				new SysMenu("740ee788-6e6b-4f0f-9400-30047a3bda13", "已发布试卷",
+				new SysMenu("SaOSb1pfokoe9sldnnc","已发布试卷",
 						"jsp-edu-releasetestpaper-ReleaseTestPaperList",
 						"/hhcommon/images/icons/world/world.png", 0, 1));
 		
 		rootHhXtCd.getChildren().add(
-				new SysMenu("78b91fe0-adb6-4637-97e2-fccc1a1a4ad4", "资源共享",
+				new SysMenu( "QIsEoXVkneAmY38DikY","资源共享",
 						"jsp-edu-resources-main",
 						"/hhcommon/images/icons/world/world.png", 0, 1));
 		

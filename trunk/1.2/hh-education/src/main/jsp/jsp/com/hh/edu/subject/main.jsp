@@ -8,7 +8,9 @@
 <head>
 <title>数据列表</title>
 <%=SystemUtil.getBaseJs("layout","ztree", "ztree_edit")%>
-<%String iframeId = PrimaryKey.getPrimaryKeyUUID();%>
+<%
+	String iframeId = PrimaryKey.getUUID();
+%>
 
 <script type="text/javascript">
 	var iframeId = '<%=iframeId%>';

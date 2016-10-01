@@ -30,7 +30,7 @@
 		});
 	}
 	var subjectTypeConfig={
-			defaultValue:'radio',
+			value:'radio',
 			data :[
 				{id:'radio',text:'单选题'},
 				{id:'check',text:'多选题'},

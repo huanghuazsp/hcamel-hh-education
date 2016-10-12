@@ -70,7 +70,7 @@ public class SetupInitializer {
 		
 		
 		
-		for (SysMenu hhXtCd : StaticProperties.hhXtCds) {
+		for (SysMenu hhXtCd : StaticProperties.sysMenuList) {
 			if ("协同办公".equals(hhXtCd.getText())) {
 				hhXtCd.getChildren().add(new SysMenu( "QIsEoXVkneAmY38DikY","学习考试",
 						"jsp-edu-main-main",

@@ -56,7 +56,7 @@
 		</div>
 		<div style="overflow: visible;" id=centerdiv>
 			<iframe id="system" name="system" width=100%
-				height=100% frameborder=0 src="jsp-wf-wfinfo-page"></iframe>
+				height=100% frameborder=0 src="jsp-edu-subject-main"></iframe>
 		</div>
 	</div>
 </body>

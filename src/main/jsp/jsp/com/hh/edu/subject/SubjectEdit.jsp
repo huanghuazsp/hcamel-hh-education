@@ -13,7 +13,7 @@
 %>
 <script type="text/javascript">
 	var params = $.hh.getIframeParams();
-	var width = 800;
+	var width = 900;
 	var height = 700;
 
 	var objectid = '<%=Convert.toString(request.getParameter("id"))%>';

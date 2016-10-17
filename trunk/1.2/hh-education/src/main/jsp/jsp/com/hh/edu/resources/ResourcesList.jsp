@@ -31,7 +31,7 @@
 	}
 	function doAdd() {
 		Dialog.open({
-			url : 'jsp-edu-resources-ResourcesEdit?type='+type1,
+			url : 'jsp-edu-resources-ResourcesEdit?type='+(type1||''),
 			params : {
 				callback : function() {
 					$("#pagelist").loadData();

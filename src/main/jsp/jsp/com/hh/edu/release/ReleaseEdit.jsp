@@ -114,7 +114,7 @@
 				</tr>
 				<tr>
 					<td xtype="label">考试人员：</td>
-					<td><span id="userIdsSpan" xtype="selectUser" config="required :true ,name: 'userIds' ,textarea:true "></span></td>
+					<td><span id="userIdsSpan" xtype="selectUser" config="required :true ,name: 'userIds' ,textarea:true,many:true "></span></td>
 				</tr>
 			</table>
 		</form>

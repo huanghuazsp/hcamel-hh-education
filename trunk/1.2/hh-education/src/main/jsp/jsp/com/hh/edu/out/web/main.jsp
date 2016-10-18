@@ -424,10 +424,8 @@ function doAddTestPage() {
         	┊<a href="webapp-desktop-desktop"><font color=#0095CC>进入后台</font></a>
         	</p>
             <div class="search">
-            	<form action="" method="post">
-                	<input id="searchInput" name="" type="text" placeholder="请输入搜索关键词">
+                	<input id="searchInput" name="" type="text" placeholder="请输入搜索关键词"> 
                     <input name="" type=button class="s_btn" value="" onClick="search()" >
-                </form>
             </div>
         </div>
     </div>

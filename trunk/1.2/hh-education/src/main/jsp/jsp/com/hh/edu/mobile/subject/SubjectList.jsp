@@ -107,12 +107,10 @@
 </script>
 </head>
 <body>
-	<div id="7bb188c086034213aeb2f8cabcc0fb4f" data-role="page"
-		data-theme="a">
-		<div data-role="header"><h1><%=SysParam.sysParam.getSysName()%></h1></div>
+	<%=SystemUtil.getMobileHead("[{text:'题目管理',url:'mobilejsp-edu-subject-SubjectList',img:'/hhcommon/images/extjsico/165518104.gif'}]") %>
 		<div data-role="content">
 			<span id="pagelist" xtype="pagelist" configVar="list_config"></span>
 		</div>
-	</div>
+	<%=SystemUtil.getMobileDown()%>
 </body>
 </html>

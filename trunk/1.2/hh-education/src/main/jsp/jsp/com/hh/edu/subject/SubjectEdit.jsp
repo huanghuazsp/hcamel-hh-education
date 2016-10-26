@@ -105,7 +105,7 @@
 </head>
 <body>
 	<div xtype="hh_content">
-		<form id="form" xtype="form">
+		<form id="form" xtype="form" class="form">
 			<span xtype="text" config=" hidden:true,name : 'id'"></span>
 			<span xtype="text" config=" hidden:true,name : 'titleType' ,value:'<%=titleType%>' "></span>
 			<div id="bz"></div>

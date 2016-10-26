@@ -470,7 +470,7 @@ function artificial(){
 </div>
 
 <div  id=centerdiv  style="overflow:auto;">
-<form id="form" xtype="form">
+<form id="form" xtype="form" class="form">
 <table width=100% ><tr><td align=center>
 	<div style="width:794px;text-align:left;">
 	<br/><div style="text-align:center;"><h1><%=eduTestPaper.getHead() %></h1></div><br/>

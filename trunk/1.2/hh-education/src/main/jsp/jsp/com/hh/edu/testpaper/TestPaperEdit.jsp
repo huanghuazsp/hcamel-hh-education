@@ -134,7 +134,7 @@
    		table.append(tr2);
    		
    		var toolbar = renderstate(data.state);
-   		td2.append(toolbar+'&nbsp;&nbsp;&nbsp;&nbsp;'+(data.vcreateName || '')+'&nbsp;&nbsp;&nbsp;&nbsp;'+$.hh.dateTimeToString(data.dcreate || '')+'&nbsp;&nbsp;<a href="javascript:viewAnswer(\''+data.id+'\')">查看答案</a>');
+   		td2.append(toolbar+'&nbsp;&nbsp;&nbsp;&nbsp;'+(data.vcreateName || '')+'&nbsp;&nbsp;&nbsp;&nbsp;'+$.hh.formatDate(data.dcreate || '','yyyy-MM-dd HH:mm:ss')+'&nbsp;&nbsp;<a href="javascript:viewAnswer(\''+data.id+'\')">查看答案</a>');
    		return table;
    	}
 	
@@ -168,7 +168,7 @@
 	}
 
 	function init() {
-		$('#span_text').setValue('<%=Convert.toString(typeName)%>'+$.hh.dateToString($.hh.getDate()));
+		$('#span_text').setValue('<%=Convert.toString(typeName)%>'+$.hh.formatDate($.hh.getDate()));
 		findData();
 	}
 	function testpaperChange(data){
@@ -176,7 +176,7 @@
 			subjectConfig.pageconfig.queryHtml=queryHtml(data.id);
 			subjectConfig.pageconfig.params.type=data.id;
 			
-			$('#span_text').setValue(data.name+$.hh.dateToString($.hh.getDate()));
+			$('#span_text').setValue(data.name+$.hh.formatDate($.hh.getDate()));
 		}
 	}
 </script>

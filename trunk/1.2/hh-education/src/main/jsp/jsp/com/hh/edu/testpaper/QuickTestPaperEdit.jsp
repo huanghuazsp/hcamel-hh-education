@@ -48,11 +48,11 @@
 	}
 	function testpaperChange(data){
 		if(data){
-			$('#span_text').setValue(data.name+$.hh.dateToString($.hh.getDate()));
+			$('#span_text').setValue(data.name+$.hh.formatDate($.hh.getDate()));
 		}
 	}
 	function init() {
-		$('#span_text').setValue('<%=Convert.toString(typeName)%>'+$.hh.dateToString($.hh.getDate()));
+		$('#span_text').setValue('<%=Convert.toString(typeName)%>'+$.hh.formatDate($.hh.getDate()));
 	}
 </script>
 </head>

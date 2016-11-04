@@ -86,7 +86,7 @@
 		var toolbar = renderstate(data.state);
 		td2.append(toolbar + '&nbsp;&nbsp;'
 				+ (data.vcreateName || '') + '&nbsp;&nbsp;'
-				+ $.hh.dateTimeToString(data.dcreate || '')
+				+ $.hh.formatDate(data.dcreate || '','yyyy-MM-dd HH:mm:ss')
 				+ '&nbsp;&nbsp;<a href="javascript:viewAnswer(\'' + data.id
 				+ '\')">查看答案</a>');
 		return table;

@@ -70,20 +70,16 @@
 		});
 	}
 	function fileRender(value){
-		var table = $('<table></table>');
-	
+		var str = '';
+		
 		if(value){
 			var fileList = $.hh.toObject(value);
 			for(var i=0;i<fileList.length;i++){
 				var data = fileList[i];
-				var tr = $('<tr></tr>');
-				var td = $('<td></td>');
-				tr.append(td);
-				table.append(tr);
-				td.append('<a href="javascript:Request.download(\''+data.id+'\');">'+(data.text||'')+'</a>');
+				str+=$.hh.property.getFileTypeIcon(data.fileType)+data.text+'&nbsp;&nbsp;<a href="javascript:Request.download(\''+data.id+'\');">下载</a>&nbsp;&nbsp;<a href="javascript:Request.viewFile(\''+data.id+'\');">查看</a><br>'
 			}
 		}
-		return table;
+		return str;
 	}
 	function renderstate(state){
 		if(state==1){

@@ -71,7 +71,7 @@ public class SetupInitializer {
 
 		for (SysMenu hhXtCd : StaticProperties.sysMenuList) {
 			if ("协同办公".equals(hhXtCd.getText())) {
-				SysMenu sysMenu = new SysMenu("QIsEoXVkneAmY38DikY", "学习考试", "jsp-edu-main-main",
+				SysMenu sysMenu = new SysMenu("QIsEoXVkneAmY38DikY", "学习考试", "jsp-edu-main-main","/hhcommon/images/big/apple/25.png",
 						"/hhcommon/images/extjsico/165518104.gif", 0, 1);
 				sysMenu.setMobileUrl("mobilejsp-edu-subject-SubjectList");
 				hhXtCd.getChildren().add(sysMenu);

@@ -9,12 +9,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.hh.hibernate.dao.inf.Order;
-import com.hh.hibernate.util.base.BaseTwoEntity;
+import com.hh.hibernate.util.base.BaseEntity;
 @Order
 @SuppressWarnings("serial")
 @Entity
 @Table(name="EDU_EXAMINATION")
-public class EduExamination  extends BaseTwoEntity{
+public class EduExamination  extends BaseEntity{
 	//userId
 	private String userId;
 	

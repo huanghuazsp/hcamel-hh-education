@@ -15,7 +15,7 @@ import com.hh.hibernate.dao.inf.Order;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "EDU_SELF_TEST_EXAMINATION")
-public class EduSelfTestExamination extends BaseTwoEntity {
+public class EduSelfTestExamination extends BaseEntity {
 	// answer
 	private String answer;
 

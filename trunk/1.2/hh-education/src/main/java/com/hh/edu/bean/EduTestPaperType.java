@@ -13,5 +13,5 @@ import com.hh.hibernate.dao.inf.Order;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="EDU_TEST_PAPER_TYPE")
-public class EduTestPaperType  extends BaseTreeNodeEntity<EduTestPaperType>{
+public class EduTestPaperType  extends BaseEntityTree<EduTestPaperType>{
 }

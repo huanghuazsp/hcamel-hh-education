@@ -6,13 +6,13 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import com.hh.hibernate.dao.inf.Order;
-import com.hh.hibernate.util.base.BaseTwoEntity;
+import com.hh.hibernate.util.base.BaseEntity;
 
 @Order
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "EDU_RESOURCES")
-public class EduResources extends BaseTwoEntity {
+public class EduResources extends BaseEntity {
 	private String type;
 	private String text;
 	private String remark;

@@ -39,7 +39,7 @@ public class EduSubjectService extends BaseService<EduSubject> implements IFileO
 		}
 		UsUser user = loginUserService.findLoginUser();
 		if (!"admin".equals(user.getRoleIds())) {
-			paramInf.is("vcreate", loginUserService.findUserId());
+			paramInf.is("createUser", loginUserService.findUserId());
 		}
 		return super.queryPagingData( pageRange, paramInf);
 	}
@@ -79,7 +79,7 @@ public class EduSubjectService extends BaseService<EduSubject> implements IFileO
 				ParamFactory.getParamHb().is("textpic", systemFile.getId())
 						.is("textpic2", systemFile.getId()).is("textpic3", systemFile.getId())));
 		if (count == 0) {
-			systemFile.setDestroy(1);
+			systemFile.setStatus(1);
 		}
 	}
 }

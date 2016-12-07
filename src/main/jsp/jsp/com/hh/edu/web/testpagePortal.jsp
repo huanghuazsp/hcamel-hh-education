@@ -112,7 +112,7 @@ a.tab_title:link { color: #5a5a5a; text-decoration:none;}
 						EduTestPaper eduTestPaper = eduTestPaperList_wl.get(i);
 					%>
 						<li><a class="tab_menu" href="#"></a> <a
-						class="tab_title"  href="javascript:Request.openwin('outjsp-edu-web-preview?id=<%=eduTestPaper.getId()%>');"><%=eduTestPaper.getText() %></a><span><%=DateFormat.dateToStr(eduTestPaper.getDcreate(), "yyyy-MM-dd") %></span></li>
+						class="tab_title"  href="javascript:Request.openwin('outjsp-edu-web-preview?id=<%=eduTestPaper.getId()%>');"><%=eduTestPaper.getText() %></a><span><%=DateFormat.dateToStr(eduTestPaper.getCreateTime(), "yyyy-MM-dd") %></span></li>
 					<%}%>
 				</ul>
 			</div>
@@ -126,7 +126,7 @@ a.tab_title:link { color: #5a5a5a; text-decoration:none;}
 						EduTestPaper eduTestPaper = eduTestPaperList_ls.get(i);
 					%>
 						<li><a class="tab_menu" href="#"></a> <a
-						class="tab_title" href="javascript:Request.openwin('outjsp-edu-web-preview?id=<%=eduTestPaper.getId()%>');"><%=eduTestPaper.getText() %></a><span><%=DateFormat.dateToStr(eduTestPaper.getDcreate(), "yyyy-MM-dd") %></span></li>
+						class="tab_title" href="javascript:Request.openwin('outjsp-edu-web-preview?id=<%=eduTestPaper.getId()%>');"><%=eduTestPaper.getText() %></a><span><%=DateFormat.dateToStr(eduTestPaper.getCreateTime(), "yyyy-MM-dd") %></span></li>
 					<%}%>
 				</ul>
 		</div>
@@ -140,7 +140,7 @@ a.tab_title:link { color: #5a5a5a; text-decoration:none;}
 						EduTestPaper eduTestPaper = eduTestPaperList_sw.get(i);
 					%>
 						<li><a class="tab_menu" href="#"></a> <a
-						class="tab_title" href="javascript:Request.openwin('outjsp-edu-web-preview?id=<%=eduTestPaper.getId()%>');"><%=eduTestPaper.getText() %></a><span><%=DateFormat.dateToStr(eduTestPaper.getDcreate(), "yyyy-MM-dd") %></span></li>
+						class="tab_title" href="javascript:Request.openwin('outjsp-edu-web-preview?id=<%=eduTestPaper.getId()%>');"><%=eduTestPaper.getText() %></a><span><%=DateFormat.dateToStr(eduTestPaper.getCreateTime(), "yyyy-MM-dd") %></span></li>
 					<%}%>
 				</ul>
 			</div>

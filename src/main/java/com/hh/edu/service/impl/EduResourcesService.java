@@ -39,7 +39,7 @@ public class EduResourcesService extends BaseService<EduResources> implements IF
 		}
 		UsUser user = loginUserService.findLoginUser();
 		if (!"admin".equals(user.getRoleIds())) {
-				paramInf.is("vcreate", loginUserService.findUserId());
+				paramInf.is("createUser", loginUserService.findUserId());
 			}
 		return super.queryPagingData( pageRange, paramInf);
 	}
@@ -81,7 +81,7 @@ public class EduResourcesService extends BaseService<EduResources> implements IF
 	public void fileOper(SystemFile systemFile) {
 		int count = findCount(ParamFactory.getParamHb().like("files", systemFile.getId()));
 		if (count == 0) {
-			systemFile.setDestroy(1);
+			systemFile.setStatus(1);
 		}
 	}
 	

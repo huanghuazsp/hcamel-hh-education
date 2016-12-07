@@ -31,7 +31,7 @@ public class EduSelfTestExaminationService extends
 		}
 		UsUser user = loginUserService.findLoginUser();
 		if (!"admin".equals(user.getRoleIds())) {
-			paramInf.is("vcreate", loginUserService.findUserId());
+			paramInf.is("createUser", loginUserService.findUserId());
 		}
 
 		return super.queryPagingData( pageRange, paramInf);

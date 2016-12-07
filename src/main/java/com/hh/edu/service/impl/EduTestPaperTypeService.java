@@ -49,7 +49,7 @@ public class EduTestPaperTypeService extends BaseService<EduTestPaperType> {
 					paramInf.is("state", 1);
 				} else {
 					if (!admin) {
-						paramInf.is("vcreate", loginUserService.findUserId());
+						paramInf.is("createUser", loginUserService.findUserId());
 					}
 				}
 
@@ -78,7 +78,7 @@ public class EduTestPaperTypeService extends BaseService<EduTestPaperType> {
 					paramInf.is("state", 1);
 				} else {
 					if (!admin) {
-						paramInf.is("vcreate", loginUserService.findUserId());
+						paramInf.is("createUser", loginUserService.findUserId());
 					}
 				}
 				int count = eduTestPaperService.findCount(paramInf);

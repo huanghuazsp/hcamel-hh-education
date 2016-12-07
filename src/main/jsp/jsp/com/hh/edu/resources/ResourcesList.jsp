@@ -116,7 +116,7 @@
 		config=" url: 'edu-Resources-queryPagingData' ,column : [
 		
 		{
-			name : 'vcreateName' ,
+			name : 'createUserName' ,
 			text : '添加人',
 			align:'center',
 			width:80
@@ -127,7 +127,7 @@
 			width:80,
 			render : renderstate
 		},{
-			name : 'dcreate' ,
+			name : 'createTime' ,
 			text : '创建时间',
 			align:'center',
 			width:150,

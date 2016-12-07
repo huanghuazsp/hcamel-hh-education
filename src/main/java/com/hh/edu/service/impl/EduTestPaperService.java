@@ -46,7 +46,7 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 		}
 		UsUser user = loginUserUtilService.findLoginUser();
 		if (!"admin".equals(user.getRoleIds())) {
-			paramInf.is("vcreate", loginUserUtilService.findUserId());
+			paramInf.is("createUser", loginUserUtilService.findUserId());
 		}
 
 		return super.queryPagingData( pageRange, paramInf);
@@ -75,7 +75,7 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 			String type = Convert.toString(map.get("type"));
 			int subjectcount = eduSubjectService
 					.findCount(ParamFactory.getParamHb().is("type", object.getType()).is("titleType", type).or(
-							ParamFactory.getParamHb().is("state", 1).is("vcreate", loginUserUtilService.findUserId())));
+							ParamFactory.getParamHb().is("state", 1).is("createUser", loginUserUtilService.findUserId())));
 
 			int subjectCount = Convert.toInt(map.get("subjectCount"));
 			int score = Convert.toInt(map.get("score"));
@@ -96,7 +96,7 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 				List<EduSubject> eduSubjects = eduSubjectService.queryList(
 						ParamFactory.getParamHb()
 								.is("type", object.getType()).is("titleType", type).or(ParamFactory.getParamHb()
-										.is("state", 1).is("vcreate", loginUserUtilService.findUserId())),
+										.is("state", 1).is("createUser", loginUserUtilService.findUserId())),
 						new PageRange(i - 1, 1));
 				subjectStrs.append(eduSubjects.get(0).getId() + ",");
 

@@ -15,7 +15,7 @@
 		
 		$.hh.pagelist.callRows('pagelist', function(rows) {
 			for(var i =0;i<rows.length;i++){
-				if(rows[i].vcreate!=loginUser.id){
+				if(rows[i].createUser!=loginUser.id){
 					as = false;
 				}
 			}
@@ -72,7 +72,7 @@
 	}
 	function doEdit() {
 		$.hh.pagelist.callRow("pagelist", function(row) {
-			if(!((loginUser.roleList && loginUser.roleList.length==1 && loginUser.roleList[0].jssx=='student' )) ||  row.vcreate==loginUser.id){
+			if(!((loginUser.roleList && loginUser.roleList.length==1 && loginUser.roleList[0].jssx=='student' )) ||  row.createUser==loginUser.id){
 				Dialog.open({
 					url : 'jsp-edu-subject-SubjectEdit?type='+type1,
 					urlParams : {
@@ -181,7 +181,7 @@
 		table.append(tr2);
 		
 		var toolbar = renderstate(data.state);
-		td2.append(toolbar+'&nbsp;&nbsp;&nbsp;&nbsp;'+(data.vcreateName || '')+'&nbsp;&nbsp;&nbsp;&nbsp;'+$.hh.formatDate(data.dcreate || '','yyyy-MM-dd HH:mm:ss')+'&nbsp;&nbsp;<a href="javascript:viewAnswer(\''+data.id+'\')">查看答案</a>');
+		td2.append(toolbar+'&nbsp;&nbsp;&nbsp;&nbsp;'+(data.createUserName || '')+'&nbsp;&nbsp;&nbsp;&nbsp;'+$.hh.formatDate(data.createTime || '','yyyy-MM-dd HH:mm:ss')+'&nbsp;&nbsp;<a href="javascript:viewAnswer(\''+data.id+'\')">查看答案</a>');
 		return table;
 	}
 	function viewAnswer(id){

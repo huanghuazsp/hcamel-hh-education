@@ -7,11 +7,11 @@ import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
-import com.hh.hibernate.util.base.BaseTwoEntity;
+import com.hh.hibernate.util.base.BaseEntity;
 
 @SuppressWarnings("serial")
 @MappedSuperclass
-public class BaseTestPaper extends BaseTwoEntity{
+public class BaseTestPaper extends BaseEntity{
 	private String type;
 
 	private String text;

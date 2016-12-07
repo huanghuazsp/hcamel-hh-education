@@ -4,11 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
 
-import com.hh.hibernate.util.base.BaseTwoEntity;
+import com.hh.hibernate.util.base.BaseEntity;
 
 @SuppressWarnings("serial")
 @MappedSuperclass
-public class BaseSubject extends BaseTwoEntity {
+public class BaseSubject extends BaseEntity {
 	private String type;
 	private String text;
 	private String dataitems;

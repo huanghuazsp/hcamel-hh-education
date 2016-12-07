@@ -28,12 +28,12 @@
 			}
 			formData.testPaperId=formData.id;
 			formData.id='';
-			formData.dcreate=null;
-			formData.dupdate=null;
+			formData.createTime=null;
+			formData.updateTime=null;
 			formData.order=null;
-			formData.vcreate=null;
-			formData.vorgid=null;
-			formData.vupdate=null;
+			formData.createUser=null;
+			formData.orgid=null;
+			formData.updateUser=null;
 			formData.state=0;
 			Request.request('edu-ReleaseTestPaper-save', {
 				data : formData,

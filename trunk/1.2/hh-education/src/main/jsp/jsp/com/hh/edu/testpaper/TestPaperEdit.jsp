@@ -134,7 +134,7 @@
    		table.append(tr2);
    		
    		var toolbar = renderstate(data.state);
-   		td2.append(toolbar+'&nbsp;&nbsp;&nbsp;&nbsp;'+(data.vcreateName || '')+'&nbsp;&nbsp;&nbsp;&nbsp;'+$.hh.formatDate(data.dcreate || '','yyyy-MM-dd HH:mm:ss')+'&nbsp;&nbsp;<a href="javascript:viewAnswer(\''+data.id+'\')">查看答案</a>');
+   		td2.append(toolbar+'&nbsp;&nbsp;&nbsp;&nbsp;'+(data.createUserName || '')+'&nbsp;&nbsp;&nbsp;&nbsp;'+$.hh.formatDate(data.createTime || '','yyyy-MM-dd HH:mm:ss')+'&nbsp;&nbsp;<a href="javascript:viewAnswer(\''+data.id+'\')">查看答案</a>');
    		return table;
    	}
 	

@@ -66,7 +66,7 @@
 		config=" url: 'edu-ReleaseTestPaper-queryStartPagingData' ,column : [
 		
 		{
-			name : 'vcreateName' ,
+			name : 'createUserName' ,
 			text : '试卷发布人',
 			align:'center',
 			width:80

@@ -109,7 +109,7 @@
 		config=" url: 'edu-ReleaseTestPaper-queryPagingData' ,column : [
 		
 		{
-			name : 'vcreateName' ,
+			name : 'createUserName' ,
 			text : '试卷发布人',
 			align:'center',
 			width:80

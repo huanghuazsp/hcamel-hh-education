@@ -24,12 +24,12 @@
 			if(userData){
 				formData.userNames = $.hh.objsToStr(userData,'text');
 			}
-			formData.dcreate=null;
-			formData.dupdate=null;
+			formData.createTime=null;
+			formData.updateTime=null;
 			formData.order=null;
-			formData.vcreate=null;
-			formData.vorgid=null;
-			formData.vupdate=null;
+			formData.createUser=null;
+			formData.orgid=null;
+			formData.updateUser=null;
 			Request.request('edu-ReleaseTestPaper-save', {
 				data : formData,
 				callback : function(result) {

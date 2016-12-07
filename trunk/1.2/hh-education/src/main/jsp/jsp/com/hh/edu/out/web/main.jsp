@@ -227,7 +227,7 @@ function renderTitle(value,data){
 	table.append(tr2);
 	
 	var toolbar = renderstate(data.state);
-	td2.append(toolbar+'&nbsp;&nbsp;&nbsp;&nbsp;'+(data.vcreateName || '')+'&nbsp;&nbsp;&nbsp;&nbsp;'+$.hh.formatDate(data.dcreate || '','yyyy-MM-dd HH:mm:ss')+'&nbsp;&nbsp;<a href="javascript:viewAnswer(\''+data.id+'\')">查看答案</a>');
+	td2.append(toolbar+'&nbsp;&nbsp;&nbsp;&nbsp;'+(data.createUserName || '')+'&nbsp;&nbsp;&nbsp;&nbsp;'+$.hh.formatDate(data.createTime || '','yyyy-MM-dd HH:mm:ss')+'&nbsp;&nbsp;<a href="javascript:viewAnswer(\''+data.id+'\')">查看答案</a>');
 	return table;
 }
 function viewAnswer(id){
@@ -527,7 +527,7 @@ function doAddTestPage() {
         	<div id="pagelist" xtype="pagelist"
 			config=" url: 'outedu-OutTestPaper-queryPagingDataAll' ,column : [
 				{
-					name : 'dcreate' ,
+					name : 'createTime' ,
 					text : '创建时间',
 					align:'center',
 					width:150,
@@ -553,7 +553,7 @@ function doAddTestPage() {
 					config=" url: 'outedu-OutResources-queryPagingDataAll' ,column : [
 					
 					{
-						name : 'dcreate' ,
+						name : 'createTime' ,
 						text : '创建时间',
 						align:'center',
 						width:150,
@@ -577,7 +577,7 @@ function doAddTestPage() {
        	<div id="pagelist" xtype="pagelist"
 			config=" url: 'edu-TestPaper-queryPagingData' ,column : [
 				{
-					name : 'dcreate' ,
+					name : 'createTime' ,
 					text : '创建时间',
 					align:'center',
 					width:150,
@@ -600,7 +600,7 @@ function doAddTestPage() {
            	<div id="pagelist" xtype="pagelist"
     			config=" url: 'outedu-SelfTestExamination-queryPagingData' ,column : [
 	    				{
-						name : 'dcreate' ,
+						name : 'createTime' ,
 						text : '测试时间',
 						align:'center',
 						width:150,

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hh.edu.bean.EduResources;
 import com.hh.edu.bean.EduSubject;
 import com.hh.edu.bean.EduTestPaper;
 import com.hh.system.service.impl.BaseService;
@@ -22,7 +21,6 @@ import com.hh.system.util.dto.PageRange;
 import com.hh.system.util.dto.PagingData;
 import com.hh.system.util.dto.ParamFactory;
 import com.hh.system.util.dto.ParamInf;
-import com.hh.usersystem.bean.usersystem.UsRole;
 import com.hh.usersystem.bean.usersystem.UsUser;
 import com.hh.usersystem.service.impl.LoginUserUtilService;
 
@@ -45,11 +43,11 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 			paramInf.like("text", entity.getText());
 		}
 		UsUser user = loginUserUtilService.findLoginUser();
-		if (!"admin".equals(user.getRoleIds())) {
+		if (!user.hasRoleId("admin")) {
 			paramInf.is("createUser", loginUserUtilService.findUserId());
 		}
 
-		return super.queryPagingData( pageRange, paramInf);
+		return super.queryPagingData(pageRange, paramInf);
 	}
 
 	public PagingData<EduTestPaper> queryPagingDataAll(EduTestPaper entity, PageRange pageRange) {
@@ -61,7 +59,7 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 			paramInf.like("text", entity.getText());
 		}
 		paramInf.is("state", 1);
-		return super.queryPagingData( pageRange, paramInf);
+		return super.queryPagingData(pageRange, paramInf);
 	}
 
 	@Transactional
@@ -73,9 +71,9 @@ public class EduTestPaperService extends BaseService<EduTestPaper> {
 		List<Map<String, Object>> newMapList = new ArrayList<Map<String, Object>>();
 		for (Map<String, Object> map : mapList) {
 			String type = Convert.toString(map.get("type"));
-			int subjectcount = eduSubjectService
-					.findCount(ParamFactory.getParamHb().is("type", object.getType()).is("titleType", type).or(
-							ParamFactory.getParamHb().is("state", 1).is("createUser", loginUserUtilService.findUserId())));
+			int subjectcount = eduSubjectService.findCount(ParamFactory.getParamHb().is("type", object.getType())
+					.is("titleType", type)
+					.or(ParamFactory.getParamHb().is("state", 1).is("createUser", loginUserUtilService.findUserId())));
 
 			int subjectCount = Convert.toInt(map.get("subjectCount"));
 			int score = Convert.toInt(map.get("score"));

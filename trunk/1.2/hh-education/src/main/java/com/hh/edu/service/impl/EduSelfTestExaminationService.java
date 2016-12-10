@@ -30,7 +30,7 @@ public class EduSelfTestExaminationService extends
 			paramInf.like("text", entity.getText());
 		}
 		UsUser user = loginUserService.findLoginUser();
-		if (!"admin".equals(user.getRoleIds())) {
+		if (!user.hasRoleId("admin")) {
 			paramInf.is("createUser", loginUserService.findUserId());
 		}
 

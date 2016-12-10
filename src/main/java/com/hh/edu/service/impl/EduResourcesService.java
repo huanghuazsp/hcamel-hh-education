@@ -25,9 +25,10 @@ import com.hh.usersystem.bean.usersystem.UsUser;
 import com.hh.usersystem.service.impl.LoginUserUtilService;
 
 @Service
-public class EduResourcesService extends BaseService<EduResources> implements IFileOper{
+public class EduResourcesService extends BaseService<EduResources> implements IFileOper {
 	@Autowired
 	private LoginUserUtilService loginUserService;
+
 	@Override
 	public PagingData<EduResources> queryPagingData(EduResources entity, PageRange pageRange) {
 		ParamInf paramInf = ParamFactory.getParamHb();
@@ -38,29 +39,30 @@ public class EduResourcesService extends BaseService<EduResources> implements IF
 			paramInf.like("text", entity.getText());
 		}
 		UsUser user = loginUserService.findLoginUser();
-		if (!"admin".equals(user.getRoleIds())) {
-				paramInf.is("createUser", loginUserService.findUserId());
-			}
-		return super.queryPagingData( pageRange, paramInf);
+		if (!user.hasRoleId("admin")) {
+			paramInf.is("createUser", loginUserService.findUserId());
+		}
+		return super.queryPagingData(pageRange, paramInf);
 	}
+
 	public void doSetState(String ids) {
-		Map<String, Object> map = new HashMap<String,Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", Convert.strToList(ids));
-		dao.updateEntity("update " + EduResources.class.getName()
-				+ " o set o.state=1 where o.id in :id", map);
+		dao.updateEntity("update " + EduResources.class.getName() + " o set o.state=1 where o.id in :id", map);
 	}
+
 	@Override
 	public EduResources save(EduResources entity) throws MessageException {
-		List<Map<String,Object>> mapList = Json.toMapList(entity.getFiles());
+		List<Map<String, Object>> mapList = Json.toMapList(entity.getFiles());
 		String text = "";
 		for (Map<String, Object> map : mapList) {
-			text+=Convert.toString(map.get("text"))+",";
+			text += Convert.toString(map.get("text")) + ",";
 		}
 		if (Check.isNoEmpty(text)) {
-			text=text.substring(0,text.length()-1);
+			text = text.substring(0, text.length() - 1);
 		}
-		if (text.length()>128) {
-			text=text.substring(0, 127);
+		if (text.length() > 128) {
+			text = text.substring(0, 127);
 		}
 		entity.setText(text);
 		return super.save(entity);
@@ -75,8 +77,9 @@ public class EduResourcesService extends BaseService<EduResources> implements IF
 			paramInf.like("text", entity.getText());
 		}
 		paramInf.is("state", 1);
-		return super.queryPagingData( pageRange, paramInf);
+		return super.queryPagingData(pageRange, paramInf);
 	}
+
 	@Override
 	public void fileOper(SystemFile systemFile) {
 		int count = findCount(ParamFactory.getParamHb().like("files", systemFile.getId()));
@@ -84,6 +87,5 @@ public class EduResourcesService extends BaseService<EduResources> implements IF
 			systemFile.setStatus(1);
 		}
 	}
-	
-	
+
 }

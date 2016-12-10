@@ -21,7 +21,7 @@ import com.hh.usersystem.bean.usersystem.UsUser;
 import com.hh.usersystem.service.impl.LoginUserUtilService;
 
 @Service
-public class EduSubjectService extends BaseService<EduSubject> implements IFileOper{
+public class EduSubjectService extends BaseService<EduSubject> implements IFileOper {
 	@Autowired
 	private LoginUserUtilService loginUserService;
 
@@ -38,10 +38,10 @@ public class EduSubjectService extends BaseService<EduSubject> implements IFileO
 			paramInf.like("text", entity.getText());
 		}
 		UsUser user = loginUserService.findLoginUser();
-		if (!"admin".equals(user.getRoleIds())) {
+		if (!user.hasRoleId("admin")) {
 			paramInf.is("createUser", loginUserService.findUserId());
 		}
-		return super.queryPagingData( pageRange, paramInf);
+		return super.queryPagingData(pageRange, paramInf);
 	}
 
 	@Override
@@ -70,14 +70,13 @@ public class EduSubjectService extends BaseService<EduSubject> implements IFileO
 			paramInf.like("text", entity.getText());
 		}
 		paramInf.is("state", 1);
-		return super.queryPagingData( pageRange, paramInf);
+		return super.queryPagingData(pageRange, paramInf);
 	}
 
 	@Override
 	public void fileOper(SystemFile systemFile) {
-		int count = findCount(ParamFactory.getParamHb().or(
-				ParamFactory.getParamHb().is("textpic", systemFile.getId())
-						.is("textpic2", systemFile.getId()).is("textpic3", systemFile.getId())));
+		int count = findCount(ParamFactory.getParamHb().or(ParamFactory.getParamHb().is("textpic", systemFile.getId())
+				.is("textpic2", systemFile.getId()).is("textpic3", systemFile.getId())));
 		if (count == 0) {
 			systemFile.setStatus(1);
 		}

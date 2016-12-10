@@ -9,7 +9,6 @@ import com.hh.edu.bean.EduTestPaperType;
 import com.hh.system.service.impl.BaseService;
 import com.hh.system.util.dto.ParamFactory;
 import com.hh.system.util.dto.ParamInf;
-import com.hh.usersystem.bean.usersystem.UsRole;
 import com.hh.usersystem.bean.usersystem.UsUser;
 import com.hh.usersystem.service.impl.LoginUserUtilService;
 
@@ -40,7 +39,7 @@ public class EduTestPaperTypeService extends BaseService<EduTestPaperType> {
 				boolean admin = false;
 				UsUser user = loginUserService.findLoginUser();
 				if (user != null) {
-					if ("admin".equals(user.getRoleIds())) {
+					if (user.hasRoleId("admin")) {
 						admin = true;
 					}
 				}
@@ -69,7 +68,7 @@ public class EduTestPaperTypeService extends BaseService<EduTestPaperType> {
 				boolean admin = false;
 				UsUser user = loginUserService.findLoginUser();
 				if (user != null) {
-					if ("admin".equals(user.getRoleIds())) {
+					if (user.hasRoleId("admin")) {
 						admin = true;
 					}
 				}

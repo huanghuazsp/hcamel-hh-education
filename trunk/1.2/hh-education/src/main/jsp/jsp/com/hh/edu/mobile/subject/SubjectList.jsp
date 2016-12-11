@@ -1,13 +1,12 @@
 <%@page import="com.hh.system.util.SysParam"%>
 <%@page import="com.hh.system.util.SystemUtil"%>
 <%@page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@page import="com.hh.system.util.BaseSystemUtil"%>
-<%=BaseSystemUtil.getBaseDoctype()%>
+<%=SystemUtil.getBaseDoctype()%>
 
 <html>
 <head>
 <title>数据列表</title>
-<%=BaseSystemUtil.getMobileBaseJs()%>
+<%=SystemUtil.getMobileBaseJs()%>
 
 <script type="text/javascript">
 	var letter = [ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",

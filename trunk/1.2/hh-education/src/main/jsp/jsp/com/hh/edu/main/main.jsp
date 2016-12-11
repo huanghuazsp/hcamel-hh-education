@@ -1,8 +1,7 @@
 <%@page import="com.hh.system.util.SystemUtil"%>
 <%@page import="com.hh.system.service.impl.BeanFactoryHelper"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@page import="com.hh.system.util.BaseSystemUtil"%>
-<%=BaseSystemUtil.getBaseDoctype()%>
+<%=SystemUtil.getBaseDoctype()%>
 <html>
 <head>
 <title>表单设计</title>

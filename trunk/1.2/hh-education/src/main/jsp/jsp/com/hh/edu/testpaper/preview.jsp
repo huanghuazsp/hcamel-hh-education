@@ -19,9 +19,9 @@
 <%@page import="com.hh.system.service.impl.BeanFactoryHelper"%>
 <%@page import="com.hh.edu.bean.EduTestPaper"%>
 <%@page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@page import="com.hh.system.util.BaseSystemUtil"%>
+<%@page import="com.hh.system.util.SystemUtil"%>
 <%@page import="com.hh.system.util.Convert"%>
-<%=BaseSystemUtil.getBaseDoctype()%>
+<%=SystemUtil.getBaseDoctype()%>
 <html>
 <head>
 <meta HTTP-EQUIV="pragma" CONTENT="no-cache"> 
@@ -33,7 +33,7 @@ response.setHeader("Pragrma","no-cache");
 response.setDateHeader("Expires",0); 
 %> 
 <title>数据编辑</title>
-<%=BaseSystemUtil.getBaseJs("layout","checkform")%>
+<%=SystemUtil.getBaseJs("layout","checkform")%>
 <%
 	String id = request.getParameter("id");
 

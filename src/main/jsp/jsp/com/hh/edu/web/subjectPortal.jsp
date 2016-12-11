@@ -1,12 +1,12 @@
 <%@page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@page import="com.hh.system.util.BaseSystemUtil"%>
+<%@page import="com.hh.system.util.SystemUtil"%>
 <%@page import="com.hh.system.util.pk.PrimaryKey"%>
-<%=BaseSystemUtil.getBaseDoctype()%>
+<%=SystemUtil.getBaseDoctype()%>
 
 <html>
 <head>
 <title>题目</title>
-<%=BaseSystemUtil.getBaseJs()%>
+<%=SystemUtil.getBaseJs()%>
 
 <script type="text/javascript">
 	function init(){

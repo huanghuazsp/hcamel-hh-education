@@ -141,6 +141,7 @@
 	var subjectConfig = {
 			textarea :true,
 			openWidth:800,
+			many:true,
 			findTextAction :'edu-Subject-findTextById' ,
 			pageconfig:{
 				queryHtml : queryHtml('<%=type%>'),

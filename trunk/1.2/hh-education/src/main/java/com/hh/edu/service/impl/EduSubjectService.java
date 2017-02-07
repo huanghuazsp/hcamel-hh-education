@@ -49,6 +49,9 @@ public class EduSubjectService extends BaseService<EduSubject> implements IFileO
 		if (checkOnly("text", entity)) {
 			throw new MessageException("题目已存在！");
 		}
+		if (entity.getText().startsWith("<p>") && entity.getText().endsWith("</p>")) {
+			entity.setText(entity.getText().substring(3, entity.getText().length()-4));
+		}
 		return super.save(entity);
 	}
 

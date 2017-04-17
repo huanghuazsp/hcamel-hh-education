@@ -91,9 +91,16 @@
 	}
 	function iframeClick(data) {
 		type1=data.id;
-		$('#pagelist').loadData({
-			params : {type:type1}
-		});
+		if(data.type==1){
+			$('#pagelist').loadData({
+				params : {knowledgePoint:type1}
+			});
+		}else{
+			$('#pagelist').loadData({
+				params : {type:type1}
+			});
+		}
+		
 	}
 	function doQuery() {
 		var params = $('#queryForm').getValue();

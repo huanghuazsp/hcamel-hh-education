@@ -19,6 +19,9 @@ public class BaseSubject extends BaseEntity {
 	private String textpic;
 	private String textpic2;
 	private String textpic3;
+	
+	private String knowledgePoint;
+	private String knowledgePointText;
 
 	@Column(name = "TYPE_", length = 36)
 	public String getType() {
@@ -113,4 +116,25 @@ public class BaseSubject extends BaseEntity {
 	public void setState(int state) {
 		this.state = state;
 	}
+
+	
+	@Column(name="KNOWLEDGE_POINT",length=36)
+	public String getKnowledgePoint() {
+		return knowledgePoint;
+	}
+
+	public void setKnowledgePoint(String knowledgePoint) {
+		this.knowledgePoint = knowledgePoint;
+	}
+
+	@Column(name="KNOWLEDGE_POINT_TEXT",length=128)
+	public String getKnowledgePointText() {
+		return knowledgePointText;
+	}
+
+	public void setKnowledgePointText(String knowledgePointText) {
+		this.knowledgePointText = knowledgePointText;
+	}
+	
+	
 }

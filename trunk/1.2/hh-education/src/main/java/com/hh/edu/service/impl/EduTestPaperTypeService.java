@@ -34,7 +34,7 @@ public class EduTestPaperTypeService extends BaseService<EduTestPaperType> {
 			if (eduTestPaperType.getChildren() != null) {
 				converSubjecttText(eduTestPaperType.getChildren(), all);
 			}
-			if (eduTestPaperType.getLeaf() == 1) {
+			if (eduTestPaperType.getType() == 0) {
 				ParamInf paramInf = ParamFactory.getParamHb().is("type", eduTestPaperType.getId());
 				boolean admin = false;
 				UsUser user = loginUserService.findLoginUser();
@@ -88,8 +88,20 @@ public class EduTestPaperTypeService extends BaseService<EduTestPaperType> {
 	}
 
 	public Object queryTestPagerTreeList(String node) {
-		List<EduTestPaperType> eduTestPaperTypeList = queryTreeList(ParamFactory.getParamHb().is("node", node));
+		List<EduTestPaperType> eduTestPaperTypeList = queryTreeList(ParamFactory.getParamHb().is("node", node).is("type", 0));
 		converTestPagerText(eduTestPaperTypeList, false);
 		return eduTestPaperTypeList;
 	}
+
+	
+	public List<EduTestPaperType> queryKnowledgePointTreeList(ParamInf paramList) {
+		return super.queryTreeList(paramList.is("type", 1));
+	}
+	
+	public List<EduTestPaperType> queryTypeTreeList(ParamInf paramList) {
+		return super.queryTreeList(paramList.is("type", 0));
+	}
+	
+	
+	
 }

@@ -101,6 +101,11 @@
 		onSetValue : renderRadio,
 		trhtml : '<table width=100%><tr><td><span xtype="textarea" valuekey="text" configVar=" textconfig "></span></td></tr></table>'
 	}
+	
+	function typeChange(data){
+		$('#span_knowledgePoint').setValue('');
+		$('#span_knowledgePoint').setConfig({params:{'node' : data.id}});
+	}
 </script>
 </head>
 <body>
@@ -113,7 +118,13 @@
 				<tr>
 					<td xtype="label">学科：</td>
 					<td colspan="3"><span id="node_span" xtype="selectTree"
-						config="  value:'<%=type %>' , name: 'type' , findTextAction : 'edu-TestPaperType-findObjectById' , url : 'edu-TestPaperType-queryTreeList' ,required :true "></span>
+						config=" onChange:typeChange, value:'<%=type %>' , name: 'type' , findTextAction : 'edu-TestPaperType-findObjectById' , url : 'edu-TestPaperType-queryTreeList' ,required :true "></span>
+					</td>
+				</tr>
+				<tr>
+					<td xtype="label">知识点：</td>
+					<td colspan="3"><span xtype="selectTree"
+						config=" name: 'knowledgePoint' , findTextAction : 'edu-TestPaperType-findObjectById' , url : 'edu-TestPaperType-queryKnowledgePointTreeList'  "></span>
 					</td>
 				</tr>
 				<tr id="titletr">

@@ -31,6 +31,9 @@ public class EduSubjectService extends BaseService<EduSubject> implements IFileO
 		if (Check.isNoEmpty(entity.getType())) {
 			paramInf.is("type", entity.getType());
 		}
+		if (Check.isNoEmpty(entity.getKnowledgePoint())) {
+			paramInf.is("knowledgePoint", entity.getKnowledgePoint());
+		}
 		if (Check.isNoEmpty(entity.getTitleType())) {
 			paramInf.is("titleType", entity.getTitleType());
 		}

@@ -58,13 +58,19 @@
 			<span xtype="text" config=" hidden:true,name : 'id'"></span>
 			<table xtype="form" width=80% align=center>
 				<tr>
-					<td xtype="label" config="width:120">（学段/学科）名称：</td>
+					<td xtype="label" config="width:120">名称：</td>
 					<td><span xtype="text" config=" name : 'text',required :true"></span></td>
 				</tr>
 				<tr>
-					<td xtype="label">学段：</td>
+					<td xtype="label">上一节点：</td>
 					<td><span id="node_span" xtype="selectTree"
 						config="name: 'node' , findTextAction : 'edu-TestPaperType-findObjectById' , url : 'edu-TestPaperType-queryTreeList' "></span>
+					</td>
+				</tr>
+				<tr>
+					<td xtype="label">类型：</td>
+					<td><span xtype="radio"
+						config="name: 'type' ,value : 0,  data :[{id:0,text:'类型'},{id:1,text:'知识点'}]"></span>
 					</td>
 				</tr>
 				<tr>

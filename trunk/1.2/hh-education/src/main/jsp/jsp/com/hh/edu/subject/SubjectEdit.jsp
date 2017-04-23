@@ -63,6 +63,9 @@
 				},
 				callback : function(result) {
 					renderAnswer(result.titleType);
+					
+					typeChange({id:result.type})
+					
 					$('#form').setValue(result);
 				}
 			});
